@@ -1,56 +1,51 @@
+/* Styles généraux */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.agenda {
+/* Styles du calendrier */
+.calendar {
     max-width: 600px;
     margin: 20px auto;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-.agenda-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 20px;
+.header {
     text-align: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.agenda-header h1 {
-    margin: 0;
-}
-
-.agenda-body {
-    padding: 20px;
-}
-
-.day {
     margin-bottom: 20px;
 }
 
-.day h2 {
-    margin-top: 0;
-    margin-bottom: 10px;
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes pour les jours de la semaine */
+    border-bottom: 1px solid #ccc;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.day {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #ccc;
 }
 
-ul li {
-    margin-bottom: 5px;
+/* Styles pour les dates */
+.dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colonnes pour les jours de la semaine */
 }
 
-ul li::before {
-    content: "•";
-    color: #007bff;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
+.date {
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Style pour les dates actuelles */
+.today {
+    background-color: #f0f0f0;
 }
