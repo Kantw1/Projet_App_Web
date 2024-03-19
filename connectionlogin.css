@@ -57,3 +57,13 @@ input[type="submit"]:hover {
     font-size: 16px;
 }
 
+.logo {
+    position: fixed;
+    bottom: 5px;
+    left: 90%;
+    transform: translateX(-90%);
+    width: 0px; /* Largeur souhaitée */
+    height: auto; /* Hauteur automatique pour maintenir les proportions */
+}
+
+
