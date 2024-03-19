@@ -472,3 +472,9 @@ function convertTime(time) {
   time = timeHour + ":" + timeMin + " " + timeFormat;
   return time;
 }
+
+document.getElementById('toggleNav').addEventListener('click', function() {
+    var nav = document.querySelector('.navigation');
+    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+});
+

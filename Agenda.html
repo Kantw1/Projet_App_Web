@@ -23,6 +23,35 @@
     <title>Calendrier</title>
   </head>
   <body>
+  <button id="toggleNav">Menu</button>
+ <div class="navigation">
+    <div class="top-right">
+        <ul>
+            <li><a href="#">Agenda Personnel</a></li>
+            <li>
+                <select id="other-agendas">
+                    <option value="" selected disabled>Autres Agendas</option>
+                    <!-- Insérer les autres agendas dynamiquement ici -->
+                    <option value="agenda1">Agenda 1</option>
+                    <option value="agenda2">Agenda 2</option>
+                    <!-- Ajoutez d'autres options pour d'autres agendas si nécessaire -->
+                </select>
+            </li>
+        </ul>
+    </div>
+    <div class="middle-right">
+        <button class="add-calendar">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    <div class="bottom-left">
+        <ul>
+            <li><a href="#">Mon Compte</a></li>
+            <li><a href="#">Se déconnecter</a></li>
+        </ul>
+    </div>
+</div>
+
     <div class="container">
       <div class="left">
         <div class="calendar">
