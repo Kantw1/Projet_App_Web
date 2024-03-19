@@ -15,6 +15,8 @@ const calendar = document.querySelector(".calendar"),
   addEventTitle = document.querySelector(".event-name "),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
+  addEventDescription = document.querySelector(".event-description "),
+  addEventPlace = document.querySelector(".event-place "),
   addEventSubmit = document.querySelector(".add-event-btn ");
 
 let today = new Date();
@@ -232,10 +234,12 @@ function gotoDate() {
 //function get active day day name and date and update eventday eventdate
 function getActiveDay(date) {
   const day = new Date(year, month, date);
-  const dayName = day.toString().split(" ")[0];
+  const options = { weekday: 'long', timeZone: 'Europe/Paris' }; // Définir l'option pour afficher le jour en français
+  const dayName = day.toLocaleString('fr-FR', options); // Formater le jour en français
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
+
 
 //function update events when a day is active
 function updateEvents(date) {
@@ -288,6 +292,14 @@ addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
 
+addEventDescription.addEventListener("input", (e) => {
+  addEventDescription.value = addEventDescription.value.slice(0, 600);
+});
+
+addEventPlace.addEventListener("input", (e) => {
+  addEventPlace.value = addEventPlace.value.slice(0, 600);
+});
+
 function defineProperty() {
   var osccred = document.createElement("div");
   osccred.style.position = "absolute";
@@ -327,6 +339,26 @@ addEventTo.addEventListener("input", (e) => {
   }
 });
 
+function compareTimes(hours1,minutes1,hours2,minutes2) {
+
+  if (hours1 < hours2) {
+    return -1;
+  } else if (hours1 > hours2) {
+    return 1;
+  } else {
+    // Les heures sont égales, comparer les minutes
+    if (minutes1 < minutes2) {
+      return -1;
+    } else if (minutes1 > minutes2) {
+      return 1;
+    } else {
+      // Les minutes sont également égales
+      return 0;
+    }
+  }
+}
+
+
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
@@ -346,9 +378,10 @@ addEventSubmit.addEventListener("click", () => {
     timeFromArr[0] > 23 ||
     timeFromArr[1] > 59 ||
     timeToArr[0] > 23 ||
-    timeToArr[1] > 59
+    timeToArr[1] > 59 ||
+    compareTimes(timeFromArr[0], timeFromArr[1],timeToArr[0], timeToArr[1]) != -1
   ) {
-    alert("Invalid Time Format");
+    alert("Format d'heure invalide");
     return;
   }
 
@@ -371,7 +404,7 @@ addEventSubmit.addEventListener("click", () => {
     }
   });
   if (eventExist) {
-    alert("Event already added");
+    alert("Evenement déjà existant");
     return;
   }
   const newEvent = {
@@ -408,6 +441,8 @@ addEventSubmit.addEventListener("click", () => {
   addEventTitle.value = "";
   addEventFrom.value = "";
   addEventTo.value = "";
+  addEventDescription.value = "";
+  addEventPlace.value = "";
   updateEvents(activeDay);
   //select active day and add event class if not added
   const activeDayEl = document.querySelector(".day.active");
@@ -415,11 +450,11 @@ addEventSubmit.addEventListener("click", () => {
     activeDayEl.classList.add("event");
   }
 });
-
+/*
 //function to delete event when clicked on event
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
-    if (confirm("Are you sure you want to delete this event?")) {
+    if (confirm("Etes vous sûr de vouloir supprimer cet événement?")) {
       const eventTitle = e.target.children[0].children[1].innerHTML;
       eventsArr.forEach((event) => {
         if (
@@ -447,8 +482,38 @@ eventsContainer.addEventListener("click", (e) => {
     }
   }
 });
+*/
 
-//function to save events in local storage
+// Fonction pour afficher les détails de l'événement
+function showEventDetails(eventTitle, eventTime) {
+    // Vous pouvez modifier cette partie pour afficher les détails de l'événement
+    var nav = document.querySelector('.information-evenement');
+    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+    event.stopPropagation(); // Empêche la propagation de l'événement de clic pour éviter la fermeture immédiate de la boîte de dialogue
+}
+
+// Écoute les clics sur l'ensemble du document
+document.addEventListener('click', function(event) {
+    var nav = document.querySelector('.information-evenement');
+    // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
+    if (!nav.contains(event.target)) {
+        // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
+        nav.style.display = 'none';
+    }
+});
+
+// Ajoutez un écouteur d'événements pour les clics sur les événements
+eventsContainer.addEventListener("click", (e) => {
+    if (e.target.classList.contains("event")) {
+        const eventTitle = e.target.children[0].children[1].innerHTML;// récupère les informations sur les titres
+        const eventTime = e.target.children[1].children[0].innerHTML;// récupère les informations sur les heures
+        // Appelez la fonction pour afficher les détails de l'événement
+        showEventDetails(eventTitle, eventTime);
+    }
+});
+
+
+//function to save events in local storage enregistrer plus tard sur un fichier externe
 function saveEvents() {
   localStorage.setItem("events", JSON.stringify(eventsArr));
 }
@@ -463,15 +528,17 @@ function getEvents() {
 }
 
 function convertTime(time) {
-  //convert time to 24 hour format
-  let timeArr = time.split(":");
-  let timeHour = timeArr[0];
-  let timeMin = timeArr[1];
-  let timeFormat = timeHour >= 12 ? "PM" : "AM";
-  timeHour = timeHour % 12 || 12;
-  time = timeHour + ":" + timeMin + " " + timeFormat;
-  return time;
+  const timeArr = time.split(":");
+  const hours = parseInt(timeArr[0]);
+  const minutes = parseInt(timeArr[1]);
+  const timeObj = new Date();
+  timeObj.setHours(hours, minutes);
+  const options = { hour: 'numeric', minute: '2-digit', hour12: false, timeZone: 'Europe/Paris' };
+  const formattedTime = timeObj.toLocaleTimeString('fr-FR', options);
+  return formattedTime.replace(":", "h"); // Remplacer ":" par "h"
 }
+
+
 
 document.getElementById('toggleNav').addEventListener('click', function() {
     var nav = document.querySelector('.navigation');
@@ -481,6 +548,7 @@ document.getElementById('toggleNav').addEventListener('click', function() {
 document.getElementById('toggleADD').addEventListener('click', function() {
     var nav = document.querySelector('.new-agenda');
     nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+    event.stopPropagation(); // Empêche la propagation de l'événement de clic pour éviter la fermeture immédiate de la boîte de dialogue
 });
 
 // Écoute les clics sur l'ensemble du document
@@ -493,3 +561,55 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// Sélectionner l'élément <select> dans le DOM
+const selectElement = document.getElementById("other-agendas");
+
+// Tableau d'objets représentant les agendas
+const agendas = [
+    { value: "agendaPerso", text: "Agenda Personnel", href: "#" },
+    { value: "agenda2", text: "Agenda 2", href: "connectionlogin.html" },//faudra mettre le lien de l'agenda en question
+    // Ajoutez d'autres objets pour d'autres agendas si nécessaire
+];
+
+// Parcourir le tableau des agendas et ajouter des options à l'élément <select>
+agendas.forEach((agenda) => {
+    // Créer un nouvel élément d'option
+    const option = document.createElement("option");
+    // Définir la valeur et le texte de l'option
+    option.value = agenda.value;
+    option.text = agenda.text;
+    // Si un lien est fourni, définir l'attribut href de l'option
+    if (agenda.href) {
+        option.setAttribute("href", agenda.href);
+    }
+    // Ajouter l'option à l'élément <select>
+    selectElement.appendChild(option);
+});
+
+// Ajouter un écouteur d'événements pour détecter le changement de sélection plus tard faudra faire une fonction qui charge les données de l'agenda en question
+selectElement.addEventListener("change", function() {
+    // Récupérer l'option sélectionnée
+    const selectedOption = this.options[this.selectedIndex];
+    // Récupérer l'URL associée à l'option
+    const href = selectedOption.getAttribute("href");
+    // Rediriger vers l'URL associée
+    window.location.href = href;
+});
+/*
+//code Aléatoire
+function generateRandomCode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 8; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        code += characters.charAt(randomIndex);
+    }
+    return code;
+}
+
+// Obtenir la référence de la balise <p> par son ID
+const randomCodeElement = document.getElementById('random-code');
+
+// Mettre à jour le contenu de la balise avec le code aléatoire généré
+randomCodeElement.textContent = generateRandomCode();
+*/

@@ -393,7 +393,7 @@
     transition: max-height 0.5s ease;
   }
   .add-event-wrapper.active {
-    max-height: 300px;
+    max-height: 400px;
   }
   .add-event-header {
     width: 100%;
@@ -563,9 +563,34 @@
     padding: 10px;
     display: none; /* La navigation est cachée par défaut */
 }
+
 .navigation .top-right {
     margin-bottom: auto; /* Place les liens en haut */
 }
+
+#other-agendas {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-clr);
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+#other-agendas option {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--primary-clr);
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
 
 .navigation .middle-right {
     margin-left: auto; /* Centre l'élément horizontalement */
@@ -629,6 +654,25 @@
     color: #fff;
 }
 
+.information-evenement {
+    background-color: #fff; /* Couleur de fond blanche */
+    border-radius: 10px;
+    padding: 80px;
+    color: #373c4f; /* Couleur du texte sombre */
+    text-align: center;
+    position: fixed; /* Position fixe */
+    top: 50%; /* Au milieu verticalement */
+    left: 50%; /* Au milieu horizontalement */
+    transform: translate(-50%, -50%); /* Déplacer le centre de l'élément */
+    z-index: 999; /* Au-dessus du reste du contenu */
+    display: none;
+    flex-direction: column; /* Disposer les éléments de haut en bas */
+    align-items: center; /* Centrer les éléments horizontalement */
+    border: 2px solid #373c4f; /* Bordure de couleur sombre */
+    box-shadow: 0 0 10px rgba(55, 60, 79, 0.5); /* Ombre avec une couleur légèrement plus foncée */
+}
+
+
 .new-agenda {
     background-color: #373c4f;
     border-radius: 10px;
@@ -645,7 +689,6 @@
     align-items: center; /* Centrer les éléments horizontalement */
     border: 2px solid #fff; /* Ajout des bordures blanches */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Ajout d'une ombre avec une couleur plus transparente */
-}
 }
 
 .new-agenda h3 {
