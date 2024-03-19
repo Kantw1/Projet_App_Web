@@ -40,7 +40,7 @@
         </ul>
     </div>
     <div class="middle-right">
-        <button class="add-calendar">
+        <button id="toggleADD" class="add-calendar">
         <i class="fas fa-plus"></i>
       </button>
     </div>
@@ -51,7 +51,19 @@
         </ul>
     </div>
 </div>
-
+<div class="new-agenda">
+    <h3>Ajouter un nouvel agenda :</h3>
+    <div class="code-input">
+        <label for="agenda-code">Entrez le code de l'agenda :</label>
+        <input type="text" id="agenda-code" name="agenda-code">
+        <button id="add-agenda">Ajouter</button>
+    </div>
+    <div class="create-new">
+    	<p>ou</p>
+        <p>affichage d'un code au hazard</p>
+        <button id="create-agenda">Créer un nouvel agenda et obtenir un code</button>
+    </div>
+</div>
     <div class="container">
       <div class="left">
         <div class="calendar">

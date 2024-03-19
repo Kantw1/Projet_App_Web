@@ -551,7 +551,7 @@
     font-size: 1rem;
     cursor: pointer;
 } 
-  
+ 
 .navigation {
     position: fixed;
     top: 20px;
@@ -568,10 +568,33 @@
 }
 
 .navigation .middle-right {
-    margin-left: auto; /* Place les liens au centre */
-    margin-right: auto; /* Place les liens au centre */
-    display: inline-block; /* Assure que la marge auto fonctionne */
+    margin-left: auto; /* Centre l'élément horizontalement */
+    margin-right: auto; /* Centre l'élément horizontalement */
 }
+
+.add-calendar {
+    position: absolute;
+    bottom: 400px;
+    right: 85px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    opacity: 0.5;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  .add-calendar:hover {
+    opacity: 1;
+  }
+  .add-calendar i {
+    pointer-events: none;
+  }
 
 
 .navigation .bottom-left {
@@ -594,6 +617,7 @@
     font-weight: bold;
 }
 
+
 .navigation select {
     padding: 10px; /* Augmente le rembourrage */
     font-size: 1rem; /* Augmente la taille de la police */
@@ -603,6 +627,68 @@
     border: none;
     background-color: transparent;
     color: #fff;
+}
+
+.new-agenda {
+    background-color: #373c4f;
+    border-radius: 10px;
+    padding: 80px;
+    color: #fff;
+    text-align: center;
+    position: fixed; /* Position fixe */
+    top: 50%; /* Au milieu verticalement */
+    left: 50%; /* Au milieu horizontalement */
+    transform: translate(-50%, -50%); /* Déplacer le centre de l'élément */
+    z-index: 999; /* Au-dessus du reste du contenu */
+    display: none;
+    flex-direction: column; /* Disposer les éléments de haut en bas */
+    align-items: center; /* Centrer les éléments horizontalement */
+    border: 2px solid #fff; /* Ajout des bordures blanches */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Ajout d'une ombre avec une couleur plus transparente */
+}
+}
+
+.new-agenda h3 {
+    margin-bottom: 20px;
+}
+
+.new-agenda .code-input {
+    margin-bottom: 20px; /* Espacement entre les sections */
+}
+
+.new-agenda .code-input label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.new-agenda .code-input input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.new-agenda .code-input button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.new-agenda .create-new p {
+    margin: 20px 0;
+}
+
+.new-agenda .create-new button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
 }
 
 

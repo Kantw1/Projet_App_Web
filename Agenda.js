@@ -478,3 +478,18 @@ document.getElementById('toggleNav').addEventListener('click', function() {
     nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
 });
 
+document.getElementById('toggleADD').addEventListener('click', function() {
+    var nav = document.querySelector('.new-agenda');
+    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+});
+
+// Écoute les clics sur l'ensemble du document
+document.addEventListener('click', function(event) {
+    var nav = document.querySelector('.new-agenda');
+    // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
+    if (!nav.contains(event.target)) {
+        // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
+        nav.style.display = 'none';
+    }
+});
+
