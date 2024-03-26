@@ -492,15 +492,7 @@ function showEventDetails(eventTitle, eventTime) {
     event.stopPropagation(); // Empêche la propagation de l'événement de clic pour éviter la fermeture immédiate de la boîte de dialogue
 }
 
-// Écoute les clics sur l'ensemble du document
-document.addEventListener('click', function(event) {
-    var nav = document.querySelector('.information-evenement');
-    // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
-    if (!nav.contains(event.target)) {
-        // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
-        nav.style.display = 'none';
-    }
-});
+
 
 // Ajoutez un écouteur d'événements pour les clics sur les événements
 eventsContainer.addEventListener("click", (e) => {
@@ -518,6 +510,8 @@ function saveEvents() {
   localStorage.setItem("events", JSON.stringify(eventsArr));
 }
 
+
+
 //function to get events from local storage
 function getEvents() {
   //check if events are already saved in local storage then return event else nothing
@@ -526,6 +520,7 @@ function getEvents() {
   }
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }
+
 
 function convertTime(time) {
   const timeArr = time.split(":");
@@ -537,6 +532,8 @@ function convertTime(time) {
   const formattedTime = timeObj.toLocaleTimeString('fr-FR', options);
   return formattedTime.replace(":", "h"); // Remplacer ":" par "h"
 }
+
+
 
 document.getElementById('toggleCount').addEventListener('click', function() {
   var nav = document.querySelector('.sidebar');
@@ -598,6 +595,18 @@ selectElement.addEventListener("change", function() {
     // Rediriger vers l'URL associée
     window.location.href = href;
 });
+
+// Écoute les clics sur l'ensemble du document
+document.addEventListener('click', function(event) {
+  var nav = document.querySelector('.information-evenement');
+  // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
+  if (!nav.contains(event.target)) {
+      // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
+      nav.style.display = 'none';
+  }
+});
+
+
 /*
 //code Aléatoire
 function generateRandomCode() {
