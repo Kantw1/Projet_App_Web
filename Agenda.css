@@ -734,7 +734,104 @@
     cursor: pointer;
 }
 
+.sidebar {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  bottom: 20px;
+  width: 300px;
+  padding: 20px;
+  background-color: #373c4f;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  display: none;
+}
 
+.user-data {
+  width: 100%;
+  margin-bottom: 20px;
+}
 
+.user-data h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
 
+.user-data p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
 
+.user-data label {
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.user-data input[type="text"] {
+  width: calc(100% - 10px);
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+}
+
+.agendas-list {
+  width: 100%;
+}
+
+.agendas-list h2 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.agendas-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.agendas-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.agendas-list input[type="text"] {
+  width: calc(50% - 5px);
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #fff;
+}
+
+.agendas-list input[type="color"] {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+#toggleCount {
+  display: inline-block; /* Permet au texte de s'afficher sur une seule ligne */
+  padding: 10px 20px; /* Ajoute un espace autour du texte */
+  border: 1px solid #ccc; /* Ajoute une bordure grise */
+  border-radius: 5px; /* Arrondit les coins */
+  background-color: #373c4f; /* Fond blanc */
+  color: #ccc; /* Couleur du texte */
+  cursor: pointer; /* Change le curseur au survol */
+  text-decoration: none; /* Supprime la soulignement par défaut */
+}
+
+#toggleCount:hover {
+  background-color: #f5f5f5; /* Change la couleur de fond au survol */
+}

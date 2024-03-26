@@ -538,7 +538,10 @@ function convertTime(time) {
   return formattedTime.replace(":", "h"); // Remplacer ":" par "h"
 }
 
-
+document.getElementById('toggleCount').addEventListener('click', function() {
+  var nav = document.querySelector('.sidebar');
+  nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+});
 
 document.getElementById('toggleNav').addEventListener('click', function() {
     var nav = document.querySelector('.navigation');
