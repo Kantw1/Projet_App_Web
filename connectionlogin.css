@@ -60,10 +60,26 @@ input[type="submit"]:hover {
 .logo {
     position: fixed;
     bottom: 5px;
-    left: 90%;
-    transform: translateX(-90%);
-    width: 0px; /* Largeur souhaitée */
+    right: 5px; /* Positionné à droite de la page */
+    max-width: 150px; /* Largeur maximale souhaitée */
     height: auto; /* Hauteur automatique pour maintenir les proportions */
 }
 
 
+
+h1 {
+    text-align: center;
+    color: #007bff; /* Couleur de texte bleue */
+    margin-bottom: 20px; /* Espacement sous le titre */
+    font-size: 28px; /* Taille de police plus grande */
+}
+
+/* Ajout de styles pour le lien de création de compte */
+a {
+    color: #007bff; /* Couleur de texte bleue */
+    text-decoration: none; /* Suppression du soulignement par défaut */
+}
+
+a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+}
