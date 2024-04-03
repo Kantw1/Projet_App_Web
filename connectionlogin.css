@@ -83,3 +83,20 @@ a {
 a:hover {
     text-decoration: underline; /* Soulignement au survol */
 }
+
+/* Ajout de styles pour les créateurs du site */
+.creators {
+    text-align: left;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Ajout de styles pour le copyright */
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #666;
+}
+
