@@ -13,18 +13,27 @@ if ($conn->connect_error) {
 }
 
 // Récupération des données du formulaire
-$first_name = $_POST['first-name'];
-$last_name = $_POST['last-name'];
-$username = $_POST['new-username'];
-$password = $_POST['new-password'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-// Requête SQL pour insérer les données dans la table
-$sql = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$first_name', '$last_name', '$username', '$password')";
+// Requête SQL pour vérifier les informations d'identification
+$sql = "SELECT id, first_name, last_name FROM users WHERE username='$username' AND password='$password'";
+$result = $conn->query($sql);
 
-if ($conn->query($sql) === TRUE) {
-    echo "Nouvel utilisateur créé avec succès!";
+if ($result->num_rows > 0) {
+    // Démarrage de la session
+    session_start();
+    // Récupération des données de nom et prénom de l'utilisateur
+    $row = $result->fetch_assoc();
+    // Stockage de l'identifiant de l'utilisateur dans une session
+    $_SESSION['username'] = $username;
+    $_SESSION['first_name'] = $row['first_name'];
+    $_SESSION['last_name'] = $row['last_name'];
+    // Redirection vers l'agenda collaboratif
+    header('Location: Agenda.html');
+    exit;
 } else {
-    echo "Erreur: " . $sql . "<br>" . $conn->error;
+    echo "Identifiants incorrects";
 }
 
 $conn->close();
