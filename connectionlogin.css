@@ -6,7 +6,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Utiliser min-height pour s'assurer que le contenu peut dépasser la hauteur de la fenêtre */
+    position: relative; /* Position relative pour les éléments enfants positionnés absolument */
 }
 
 .container {
@@ -46,7 +47,7 @@ input[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease; /* Ajout de la transition */
+    transition: background-color 0.3s ease;
 }
 
 input[type="submit"]:hover {
@@ -60,43 +61,43 @@ input[type="submit"]:hover {
 .logo {
     position: fixed;
     bottom: 5px;
-    right: 5px; /* Positionné à droite de la page */
-    max-width: 150px; /* Largeur maximale souhaitée */
-    height: auto; /* Hauteur automatique pour maintenir les proportions */
+    right: 5px;
+    max-width: 150px;
+    height: auto;
 }
-
-
 
 h1 {
     text-align: center;
-    color: #007bff; /* Couleur de texte bleue */
-    margin-bottom: 20px; /* Espacement sous le titre */
-    font-size: 28px; /* Taille de police plus grande */
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 28px;
 }
 
-/* Ajout de styles pour le lien de création de compte */
 a {
-    color: #007bff; /* Couleur de texte bleue */
-    text-decoration: none; /* Suppression du soulignement par défaut */
+    color: #007bff;
+    text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* Soulignement au survol */
+    text-decoration: underline;
 }
 
-/* Ajout de styles pour les créateurs du site */
+/* Styles pour les créateurs */
 .creators {
-    text-align: left;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #888; /* Couleur de texte grise */
+    font-size: 12px; /* Taille de police plus petite */
 }
 
-/* Ajout de styles pour le copyright */
+/* Styles pour le copyright */
 .copyright {
-    text-align: center;
-    margin-top: 20px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%; /* Déplacer le texte vers le centre */
+    transform: translateX(-50%); /* Ajuster le texte vers la gauche de moitié de sa largeur */
+    color: #888;
     font-size: 12px;
-    color: #666;
 }
 
