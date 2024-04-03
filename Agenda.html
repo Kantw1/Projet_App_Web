@@ -23,22 +23,6 @@
     <title>Calendrier</title>
   </head>
   <body>
-
-<?php
-session_start();
-
-// Vérifiez si l'utilisateur est connecté
-if (!isset($_SESSION['username'])) {
-    // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
-    header('Location: connectionlogin.html');
-    exit;
-}
-
-// Récupérer les données de l'utilisateur
-$username = $_SESSION['username'];
-$first_name = $_SESSION['first_name'];
-$last_name = $_SESSION['last_name'];
-?>
   <button id="toggleNav">Menu</button>
  <div class="navigation">
     <div class="top-right">
@@ -75,13 +59,15 @@ $last_name = $_SESSION['last_name'];
     </div>
 </div>
 <div class="information-evenement">
-
-<p>ajouter les informations de l'événement</p>
-<button id="toggleSUPP" >
-  <i class="fas fa-plus"></i>
-</button>
-
+  <p id="eventTitle"></p>
+  <p id="eventTime"></p>
+  <p id="eventPlace"></p>
+  <p id="eventDescription"></p>
+  <button id="toggleSUPP">
+      <i class="fas fa-plus"></i>
+  </button>
 </div>
+
     <div class="container">
       <div class="left">
         <div class="calendar">
@@ -185,5 +171,8 @@ $last_name = $_SESSION['last_name'];
     </div>    
   </div>  
     <script src="Agenda_page.js" ></script>
+    <script src="Agenda_bouton.js" ></script>
+    <script src="Agenda_sauvegarde.js" ></script>
+    <script src="Agenda_accesAgenda.js" ></script>
   </body>
 </html>
