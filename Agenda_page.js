@@ -259,6 +259,12 @@ function updateEvents(date) {
             <div class="event-time">
               <span class="event-time">${event.time}</span>
             </div>
+            <div class="event-description">
+              <span class="event-description">${event.description}</span>
+            </div>
+            <div class="event-position">
+              <span class="event-position">${event.position}</span>
+            </div>
         </div>`;
       });
     }
@@ -364,6 +370,8 @@ addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
+  const eventDescription = addEventDescription.value; // Ajout de la description
+  const eventPlace = addEventPlace.value; // Ajout de la position
   if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
     alert("Please fill all the fields");
     return;
@@ -450,47 +458,94 @@ addEventSubmit.addEventListener("click", () => {
     activeDayEl.classList.add("event");
   }
 });
-/*
-//function to delete event when clicked on event
+
+
+
+// Écoute les clics sur le conteneur des événements
 eventsContainer.addEventListener("click", (e) => {
+  // Vérifie si l'élément cliqué est un événement
   if (e.target.classList.contains("event")) {
-    if (confirm("Etes vous sûr de vouloir supprimer cet événement?")) {
-      const eventTitle = e.target.children[0].children[1].innerHTML;
-      eventsArr.forEach((event) => {
-        if (
-          event.day === activeDay &&
-          event.month === month + 1 &&
-          event.year === year
-        ) {
-          event.events.forEach((item, index) => {
-            if (item.title === eventTitle) {
-              event.events.splice(index, 1);
-            }
-          });
-          //if no events left in a day then remove that day from eventsArr
-          if (event.events.length === 0) {
-            eventsArr.splice(eventsArr.indexOf(event), 1);
-            //remove event class from day
-            const activeDayEl = document.querySelector(".day.active");
-            if (activeDayEl.classList.contains("event")) {
-              activeDayEl.classList.remove("event");
+    // Évite la propagation du clic sur le bouton toggleSUPP
+    e.stopPropagation();
+
+    // Récupère les informations sur l'événement
+    const eventTitle = e.target.children[0].children[1].innerHTML;
+    const eventTime = e.target.children[1].children[0].innerHTML;
+    const eventDescription = e.target.children[2].children[0].innerHTML;
+    const eventPlace = e.target.children[3].children[0].innerHTML;
+    
+    // Met à jour les éléments dans la div "information-evenement" avec les informations de l'événement
+    document.getElementById("eventTitle").textContent = "Titre: " + eventTitle;
+    document.getElementById("eventTime").textContent = "Heure: " + eventTime;
+    document.getElementById("eventPlace").textContent = "Position: " + eventPlace;
+    document.getElementById("eventDescription").textContent = "Description: " + eventDescription;
+
+
+    // Écoute les clics sur le bouton toggleSUPP
+    document.getElementById("toggleSUPP").addEventListener("click", () => {
+      // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
+        // Récupère le titre de l'événement à supprimer
+        const eventTitle = e.target.children[0].children[1].innerHTML;
+        // Parcourt le tableau des événements
+        eventsArr.forEach((event) => {
+          // Vérifie si l'événement appartient au jour actif
+          if (
+            event.day === activeDay &&
+            event.month === month + 1 &&
+            event.year === year
+          ) {
+            // Parcourt les événements du jour actif
+            event.events.forEach((item, index) => {
+              // Vérifie si le titre de l'événement correspond
+              if (item.title === eventTitle) {
+                // Supprime l'événement du tableau des événements
+                event.events.splice(index, 1);
+              }
+            });
+            // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
+            if (event.events.length === 0) {
+              eventsArr.splice(eventsArr.indexOf(event), 1);
+              // Supprime la classe "event" du jour s'il n'y a plus d'événements
+              const activeDayEl = document.querySelector(".day.active");
+              if (activeDayEl.classList.contains("event")) {
+                activeDayEl.classList.remove("event");
+              }
             }
           }
-        }
-      });
-      updateEvents(activeDay);
-    }
+        });
+        // Met à jour les événements affichés
+        updateEvents(activeDay);
+
+        // Cache la boîte de dialogue des informations sur l'événement
+      var nav = document.querySelector('.information-evenement');
+      nav.style.display = 'none';
+      }
+    });
   }
 });
-*/
+
+
+
 
 // Fonction pour afficher les détails de l'événement
 function showEventDetails(eventTitle, eventTime) {
-    // Vous pouvez modifier cette partie pour afficher les détails de l'événement
-    var nav = document.querySelector('.information-evenement');
-    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
-    event.stopPropagation(); // Empêche la propagation de l'événement de clic pour éviter la fermeture immédiate de la boîte de dialogue
+  // Vous pouvez modifier cette partie pour afficher les détails de l'événement
+  var nav = document.querySelector('.information-evenement');
+  nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+  events.stopPropagation(); // Empêche la propagation de l'événement de clic pour éviter la fermeture immédiate de la boîte de dialogue
 }
+
+
+// Écoute les clics sur l'ensemble du document
+document.addEventListener('click', function(event) {
+  var nav = document.querySelector('.information-evenement');
+  // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
+  if (!nav.contains(event.target)) {
+      // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
+      nav.style.display = 'none';
+  }
+});
 
 
 
@@ -499,6 +554,9 @@ eventsContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("event")) {
         const eventTitle = e.target.children[0].children[1].innerHTML;// récupère les informations sur les titres
         const eventTime = e.target.children[1].children[0].innerHTML;// récupère les informations sur les heures
+        const eventDescription = e.target.children[2].children[0].innerHTML; // Récupère la description de l'événement
+        const eventPlace = e.target.children[3].children[0].innerHTML; // Récupère la position de l'événement
+
         // Appelez la fonction pour afficher les détails de l'événement
         showEventDetails(eventTitle, eventTime);
     }
@@ -596,15 +654,6 @@ selectElement.addEventListener("change", function() {
     window.location.href = href;
 });
 
-// Écoute les clics sur l'ensemble du document
-document.addEventListener('click', function(event) {
-  var nav = document.querySelector('.information-evenement');
-  // Vérifie si l'élément cliqué se trouve à l'intérieur de la boîte de dialogue
-  if (!nav.contains(event.target)) {
-      // Si l'élément cliqué est en dehors de la boîte de dialogue, masquez la boîte de dialogue
-      nav.style.display = 'none';
-  }
-});
 
 
 /*
