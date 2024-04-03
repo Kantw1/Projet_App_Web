@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$servername = "localhost";
-$username = "votre_nom_utilisateur";
-$password = "votre_mot_de_passe";
-$dbname = "agenda_collaboratif";
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$username = "cycalguj";
+$password = "CYCalender1234";
+$dbname = "CYCalenderB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
