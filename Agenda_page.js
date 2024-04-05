@@ -259,11 +259,11 @@ function updateEvents(date) {
             <div class="event-time">
               <span class="event-time">${event.time}</span>
             </div>
-            <div class="event-description">
+            <div class="event-description hidden">
               <span class="event-description">${event.description}</span>
             </div>
-            <div class="event-position">
-              <span class="event-position">${event.position}</span>
+            <div class="event-position hidden">
+              <span class="event-place">${event.place}</span>
             </div>
         </div>`;
       });
@@ -418,6 +418,8 @@ addEventSubmit.addEventListener("click", () => {
   const newEvent = {
     title: eventTitle,
     time: timeFrom + " - " + timeTo,
+    description: eventDescription,
+    place: eventPlace,
   };
   console.log(newEvent);
   console.log(activeDay);
@@ -475,10 +477,10 @@ eventsContainer.addEventListener("click", (e) => {
     const eventPlace = e.target.children[3].children[0].innerHTML;
     
     // Met à jour les éléments dans la div "information-evenement" avec les informations de l'événement
-    document.getElementById("eventTitle").textContent = "Titre: " + eventTitle;
-    document.getElementById("eventTime").textContent = "Heure: " + eventTime;
-    document.getElementById("eventPlace").textContent = "Position: " + eventPlace;
-    document.getElementById("eventDescription").textContent = "Description: " + eventDescription;
+    document.getElementById("eventTitle").innerHTML = "<strong>Titre: </strong>" + eventTitle;
+    document.getElementById("eventTime").innerHTML = "<strong>Heure: </strong>" + eventTime;
+    document.getElementById("eventDescription").innerHTML = "<strong>Description: </strong>" + eventDescription;
+    document.getElementById("eventPlace").innerHTML = "<strong>Position: </strong>" + eventPlace;
 
 
     // Écoute les clics sur le bouton toggleSUPP
@@ -521,6 +523,10 @@ eventsContainer.addEventListener("click", (e) => {
       var nav = document.querySelector('.information-evenement');
       nav.style.display = 'none';
       }
+      else {
+        // Annule toute l'opération si l'utilisateur a cliqué sur "Annuler"
+        return;
+      }
     });
   }
 });
@@ -558,7 +564,7 @@ eventsContainer.addEventListener("click", (e) => {
         const eventPlace = e.target.children[3].children[0].innerHTML; // Récupère la position de l'événement
 
         // Appelez la fonction pour afficher les détails de l'événement
-        showEventDetails(eventTitle, eventTime);
+        showEventDetails(eventTitle, eventTime, eventDescription, eventPlace);
     }
 });
 
