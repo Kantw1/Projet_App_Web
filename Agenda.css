@@ -655,22 +655,68 @@
 }
 
 .information-evenement {
-    background-color: #fff; /* Couleur de fond blanche */
-    border-radius: 10px;
-    padding: 80px;
-    color: #373c4f; /* Couleur du texte sombre */
-    text-align: center;
-    position: fixed; /* Position fixe */
-    top: 50%; /* Au milieu verticalement */
-    left: 50%; /* Au milieu horizontalement */
-    transform: translate(-50%, -50%); /* Déplacer le centre de l'élément */
-    z-index: 999; /* Au-dessus du reste du contenu */
-    display: none;
-    flex-direction: column; /* Disposer les éléments de haut en bas */
-    align-items: center; /* Centrer les éléments horizontalement */
-    border: 2px solid #373c4f; /* Bordure de couleur sombre */
-    box-shadow: 0 0 10px rgba(55, 60, 79, 0.5); /* Ombre avec une couleur légèrement plus foncée */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  color: #373c4f;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #373c4f;
+  box-shadow: 0 0 10px rgba(55, 60, 79, 0.5);
 }
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%; /* Assurer que les détails de l'événement prennent toute la largeur */
+}
+
+#eventTitle {
+  margin-bottom: 20px; /* Ajout de marge en bas */
+}
+
+#eventTime,
+#eventPlace,
+#eventDescription {
+  align-items: flex-start;
+}
+
+.event-details h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center; /* Centrer le titre */
+  width: 100%; /* Assurer que le titre prend toute la largeur */
+}
+.event-detail {
+  font-size: 1.2rem;
+}
+
+#toggleSUPP {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin-top: 20px;
+}
+
+#toggleSUPP i {
+  font-size: 24px;
+  color: #373c4f;
+}
+
+#toggleSUPP:hover i {
+  color: #ff0000;
+}
+
 
 
 .new-agenda {
@@ -834,4 +880,8 @@
 
 #toggleCount:hover {
   background-color: #f5f5f5; /* Change la couleur de fond au survol */
+}
+
+.hidden {
+  display: none;
 }
