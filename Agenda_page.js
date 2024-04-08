@@ -681,20 +681,3 @@ const randomCodeElement = document.getElementById('random-code');
 randomCodeElement.textContent = generateRandomCode();
 */
 
-document.addEventListener("DOMContentLoaded", function() {
-  const inscriptionForm = document.getElementById("inscription-form");
-
-  inscriptionForm.addEventListener("submit", function(event) {
-      event.preventDefault(); // Empêche l'envoi du formulaire par défaut
-
-      // Récupérer les valeurs du formulaire
-      const nom = document.getElementById("nom").value;
-      const prenom = document.getElementById("prenom").value;
-      const nomUtilisateur = document.getElementById("nomUtilisateur").value;
-
-      // Afficher les données de l'utilisateur dans le DOM
-      document.getElementById("user-nom").textContent = nom;
-      document.getElementById("user-prenom").textContent = prenom;
-      document.getElementById("user-nomUtilisateur").textContent = nomUtilisateur;
-  });
-});
