@@ -22,6 +22,11 @@ $password = $_POST['new-password'];
 $sql = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$first_name', '$last_name', '$username', '$password')";
 
 if ($conn->query($sql) === TRUE) {
+    session_start();
+    // Stockage du nom et du prénom de l'utilisateur dans la session
+    $_SESSION['username'] = $username;
+    $_SESSION['first_name'] = $first_name;
+    $_SESSION['last_name'] = $last_name;
     header('Location: index.html');
 } else {
     header('Location: signup.html');
