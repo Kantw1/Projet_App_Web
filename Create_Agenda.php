@@ -22,6 +22,9 @@ function generateUniqueCode($length = 7) {
     return $code;
 }
 
+// Déclaration de la variable pour stocker le message d'alerte
+$alert_message = "";
+
 // Vérification de la méthode de requête
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérification si le bouton "Créer un nouvel agenda" a été soumis
@@ -47,10 +50,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insertion du nouvel agenda dans la base de données
         $sql_insert = "INSERT INTO agendas (agenda_name, agenda_code) VALUES ('$agenda_name', '$uniqueCode')";
         if ($conn->query($sql_insert) === TRUE) {
-            echo "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
+            $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {
-            echo "Erreur lors de la création de l'agenda : " . $conn->error;
+            $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }
 }
 ?>
+
+<!-- Affichage de l'alerte en JavaScript -->
+<script>
+    // Vérification si un message d'alerte est présent
+    <?php if (!empty($alert_message)) { ?>
+        alert("<?php echo $alert_message; ?>");
+    <?php } ?>
+</script>
