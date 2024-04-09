@@ -660,24 +660,4 @@ selectElement.addEventListener("change", function() {
     window.location.href = href;
 });
 
-
-
-/*
-//code Aléatoire
-function generateRandomCode() {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let code = '';
-    for (let i = 0; i < 8; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        code += characters.charAt(randomIndex);
-    }
-    return code;
-}
-
-// Obtenir la référence de la balise <p> par son ID
-const randomCodeElement = document.getElementById('random-code');
-
-// Mettre à jour le contenu de la balise avec le code aléatoire généré
-randomCodeElement.textContent = generateRandomCode();
-*/
-
+//username
