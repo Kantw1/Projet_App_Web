@@ -47,15 +47,21 @@
     <h3>Ajouter un nouvel agenda :</h3>
     <div class="code-input">
     	<form action="Agenda.html" method="POST">
-    <label for="agenda-code">Entrez le code de l'agenda :</label>
-    <input type="text" id="agenda-code" name="agenda-code" maxlength="8" pattern="[A-Za-z0-9]{1,8}" title="Le code ne doit contenir que des chiffres et des lettres, et avoir une longueur maximale de 8 caractères" required>
-    <button type="submit" id="add-agenda">Ajouter</button>
-</form>
+        <label for="agenda-code">Entrez le code de l'agenda :</label>
+        <input type="text" id="agenda-code" name="agenda-code" maxlength="8" pattern="[A-Za-z0-9]{1,8}" title="Le code ne doit contenir que des chiffres et des lettres, et avoir une longueur maximale de 8 caractères" required>
+        <button type="submit" id="add-agenda">Ajouter</button>
+    </form>
 
     </div>
     <div class="create-new">
     	<p>ou</p>
-        <button id="create-agenda">Créer un nouvel agenda</button>
+      <form action="Create_Agenda.php" method="post">
+        <label for="Agenda_name">Nom de l'agenda:</label>
+      </br>
+        <input type="text" id="Agenda_name" name="Agenda_name" required/>
+      </br></br>
+        <button type="submit" name="create-agenda">Créer un nouvel agenda</button>
+    </form>    
     </div>
 </div>
 <div class="information-evenement">
