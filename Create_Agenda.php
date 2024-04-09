@@ -50,11 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insertion du nouvel agenda dans la base de données
         $sql_insert = "INSERT INTO agendas (agenda_name, agenda_code) VALUES ('$agenda_name', '$uniqueCode')";
         if ($conn->query($sql_insert) === TRUE) {
+            header('Location: Agenda.html');
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
-            header('Location: Agenda.html');
         } else {
-            $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
             header('Location: Agenda.html');
+            $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }
 }

@@ -22,9 +22,9 @@ $password = $_POST['new-password'];
 $sql = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$first_name', '$last_name', '$username', '$password')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "Nouvel utilisateur créé avec succès!";
+    header('Location: Agenda.html');
 } else {
-    echo "Erreur: " . $sql . "<br>" . $conn->error;
+    header('Location: signup.html');
 }
 
 $conn->close();
