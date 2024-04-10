@@ -12,21 +12,23 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Récupération des données de l'utilisateur
-$sql = "SELECT last_name, first_name, username FROM utilisateur WHERE id = 1"; // Remplacez "1" par l'ID de l'utilisateur
-$result = $conn->query($sql);
+// Démarrer la session
+session_start();
 
-if ($result->num_rows > 0) {
-    // Création d'un tableau associatif pour stocker les données de l'utilisateur
-    $user_data = $result->fetch_assoc();
-    // Conversion des données en format JSON
-    $json_data = json_encode($user_data);
-    // Affichage des données sous forme de réponse HTTP
+// Vérifier si l'ID de session existe
+if(isset($_SESSION['user_id'])) {
+    // Construire un tableau associatif contenant les données de l'utilisateur
+    $userData = array(
+        'user_id' => $_SESSION['user_id'],
+        'first_name' => $_SESSION['first_name'],
+        'last_name' => $_SESSION['last_name'],
+        'username' => $_SESSION['username']
+    );
+
+    // Convertir le tableau en format JSON et le renvoyer
     header('Content-Type: application/json');
-    echo $json_data;
+    echo json_encode($userData);
 } else {
-    echo "Utilisateur non trouvé.";
+    echo "Session utilisateur non trouvée.";
 }
-
-$conn->close();
 ?>

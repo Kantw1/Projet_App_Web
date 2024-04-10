@@ -1,7 +1,7 @@
-// Fonction pour récupérer les données de l'utilisateur depuis user.php
+// Fonction pour récupérer les données de l'utilisateur depuis User.php
 function getUserData() {
-    fetch('User.php')
-    .then(response => response.json())
+    fetch('User.php') // Envoyer une requête HTTP à User.php pour récupérer les données de l'utilisateur
+    .then(response => response.json()) // Convertir la réponse en JSON
     .then(data => {
         // Stocker les données de l'utilisateur dans une constante
         const userData = data;
@@ -17,8 +17,9 @@ function displayUserData(userData) {
     if (userContainer) {
         userContainer.innerHTML = `
             <h2>Données de l'utilisateur</h2>
-            <p><strong>Nom :</strong> ${userData.nom}</p>
-            <p><strong>Prénom :</strong> ${userData.prenom}</p>
+            <p><strong>ID de session :</strong> ${userData.user_id}</p>
+            <p><strong>Nom :</strong> ${userData.first_name}</p>
+            <p><strong>Prénom :</strong> ${userData.last_name}</p>
             <p><strong>Nom d'utilisateur :</strong> ${userData.username}</p>
         `;
     }

@@ -12,6 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Démarrage de la session
 session_start();
 
 // Récupération des données du formulaire
@@ -23,13 +24,15 @@ $sql = "SELECT id, first_name, last_name FROM users WHERE username='$username' A
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Démarrage de la session
     // Récupération des données de nom et prénom de l'utilisateur
     $row = $result->fetch_assoc();
+    
     // Stockage de l'identifiant de l'utilisateur dans une session
     $_SESSION['username'] = $username;
     $_SESSION['first_name'] = $row['first_name'];
     $_SESSION['last_name'] = $row['last_name'];
+    $_SESSION['user_id'] = $row['id']; // Stockage de l'ID de l'utilisateur
+    
     // Redirection vers l'agenda collaboratif
     header('Location: Agenda.html');
     exit;
@@ -39,26 +42,3 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirection...</title>
-</head>
-<body>
-    <p>Redirection en cours...</p>
-
-    <!-- Incluez le fichier JavaScript Agenda_page.js -->
-    <script src="Agenda_page.js"></script>
-
-    <!-- Récupération du nom d'utilisateur depuis PHP -->
-    <script>
-        // Créez une variable JavaScript pour stocker le nom d'utilisateur
-        var username = "<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>";
-
-        // Utilisez maintenant la variable username dans votre script JavaScript Agenda_page.js
-    </script>
-</body>
-</html>
