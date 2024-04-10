@@ -27,6 +27,11 @@ if ($conn->query($sql) === TRUE) {
     $_SESSION['username'] = $username;
     $_SESSION['first_name'] = $first_name;
     $_SESSION['last_name'] = $last_name;
+
+
+    // Requête SQL pour insérer l'entrée dans la table user_agendas
+    $sql_insert_user_agenda = "INSERT INTO user_agendas (user_id, username) VALUES ('$user_id', '$username')";
+
     header('Location: index.html');
 } else {
     header('Location: signup.html');
