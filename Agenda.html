@@ -148,13 +148,41 @@
       </button>
     </div>
     <div class="sidebar">
-    <div class="user-data">
-          <h2>Données de l'utilisateur</h2>
-          <!-- Insérez ici les données de l'utilisateur -->
-          <p><strong>Nom :</strong> John</p>
-          <p><strong>Prénom :</strong> Doe</p>
-          <p><strong>Nom d'utilisateur:</strong> JoDoe</p>
-      </div>
+      <div class="user-data">
+        <h2>Données de l'utilisateur</h2>
+        <!-- PHP pour récupérer les informations de l'utilisateur -->
+        <?php
+        // Connexion à la base de données
+        $servername = "localhost"; // Ou l'adresse de votre serveur SQL
+        $username = "votre_nom_utilisateur";
+        $password = "votre_mot_de_passe";
+        $dbname = "votre_base_de_donnees";
+    
+        $conn = new mysqli($servername, $username, $password, $dbname);
+    
+        // Vérification de la connexion
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+    
+        // Récupération des données de l'utilisateur
+        $sql = "SELECT nom, prenom, username FROM utilisateur WHERE id = 1"; // Remplacez "1" par l'ID de l'utilisateur
+        $result = $conn->query($sql);
+    
+        if ($result->num_rows > 0) {
+            // Affichage des informations de l'utilisateur
+            while($row = $result->fetch_assoc()) {
+                echo "<p><strong>Nom :</strong> " . $row["nom"] . "</p>";
+                echo "<p><strong>Prénom :</strong> " . $row["prenom"] . "</p>";
+                echo "<p><strong>Nom d'utilisateur :</strong> " . $row["username"] . "</p>";
+            }
+        } else {
+            echo "Utilisateur non trouvé.";
+        }
+    
+        $conn->close();
+        ?>
+    </div>    
 	  <div class="agendas-list">
         <h2>Liste des Agendas</h2>
         <ul>
