@@ -28,7 +28,7 @@ if ($conn->query($sql) === TRUE) {
     $_SESSION['first_name'] = $first_name;
     $_SESSION['last_name'] = $last_name;
 
-
+    $user_id = $conn->insert_id;
     // Requête SQL pour insérer l'entrée dans la table user_agendas
     $sql_insert_user_agenda = "INSERT INTO user_agendas (user_id) VALUES ('$user_id')";
 
