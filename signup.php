@@ -32,7 +32,14 @@ if ($conn->query($sql) === TRUE) {
     // Requête SQL pour insérer l'entrée dans la table user_agendas
     $sql_insert_user_agenda = "INSERT INTO user_agendas (user_id) VALUES ('$user_id')";
 
-    header('Location: index.html');
+    if ($con->query($sql_insert_user_agenda) === TRUE) {
+        $_SESSION['user_id_agenda'] = $user_id;
+        header('Location: index.html');
+    } else {
+        header('Location: signup.html');
+    }
+
+    
 } else {
     header('Location: signup.html');
 }
