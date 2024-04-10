@@ -12,37 +12,32 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Démarrage de la session
+session_start();
+
 // Récupération des données du formulaire
-$first_name = $_POST['first-name'];
-$last_name = $_POST['last-name'];
-$username = $_POST['new-username'];
-$password = $_POST['new-password'];
+$username = $_POST['username'];
+$password = $_POST['password'];
 
-// Requête SQL pour insérer les données dans la table des utilisateurs
-$sql_insert_user = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$first_name', '$last_name', '$username', '$password')";
+// Requête SQL pour vérifier les informations d'identification
+$sql = "SELECT id, first_name, last_name FROM users WHERE username='$username' AND password='$password'";
+$result = $conn->query($sql);
 
-if ($conn->query($sql_insert_user) === TRUE) {
-    // Récupérer l'ID de l'utilisateur nouvellement créé
-    $user_id = $conn->insert_id;
-
-    // Récupérer l'ID de l'agenda par exemple (vous devez le remplacer par la méthode appropriée pour obtenir l'ID de l'agenda)
-    $agenda_id = 1; // Exemple : ID de l'agenda
-
-    // Requête SQL pour insérer l'entrée dans la table user_agendas
-    $sql_insert_user_agendas = "INSERT INTO user_agendas (user_id, agenda_id) VALUES ('$user_id', '$agenda_id')";
-
-    if ($conn->query($sql_insert_user_agendas) === TRUE) {
-        session_start();
-        // Stockage du nom et du prénom de l'utilisateur dans la session
-        $_SESSION['username'] = $username;
-        $_SESSION['first_name'] = $first_name;
-        $_SESSION['last_name'] = $last_name;
-        header('Location: index.html');
-    } else {
-        header('Location: signup.html');
-    }
+if ($result->num_rows > 0) {
+    // Récupération des données de nom et prénom de l'utilisateur
+    $row = $result->fetch_assoc();
+    
+    // Stockage de l'identifiant de l'utilisateur dans une session
+    $_SESSION['username'] = $username;
+    $_SESSION['first_name'] = $row['first_name'];
+    $_SESSION['last_name'] = $row['last_name'];
+    $_SESSION['user_id'] = $row['id']; // Stockage de l'ID de l'utilisateur
+    
+    // Redirection vers l'agenda collaboratif
+    header('Location: Agenda.html');
+    exit;
 } else {
-    header('Location: signup.html');
+    echo "Identifiants incorrects";
 }
 
 $conn->close();
