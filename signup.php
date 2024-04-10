@@ -30,8 +30,6 @@ if ($conn->query($sql) === TRUE) {
 
     $user_id = $conn->insert_id;
 
-    // Spécifier une valeur pour 'agenda_id' (remplacez 1 par l'ID de l'agenda approprié)
-    $agenda_id = 1;
     // Requête SQL pour insérer l'entrée dans la table user_agendas
     $sql_insert_user_agenda = "INSERT INTO user_agendas (user_id) VALUES ('$user_id')";
 
