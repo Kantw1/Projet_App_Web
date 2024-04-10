@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$servername = "localhost"; // Ou l'adresse de votre serveur SQL
-$username = "votre_nom_utilisateur";
-$password = "votre_mot_de_passe";
-$dbname = "votre_base_de_donnees";
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$username = "cycalguj";
+$password = "CYCalender1234";
+$dbname = "CYCalenderB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Récupération des données de l'utilisateur
-$sql = "SELECT nom, prenom, username FROM utilisateur WHERE id = 1"; // Remplacez "1" par l'ID de l'utilisateur
+$sql = "SELECT last_name, first_name, username FROM utilisateur WHERE id = 1"; // Remplacez "1" par l'ID de l'utilisateur
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
