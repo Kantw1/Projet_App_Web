@@ -17,9 +17,9 @@ function displayUserData(userData) {
     if (userContainer) {
         userContainer.innerHTML = `
             <h2>Données de l'utilisateur</h2>
-            <p><strong>ID de session :</strong> ${userData.user_id}</p>
-            <p><strong>Nom :</strong> ${userData.first_name}</p>
-            <p><strong>Prénom :</strong> ${userData.last_name}</p>
+            <!-- <p><strong>ID de session :</strong> ${userData.user_id}</p> -->
+            <p><strong>Nom :</strong> ${userData.last_name_name}</p>
+            <p><strong>Prénom :</strong> ${userData.first_name}</p>
             <p><strong>Nom d'utilisateur :</strong> ${userData.username}</p>
         `;
     }
