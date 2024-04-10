@@ -13,3 +13,46 @@ un fichier pour chaque agenda
 
 
 ### Chaque utilisateur a accès à un nombre défini d'agenda qui appartiennent à une base de donnée, et chaque agenda est une base de donnée
+
+
+
+
+
+#SQL
+
+-- Table des utilisateurs
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Table des agendas
+CREATE TABLE agendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    agenda_name VARCHAR(255) NOT NULL,
+    agenda_code VARCHAR(10) NOT NULL
+);
+
+-- Table de liaison entre les utilisateurs et les agendas auxquels ils ont accès
+CREATE TABLE user_agendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    agenda_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (agenda_id) REFERENCES agendas(id)
+);
+
+-- Table des événements
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    agenda_id INT NOT NULL,
+    day INT NOT NULL,
+    month INT NOT NULL,
+    year INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    time VARCHAR(20) NOT NULL,
+    description TEXT,
+    place VARCHAR(255),
+    FOREIGN KEY (agenda_id) REFERENCES agendas(id)
+);
