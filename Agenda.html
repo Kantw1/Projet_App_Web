@@ -152,28 +152,15 @@
           <!-- Insérez ici les données de l'utilisateur -->
       </div>
 	  <div class="agendas-list">
-        <h2>Liste des Agendas</h2>
-        <ul>
-            <li>
-                <input type="text" class="agenda-name" value="Agenda Personnel" readonly>
-                <input type="color" class="agenda-color" value="007bff">
-            </li>
-            <li>
-              <input type="text" class="agenda-name" value="Agenda Ecole">
-              <input type="text" class="agenda-code" value="ABC123" readonly>
-              <input type="color" class="agenda-color" value="#ff6347">
-          </li>
-            <li>
-                <input type="text" class="agenda-name" value="Agenda Travail">
-                <input type="text" class="agenda-code" value="DEF456" readonly>
-                <input type="color" class="agenda-color" value="#fff">
-            </li>
-            <!-- Ajoutez d'autres éléments de liste pour d'autres agendas -->
-        </ul>
+      <h2>Liste des Agendas</h2>
+      <ul id="agenda-list">
+          <!-- Les éléments de liste des agendas seront ajoutés dynamiquement ici -->
+      </ul>
     </div>    
   </div>
     <script src="User.js"></script>  
     <script src="Agenda_page.js" ></script>
+    <script src="Liste_agenda.js" ></script>
     
   </body>
 </html>
