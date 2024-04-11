@@ -37,7 +37,7 @@ if ($conn->query($sql) === TRUE) {
 
     if ($conn->query($sql_insert_user_agenda) === TRUE) {
         $_SESSION['user_id_agenda'] = $user_id;
-        include 'Create_Agenda.php';
+        include 'Create_Agenda_signup.php';
         header('Location: index.html');
     } else {
         header('Location: signup.html');
