@@ -68,6 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 else {
 
+    echo "Le bloc else est atteint.";
+
     $agenda_name = 'Agenda Perso';
 
         // Génération d'un code d'agenda unique
