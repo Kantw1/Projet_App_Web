@@ -20,7 +20,7 @@ if(isset($_SESSION['user_id'])) {
     $agenda_code = $_SESSION['agenda_code']; // Récupérer le code de l'agenda depuis la session
 
     // Requête SQL pour récupérer la valeur actuelle de agenda_code pour cet utilisateur
-    $sql_select_agenda_code = "SELECT agenda_code FROM user_agendas WHERE user_id = '$user_id'";
+    $sql_select_agenda_code = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
     $result = $conn->query($sql_select_agenda_code);
 
     if ($result->num_rows > 0) {
