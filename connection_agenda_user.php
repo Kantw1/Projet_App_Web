@@ -12,26 +12,36 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+<?php
 session_start(); // Démarrer la session pour accéder aux données de session
 
 // Vérifier si l'utilisateur est connecté
 if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id']; // Récupérer l'ID de l'utilisateur à partir de la session
+    $agenda_code = $_SESSION['agenda_code']; // Récupérer le code de l'agenda depuis la session
 
-    // Récupérer le code de l'agenda à partir des données du formulaire ou d'où vous le récupérez
-    $agenda_code = $_SESSION['agenda_code']; // Par exemple, récupérer à partir d'un formulaire
+    // Requête SQL pour rechercher la ligne correspondant à l'utilisateur dans la table user_agendas
+    $sql_select_user_agenda = "SELECT * FROM user_agendas WHERE user_id = '$user_id'";
 
-    // Requête SQL pour insérer l'entrée dans la table user_agendas
-    $sql_insert_user_agenda = "INSERT INTO user_agendas (user_id, agenda_code) VALUES ('$user_id', '$agenda_code')";
+    $result = $conn->query($sql_select_user_agenda);
 
-    if ($conn->query($sql_insert_user_agenda) === TRUE) {
-        echo "Code d'agenda ajouté avec succès à la table user_agendas";
+    if ($result->num_rows > 0) {
+        // Mettre à jour la ligne existante avec le nouveau agenda_code
+        $sql_update_user_agenda = "UPDATE user_agendas SET agenda_code = '$agenda_code' WHERE user_id = '$user_id'";
+
+        if ($conn->query($sql_update_user_agenda) === TRUE) {
+            echo "Code d'agenda mis à jour avec succès dans la table user_agendas";
+        } else {
+            echo "Erreur lors de la mise à jour du code d'agenda dans la table user_agendas : " . $conn->error;
+        }
     } else {
-        echo "Erreur lors de l'ajout du code d'agenda à la table user_agendas : " . $conn->error;
+        echo "Aucune ligne trouvée pour l'utilisateur dans la table user_agendas";
     }
 } else {
     echo "L'utilisateur n'est pas connecté.";
 }
 
 $conn->close();
+?>
+
 ?>
