@@ -66,6 +66,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+else {
+
+    $agenda_name = "Agenda Perso";
+
+        // Génération d'un code d'agenda unique
+        $uniqueCode = generateUniqueCode();
+
+        // Vérification si le code généré est déjà présent dans la base de données
+        $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$uniqueCode'";
+        $result_check = $conn->query($sql_check);
+        if ($result_check->num_rows > 0) {
+            // Si le code existe déjà, générer un nouveau code jusqu'à ce qu'un code unique soit trouvé
+            while ($result_check->num_rows > 0) {
+                $uniqueCode = generateUniqueCode();
+                $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$uniqueCode'";
+                $result_check = $conn->query($sql_check);
+            }
+        }
+
+        // Insertion du nouvel agenda dans la base de données
+        $sql_insert = "INSERT INTO agendas (agenda_name, agenda_code) VALUES ('$agenda_name', '$uniqueCode')";
+        if ($conn->query($sql_insert) === TRUE) {
+            // Démarrer la session
+            session_start();
+
+            // Stocker le code de l'agenda dans une variable de session
+            $_SESSION['agenda_code'] = $uniqueCode;
+
+            include 'connection_agenda_user.php';
+
+            $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
+        } else {
+            $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
+        }
+
+}
 ?>
 
 <!-- Affichage de l'alerte en JavaScript -->
