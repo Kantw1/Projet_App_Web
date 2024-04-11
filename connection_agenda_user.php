@@ -20,13 +20,13 @@ if(isset($_SESSION['user_id'])) {
     $agenda_code = $_SESSION['agenda_code']; // Récupérer le code de l'agenda depuis la session
 
     // Requête SQL pour rechercher la ligne correspondant à l'utilisateur dans la table user_agendas
-    $sql_select_user_agenda = "SELECT * FROM user_agendas WHERE user_id = '$user_id'";
+    $sql_select_user_agenda = "SELECT * FROM user_agenda WHERE user_id = '$user_id'";
 
     $result = $conn->query($sql_select_user_agenda);
 
     if ($result->num_rows > 0) {
         // Mettre à jour la ligne existante avec le nouveau agenda_code
-        $sql_update_user_agenda = "UPDATE user_agendas SET agenda_code = '$agenda_code' WHERE user_id = '$user_id'";
+        $sql_update_user_agenda = "UPDATE user_agenda SET agenda_code = '$agenda_code' WHERE user_id = '$user_id'";
 
         if ($conn->query($sql_update_user_agenda) === TRUE) {
             echo "Code d'agenda mis à jour avec succès dans la table user_agendas";
