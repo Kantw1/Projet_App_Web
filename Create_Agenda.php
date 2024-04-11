@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Stocker le code de l'agenda dans une variable de session
             $_SESSION['agenda_code'] = $uniqueCode;
 
-            //include 'connection_agenda_user.php';
+            include 'connection_agenda_user.php';
 
             header('Location: Agenda.html');
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;

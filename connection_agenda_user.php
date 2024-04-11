@@ -12,7 +12,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-<?php
 session_start(); // Démarrer la session pour accéder aux données de session
 
 // Vérifier si l'utilisateur est connecté
@@ -42,6 +41,5 @@ if(isset($_SESSION['user_id'])) {
 }
 
 $conn->close();
-?>
 
 ?>
