@@ -38,7 +38,7 @@ CREATE TABLE agendas (
 CREATE TABLE user_agendas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    agenda_id INT
+    agenda_code TEXT
 );
 
 -- Table des événements
