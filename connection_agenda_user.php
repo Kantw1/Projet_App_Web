@@ -39,6 +39,7 @@ if(isset($_SESSION['user_id'])) {
         // Mettre à jour la ligne existante avec le nouveau agenda_code
         $sql_update_user_agenda = "UPDATE user_agenda SET agenda_code = '$new_agenda_code' WHERE user_id = '$user_id'";
 
+
         if ($conn->query($sql_update_user_agenda) === TRUE) {
             echo "Code d'agenda mis à jour avec succès dans la table user_agenda";
         } else {
