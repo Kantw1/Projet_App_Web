@@ -50,6 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insertion du nouvel agenda dans la base de données
         $sql_insert = "INSERT INTO agendas (agenda_name, agenda_code) VALUES ('$agenda_name', '$uniqueCode')";
         if ($conn->query($sql_insert) === TRUE) {
+            // Démarrer la session
+            session_start();
+
+            // Stocker le code de l'agenda dans une variable de session
+            $_SESSION['agenda_code'] = $uniqueCode;
+
+            include 'connection_agenda_user.php';
+
             header('Location: Agenda.html');
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {

@@ -38,9 +38,7 @@ CREATE TABLE agendas (
 CREATE TABLE user_agendas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    agenda_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (agenda_id) REFERENCES agendas(id)
+    agenda_id INT
 );
 
 -- Table des événements
