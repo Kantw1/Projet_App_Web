@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 else {
 
-    $agenda_name = "Agenda Perso";
+    $agenda_name = 'Agenda Perso';
 
         // Génération d'un code d'agenda unique
         $uniqueCode = generateUniqueCode();
