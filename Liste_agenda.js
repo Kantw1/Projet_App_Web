@@ -1,4 +1,4 @@
-/*// Fonction pour récupérer les données des agendas depuis Liste_agenda.php
+// Fonction pour récupérer les données des agendas depuis Liste_agenda.php
 function getAgendaData() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
@@ -9,14 +9,14 @@ function getAgendaData() {
         displayAgendaData(agendaData);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
-}*/
-
+}
+/*
 const agendaData = [
     { name: "Agenda Personnel", code: "ABC123" },
     { name: "Agenda Ecole", code: "DEF456" },
     { name: "Agenda Travail", code: "GHI789" }
 ];
-
+*/
 
 // Fonction pour afficher les données des agendas dans la liste
 function displayAgendaData(agendaData) {
