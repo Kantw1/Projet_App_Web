@@ -52,10 +52,6 @@ function displayAgendaData(agendaData) {
 }
 
 
-// Appel de la fonction pour afficher les données des agendas au chargement de la page
-window.onload = function() {
-    displayAgendaData(agendaData);
-};
 
 // Appel de la fonction pour récupérer les données des agendas au chargement de la page
 //window.onload = getAgendaData;

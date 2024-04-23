@@ -26,4 +26,4 @@ function displayUserData(userData) {
 }
 
 // Appel de la fonction pour récupérer les données de l'utilisateur au chargement de la page
-window.onload = getUserData;
+//window.onload = getUserData;
