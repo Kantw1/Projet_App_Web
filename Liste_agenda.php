@@ -35,8 +35,8 @@ if(isset($_SESSION['user_id'])) {
             if ($result_agenda_info->num_rows > 0) {
                 $row_agenda_info = $result_agenda_info->fetch_assoc();
                 $agenda = array(
-                    name => $row_agenda_info["agenda_name"],
-                    code => $agenda_code
+                    "name" => $row_agenda_info["agenda_name"],
+                    "code" => $agenda_code
                 );
                 array_push($Data, $agenda);
             }
