@@ -57,9 +57,9 @@ function displayAgendaData(agendaData) {
                 deleteButton.setAttribute("class", "delete-agenda-button");
                 deleteButton.addEventListener("click", function() {
                     const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
-                    deleteAgenda(codeAgenda);
+                    deleteAgenda(codeAgenda, li);
                 });
-                li.appendChild(deleteButton);
+                li.appendChild(deleteButton, li);
             }
             agendaList.appendChild(li);
         });
@@ -67,22 +67,25 @@ function displayAgendaData(agendaData) {
 }
 
 // Fonction pour supprimer un agenda
-function deleteAgenda(codeAgenda) {
-    fetch('Supprimer_agenda_de_agenda_user.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: 'code_agenda=' + encodeURIComponent(codeAgenda),
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-        // Actualiser la liste des agendas
-        getAgendaData();
-    })
-    .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
+function deleteAgenda(codeAgenda, liElement) {
+    if (confirm("Voulez-vous vraiment supprimer cet agenda ?")) {
+        fetch('Supprimer_agenda_de_agenda_user.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'code_agenda=' + encodeURIComponent(codeAgenda),
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // Supprimer l'agenda de la liste
+            liElement.remove();
+        })
+        .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
+    }
 }
+
 
 
 // Appel de la fonction pour récupérer les données des agendas au chargement de la page
