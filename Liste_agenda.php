@@ -27,14 +27,13 @@ if(isset($_SESSION['user_id'])) {
         while($row = $result_user_agenda->fetch_assoc()) {
             // Pour chaque code d'agenda de l'utilisateur, récupérer son nom et son code
             $agenda_code = $row["agenda_code"];
-            $sql_agenda_info = "SELECT agenda_name, agenda_code FROM agendas WHERE agenda_code = '$agenda_code'";
+            $sql_agenda_info = "SELECT agenda_name FROM agendas WHERE agenda_code = '$agenda_code'";
             $result_agenda_info = $conn->query($sql_agenda_info);
             if ($result_agenda_info->num_rows > 0) {
-                $Data = array("test");
                 $row_agenda_info = $result_agenda_info->fetch_assoc();
                 $agenda = array(
                     "name" => $row_agenda_info["agenda_name"],
-                    "code" => $row_agenda_info["agenda_code"]
+                    "code" => $agenda_code
                 );
                 array_push($Data, $agenda);
             }
