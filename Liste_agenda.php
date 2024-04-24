@@ -18,13 +18,13 @@ if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // Récupérer les codes des agendas associés à l'utilisateur
-    $sql_user_agendas = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
-    $result_user_agendas = $conn->query($sql_user_agendas);
+    $sql_user_agenda = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
+    $result_user_agenda = $conn->query($sql_user_agenda);
 
     $Data = array(); // Tableau pour stocker les données des agendas
 
-    if ($result_user_agendas->num_rows > 0) {
-        while($row = $result_user_agendas->fetch_assoc()) {
+    if ($result_user_agenda->num_rows > 0) {
+        while($row = $result_user_agenda->fetch_assoc()) {
             // Pour chaque code d'agenda de l'utilisateur, récupérer son nom et son code
             $agenda_code = $row["agenda_code"];
             $sql_agenda_info = "SELECT agenda_name, agenda_code FROM agendas WHERE agenda_code = '$agenda_code'";
@@ -37,19 +37,15 @@ if(isset($_SESSION['user_id'])) {
                 );
                 array_push($Data, $agenda);
             }
-        }
+        }       
         // Affichage du tableau agendaData au format JSON
         header('Content-Type: application/json');
         echo json_encode($Data);
     } else {
-        $Data = array("message" => "Aucun agenda trouvé pour cet utilisateur.");
-        header('Content-Type: application/json');
-        echo json_encode($Data);
+        echo "Aucun agenda trouvé pour cet utilisateur.";
     }
 } else {
-    $Data = array("message" => "L'utilisateur n'est pas connecté.");
-    header('Content-Type: application/json');
-    echo json_encode($Data);
+    echo "L'utilisateur n'est pas connecté.";
 }
 
 $conn->close();
