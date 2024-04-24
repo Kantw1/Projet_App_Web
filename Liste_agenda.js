@@ -2,7 +2,7 @@
 function getAgendaData() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
-    .then(data => {
+    .then(Data => {
         // Stocker les données des agendas dans une constante
         const agendaData = Data;
         // Appeler la fonction pour afficher les données des agendas
