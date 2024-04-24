@@ -42,7 +42,7 @@ if(isset($_SESSION['user_id'])) {
         
         // Affichage du tableau agendaData au format JSON
         header('Content-Type: application/json');
-        echo json_encode($Data);
+        //echo json_encode($Data);
     } else {
         echo "Aucun agenda trouvé pour cet utilisateur.";
     }
