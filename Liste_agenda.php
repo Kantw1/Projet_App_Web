@@ -21,6 +21,17 @@ if(isset($_SESSION['user_id'])) {
     $sql_user_agendas = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
     $result_user_agendas = $conn->query($sql_user_agendas);
 
+if ($result_user_agendas->num_rows > 0) {
+    // Les agendas ont été récupérés avec succès
+    while($row = $result_user_agendas->fetch_assoc()) {
+        // Traitement des données
+        echo "Agenda Code: " . $row["agenda_code"]. "<br>";
+    }
+} else {
+    echo "Aucun agenda trouvé pour cet utilisateur.";
+}
+
+
     $Data = array();
     if ($result_user_agendas->num_rows > 0) {
         while($row = $result_user_agendas->fetch_assoc()) {
