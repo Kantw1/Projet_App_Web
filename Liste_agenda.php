@@ -37,15 +37,19 @@ if(isset($_SESSION['user_id'])) {
                 );
                 array_push($Data, $agenda);
             }
-        }       
+        }
         // Affichage du tableau agendaData au format JSON
         header('Content-Type: application/json');
         echo json_encode($Data);
     } else {
-        echo "Aucun agenda trouvé pour cet utilisateur.";
+        $Data = array("message" => "Aucun agenda trouvé pour cet utilisateur.");
+        header('Content-Type: application/json');
+        echo json_encode($Data);
     }
 } else {
-    echo "L'utilisateur n'est pas connecté.";
+    $Data = array("message" => "L'utilisateur n'est pas connecté.");
+    header('Content-Type: application/json');
+    echo json_encode($Data);
 }
 
 $conn->close();
