@@ -18,7 +18,7 @@ if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
     // Récupérer les codes des agendas associés à l'utilisateur
-    $sql_user_agendas = "SELECT agenda_code FROM user_agendas WHERE user_id = '$user_id'";
+    $sql_user_agendas = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
     $result_user_agendas = $conn->query($sql_user_agendas);
 
     $Data = array();
