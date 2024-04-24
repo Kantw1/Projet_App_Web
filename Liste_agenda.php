@@ -38,14 +38,18 @@ if(isset($_SESSION['user_id'])) {
                 array_push($Data, $agenda);
             }
         }
+
+        $error_message = "agenda trouvé pour cet utilisateur.";
+        echo json_encode(array("test" => $error_message));
         // Affichage du tableau agendaData au format JSON
         echo json_encode($Data);
-        echo json_encode("agenda trouvé pour cet utilisateur.");
     } else {
-        echo json_encode("Aucun agenda trouvé pour cet utilisateur.");
+        $error_message = "Aucun agenda trouvé pour cet utilisateur.";
+        echo json_encode(array("error" => $error_message));
     }
 } else {
-    echo json_encode("L'utilisateur n'est pas connecté.");
+    $error_message = "L'utilisateur n'est pas connecté.";
+    echo json_encode(array("error" => $error_message));
 }
 
 $conn->close();
