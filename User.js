@@ -1,5 +1,6 @@
 // Fonction pour récupérer les données de l'utilisateur depuis User.php
 function getUserData() {
+    alert("C");
     fetch('User.php') // Envoyer une requête HTTP à User.php pour récupérer les données de l'utilisateur
     .then(response => response.json()) // Convertir la réponse en JSON
     .then(data => {
