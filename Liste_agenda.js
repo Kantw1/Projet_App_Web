@@ -9,7 +9,7 @@ function getAgendaData() {
         // Stocker les données des agendas dans une constante
         const agendaData = Data;
         // Appeler la fonction pour afficher les données des agendas
-        //displayAgendaData(agendaData);
+        displayAgendaData(agendaData);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
