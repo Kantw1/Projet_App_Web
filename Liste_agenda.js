@@ -4,7 +4,7 @@ function getAgendaData() {
     .then(response => response.json()) // Convertir la réponse en JSON
     .then(data => {
         // Stocker les données des agendas dans une constante
-        const agendaData = data;
+        const agendaData = Data;
         // Appeler la fonction pour afficher les données des agendas
         displayAgendaData(agendaData);
     })
