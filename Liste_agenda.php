@@ -21,7 +21,7 @@ if(isset($_SESSION['user_id'])) {
     $sql_user_agendas = "SELECT agenda_code FROM user_agendas WHERE user_id = '$user_id'";
     $result_user_agendas = $conn->query($sql_user_agendas);
 
-    $agendaData = array();
+    $Data = array();
     if ($result_user_agendas->num_rows > 0) {
         while($row = $result_user_agendas->fetch_assoc()) {
             // Pour chaque code d'agenda de l'utilisateur, récupérer son nom et son code
@@ -34,11 +34,11 @@ if(isset($_SESSION['user_id'])) {
                     "name" => $row_agenda_info["agenda_name"],
                     "code" => $row_agenda_info["agenda_code"]
                 );
-                array_push($agendaData, $agenda);
+                array_push($Data, $agenda);
             }
         }
         // Affichage du tableau agendaData au format JSON
-        echo json_encode($agendaData);
+        echo json_encode($Data);
     } else {
         echo "Aucun agenda trouvé.";
     }
