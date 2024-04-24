@@ -25,7 +25,7 @@ if ($result_user_agendas->num_rows > 0) {
     // Les agendas ont été récupérés avec succès
     while($row = $result_user_agendas->fetch_assoc()) {
         // Traitement des données
-        echo "Agenda Code: " . $row["agenda_code"]. "<br>";
+        echo "et Agenda Code: " . $row["agenda_code"]. "<br>";
     }
 } else {
     echo "Aucun agenda trouvé pour cet utilisateur.";
