@@ -1,19 +1,17 @@
 
 // Fonction pour récupérer les données des agendas depuis Liste_agenda.php
 function getAgendaData() {
-    alert("A");
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
     .then(Data => {
         // Afficher les données des agendas dans une alerte
-        alert("Données des agendas récupérées avec succès :");
+        alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         // Stocker les données des agendas dans une constante
         const agendaData = Data;
         // Appeler la fonction pour afficher les données des agendas
         //displayAgendaData(agendaData);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
-    alert("B");
 }
 /*
 const agendaData = [
