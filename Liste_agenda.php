@@ -24,8 +24,8 @@ if(isset($_SESSION['user_id'])) {
     $Data = array(); // Tableau pour stocker les données des agendas
 
     if ($result_user_agenda->num_rows > 0) {
-        $Data = array("test");
         while($row = $result_user_agenda->fetch_assoc()) {
+            $Data = array("test2");
             // Pour chaque code d'agenda de l'utilisateur, récupérer son nom et son code
             $agenda_code = $row["agenda_code"];
             $sql_agenda_info = "SELECT agenda_name, agenda_code FROM agendas WHERE agenda_code = '$agenda_code'";
