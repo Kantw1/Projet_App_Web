@@ -48,12 +48,17 @@ function displayAgendaData(agendaData) {
                 codeInput.style.display = "none"; // Masquer le code pour le premier agenda
             }
             codeInput.setAttribute("readonly", true);
+
             li.appendChild(nameInput);
             li.appendChild(codeInput);
             if (index !== 0) {
                 const deleteButton = document.createElement("button");
                 deleteButton.innerText = "🗑️"; // Poubelle emoji
                 deleteButton.setAttribute("class", "delete-agenda-button");
+                deleteButton.addEventListener("click", function() {
+                    const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
+                    deleteAgenda(codeAgenda);
+                });
                 li.appendChild(deleteButton);
             }
             agendaList.appendChild(li);
@@ -61,7 +66,23 @@ function displayAgendaData(agendaData) {
     }
 }
 
-
+// Fonction pour supprimer un agenda
+function deleteAgenda(codeAgenda) {
+    fetch('Supprimer_agenda.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'code_agenda=' + encodeURIComponent(codeAgenda),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        // Actualiser la liste des agendas
+        getAgendaData();
+    })
+    .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
+}
 
 
 // Appel de la fonction pour récupérer les données des agendas au chargement de la page
