@@ -48,16 +48,19 @@ function displayAgendaData(agendaData) {
                 codeInput.style.display = "none"; // Masquer le code pour le premier agenda
             }
             codeInput.setAttribute("readonly", true);
-            const deleteButton = document.createElement("button");
-            deleteButton.innerText = "🗑️"; // Poubelle emoji
-            deleteButton.setAttribute("class", "delete-agenda-button");
+            if (index !== 0) {
+                const deleteButton = document.createElement("button");
+                deleteButton.innerText = "🗑️"; // Poubelle emoji
+                deleteButton.setAttribute("class", "delete-agenda-button");
+                li.appendChild(deleteButton);
+            }
             li.appendChild(nameInput);
             li.appendChild(codeInput);
-            li.appendChild(deleteButton);
             agendaList.appendChild(li);
         });
     }
 }
+
 
 
 
