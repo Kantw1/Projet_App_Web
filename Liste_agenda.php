@@ -1,0 +1,50 @@
+<?php
+// Connexion à la base de données
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$username = "cycalguj";
+$password = "CYCalender1234";
+$dbname = "CYCalenderB";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérification de la connexion
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Démarrer la session
+session_start();
+if(isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Récupérer les codes des agendas associés à l'utilisateur
+    $sql_user_agendas = "SELECT agenda_code FROM user_agendas WHERE user_id = '$user_id'";
+    $result_user_agendas = $conn->query($sql_user_agendas);
+
+    $agendaData = array();
+    if ($result_user_agendas->num_rows > 0) {
+        while($row = $result_user_agendas->fetch_assoc()) {
+            // Pour chaque code d'agenda de l'utilisateur, récupérer son nom et son code
+            $agenda_code = $row["agenda_code"];
+            $sql_agenda_info = "SELECT agenda_name, agenda_code FROM agendas WHERE agenda_code = '$agenda_code'";
+            $result_agenda_info = $conn->query($sql_agenda_info);
+            if ($result_agenda_info->num_rows > 0) {
+                $row_agenda_info = $result_agenda_info->fetch_assoc();
+                $agenda = array(
+                    "name" => $row_agenda_info["agenda_name"],
+                    "code" => $row_agenda_info["agenda_code"]
+                );
+                array_push($agendaData, $agenda);
+            }
+        }
+        // Affichage du tableau agendaData au format JSON
+        echo json_encode($agendaData);
+    } else {
+        echo "Aucun agenda trouvé.";
+    }
+} else {
+    echo "L'utilisateur n'est pas connecté.";
+}
+
+$conn->close();
+?>
