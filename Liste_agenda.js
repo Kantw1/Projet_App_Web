@@ -68,7 +68,7 @@ function displayAgendaData(agendaData) {
 
 // Fonction pour supprimer un agenda
 function deleteAgenda(codeAgenda) {
-    fetch('Supprimer_agenda.php', {
+    fetch('Supprimer_agenda_de_agenda_user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
