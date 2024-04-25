@@ -13,7 +13,7 @@ un fichier pour chaque agenda
 
 
 ### Chaque utilisateur a accès à un nombre défini d'agenda qui appartiennent à une base de donnée, et chaque agenda est une base de donnée
-
+## //header('Location: Agenda.html'); dans Create_Agenda.php à enlever mais essayer de trouver comment rester sur la même pas sans la recharger
 
 #changer la table sql events, ajouter une colonne avec le code de l'agenda
 
