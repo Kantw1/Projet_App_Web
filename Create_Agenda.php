@@ -58,10 +58,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             include 'connection_agenda_user.php';
 
-            header('Location: Agenda.html');
+            echo '<script>displayAgendaData();</script>'; // Exécute la fonction addAgenda() en JavaScript
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {
-            header('Location: Agenda.html');
+            //header('Location: Agenda.html');
             $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }

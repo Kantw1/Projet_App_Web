@@ -78,7 +78,7 @@ function deleteAgenda(codeAgenda, liElement) {
         })
         .then(response => response.json())
         .then(data => {
-            alert(data.message);
+            //alert(data.message);
             // Supprimer l'agenda de la liste
             liElement.remove();
         })
