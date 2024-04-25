@@ -57,8 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['agenda_code'] = $uniqueCode;
 
             include 'connection_agenda_user.php';
-
-            echo '<script>displayAgendaData();</script>'; // Exécute la fonction addAgenda() en JavaScript
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {
             //header('Location: Agenda.html');
