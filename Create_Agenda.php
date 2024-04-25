@@ -57,10 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['agenda_code'] = $uniqueCode;
 
             include 'connection_agenda_user.php';
-            //$alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
+            echo '<script>displayAgendaData();</script>';
+            $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {
             //header('Location: Agenda.html');
-            //$alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
+            $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }
 }
