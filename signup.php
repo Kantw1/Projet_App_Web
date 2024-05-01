@@ -18,6 +18,16 @@ $last_name = $_POST['last-name'];
 $username = $_POST['new-username'];
 $password = $_POST['new-password'];
 
+// Vérification si le nom d'utilisateur existe déjà
+$sql_check_username = "SELECT * FROM users WHERE username='$username'";
+$result = $conn->query($sql_check_username);
+
+if ($result->num_rows > 0) {
+    // Nom d'utilisateur déjà pris, rediriger vers signup.html avec un message d'erreur
+    header('Location: signup.html?error=existing_username');
+    exit();
+}
+
 // Requête SQL pour insérer les données dans la table
 $sql = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$first_name', '$last_name', '$username', '$password')";
 
@@ -48,3 +58,4 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 ?>
+
