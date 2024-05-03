@@ -29,9 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['agenda_code'] = $agenda_code;
             $message = "Code d'agenda valide";
 
+            echo "test";
+
             include 'connection_agenda_user.php';
         } else {
             // Si le code n'existe pas, afficher une alerte
+            echo "pas valide";
             $message = "Code d'agenda invalide";
         }
     }
