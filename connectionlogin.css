@@ -100,3 +100,35 @@ a:hover {
     color: #888;
     font-size: 12px;
 }
+
+/* Ajout de styles pour le message de consentement des cookies */
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cookie-consent p {
+    margin: 0;
+}
+
+.cookie-consent button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cookie-consent button:hover {
+    background-color: #0056b3;
+}
+
