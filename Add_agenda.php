@@ -27,13 +27,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Stocker le code de l'agenda dans une variable de session
             session_start();
             $_SESSION['agenda_code'] = $agenda_code;
-            echo "<script>alert('Code d\'agenda valide');</script>";
+            $message = "Code d'agenda valide";
 
             include 'connection_agenda_user.php';
         } else {
             // Si le code n'existe pas, afficher une alerte
-            echo "<script>alert('Code d\'agenda invalide');</script>";
+            $message = "Code d'agenda invalide";
         }
     }
 }
 ?>
+
+<!-- Affichage du message -->
+<?php if (!empty($message)) : ?>
+    <script>
+        alert("<?php echo $message; ?>");
+    </script>
+<?php endif; ?>
