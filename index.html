@@ -27,7 +27,9 @@
   <!-- Afficher le bouton "Continuer avec le compte" si l'utilisateur s'est déjà connecté -->
   <?php
   if (isset($_COOKIE['device_id'])) {
-      echo '<form action="login.php" method="post">';
+      echo '<form action="Agenda.html" method="post">';
+      echo '<input type="hidden" name="username" value="' . $_POST['username'] . '">';
+      echo '<input type="hidden" name="password" value="' . $_POST['password'] . '">';
       echo '<input type="submit" value="Continuer avec le compte ' . $_COOKIE['device_id'] . '">';
       echo '</form>';
   }
