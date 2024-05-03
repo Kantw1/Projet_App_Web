@@ -890,15 +890,20 @@
 
 /* Styles spécifiques pour les téléphones avec une largeur d'écran maximum de 600px */
 @media screen and (max-width: 600px) {
+    /* Définir les variables de couleur */
     :root {
         --primary-clr: #007bff;
     }
+    
+    /* Réinitialisation des styles pour tous les éléments */
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
     }
+    
+    /* Positionnement et style du corps */
     body {
         position: relative;
         min-height: 100vh;
@@ -908,6 +913,8 @@
         padding-bottom: 30px;
         background-color: #e2e1dc;
     }
+    
+    /* Style du conteneur principal */
     .container {
         position: relative;
         width: 100%;
@@ -920,11 +927,15 @@
         border-radius: 0;
         background-color: #373c4f;
     }
+    
+    /* Style des colonnes gauche et droite */
     .left,
     .right {
         width: 100%;
         padding: 20px;
     }
+
+    /* Style du calendrier */
     .calendar {
         width: 100%;
         height: auto;
@@ -935,10 +946,14 @@
         border-radius: 5px;
         background-color: #fff;
     }
+
+    /* Supprimer les pseudo-éléments pour les petits écrans */
     .calendar::before,
     .calendar::after {
-        content: none; /* Supprimer les pseudo-éléments pour les petits écrans */
+        content: none; 
     }
+
+    /* Style du mois du calendrier */
     .calendar .month {
         width: 100%;
         height: auto;
@@ -950,10 +965,14 @@
         font-weight: 500;
         text-transform: capitalize;
     }
+    
+    /* Style des boutons précédent et suivant du calendrier */
     .calendar .month .prev,
     .calendar .month .next {
         cursor: pointer;
     }
+    
+    /* Style des jours de la semaine */
     .calendar .weekdays {
         width: 100%;
         height: auto;
@@ -965,6 +984,8 @@
         font-weight: 500;
         text-transform: capitalize;
     }
+
+    /* Style des jours de la semaine individuels */
     .weekdays div {
         width: 14.28%;
         height: auto;
@@ -972,6 +993,8 @@
         align-items: center;
         justify-content: center;
     }
+    
+    /* Style des jours du calendrier */
     .calendar .days {
         width: 100%;
         display: flex;
@@ -982,6 +1005,8 @@
         font-weight: 500;
         margin-bottom: 20px;
     }
+    
+    /* Style des jours individuels du calendrier */
     .calendar .days .day {
         width: 14.28%;
         height: auto;
@@ -992,32 +1017,48 @@
         color: var(--primary-clr);
         border: 1px solid #f5f5f5;
     }
+
+    /* Style des jours du calendrier lors du survol */
     .calendar .days .day:not(.prev-date, .next-date):hover {
         color: #fff;
         background-color: var(--primary-clr);
     }
+
+    /* Style des jours du calendrier du mois précédent et suivant */
     .calendar .days .prev-date,
     .calendar .days .next-date {
         color: #b3b3b3;
     }
+    
+    /* Style du jour actif du calendrier */
     .calendar .days .active {
         position: relative;
         font-size: 2rem;
         color: #fff;
         background-color: var(--primary-clr);
     }
+
+    /* Style du jour actif du calendrier */
     .calendar .days .active::before {
-        content: none; /* Supprimer les pseudo-éléments pour les petits écrans */
+        content: none;
     }
+
+    /* Style du jour actuel du calendrier */
     .calendar .days .today {
         font-size: 2rem;
     }
+
+    /* Style de l'événement du calendrier */
     .calendar .days .event {
         position: relative;
     }
+
+    /* Supprimer les pseudo-éléments pour les petits écrans */
     .calendar .days .event::after {
-        content: none; /* Supprimer les pseudo-éléments pour les petits écrans */
+        content: none; 
     }
+
+    /* Style du bouton 'Aller à aujourd'hui' */
     .calendar .goto-today {
         width: 100%;
         height: 50px;
@@ -1029,13 +1070,18 @@
         margin-bottom: 20px;
         color: var(--primary-clr);
     }
-    .calendar .goto-today .goto {
+
+    /* Style du bouton 'Aller à aujourd'hui' et de ses enfants */
+    .calendar .goto-today .goto,
+    .calendar .goto-today button {
         display: flex;
         align-items: center;
         border-radius: 5px;
         overflow: hidden;
         border: 1px solid var(--primary-clr);
     }
+
+    /* Style de l'input et du bouton du bouton 'Aller à aujourd'hui' */
     .calendar .goto-today .goto input {
         width: 100%;
         height: 30px;
@@ -1044,31 +1090,30 @@
         border-radius: 5px;
         padding: 0 20px;
         color: var(--primary-clr);
-        border-radius: 5px;
     }
-    .calendar .goto-today button {
-        padding: 5px 10px;
-        border: 1px solid var(--primary-clr);
-        border-radius: 5px;
-        background-color: transparent;
-        cursor: pointer;
-        color: var(--primary-clr);
-    }
+
+    /* Style du bouton du bouton 'Aller à aujourd'hui' lors du survol */
     .calendar .goto-today button:hover {
         color: #fff;
         background-color: var(--primary-clr);
     }
+
+    /* Style du bouton 'Aller à aujourd'hui' */
     .calendar .goto-today .goto button {
         border: none;
         border-left: 1px solid var(--primary-clr);
         border-radius: 0;
     }
+
+    /* Style du conteneur de la colonne droite */
     .container .right {
         position: relative;
         width: 100%;
         min-height: 100%;
         padding: 20px 0;
     }
+
+    /* Style de la date actuelle dans la colonne droite */
     .right .today-date {
         width: 100%;
         height: auto;
@@ -1083,15 +1128,21 @@
         margin-bottom: 20px;
         text-transform: capitalize;
     }
+
+    /* Style du jour de l'événement dans la colonne droite */
     .right .today-date .event-day {
         font-size: 2rem;
         font-weight: 500;
     }
+
+    /* Style de la date de l'événement dans la colonne droite */
     .right .today-date .event-date {
         font-size: 1rem;
         font-weight: 400;
         color: #878895;
     }
+
+    /* Style des événements */
     .events {
         width: 100%;
         height: auto;
@@ -1102,6 +1153,8 @@
         flex-direction: column;
         padding-left: 4px;
     }
+
+    /* Style de chaque événement */
     .events .event {
         position: relative;
         width: 95%;
@@ -1116,29 +1169,43 @@
         background: linear-gradient(90deg, #3f4458, transparent);
         cursor: pointer;
     }
+
+    /* Style des événements alternés */
     .events .event:nth-child(even) {
         background: transparent;
     }
+
+    /* Style des événements lors du survol */
     .events .event:hover {
         background: linear-gradient(90deg, var(--primary-clr), transparent);
     }
+
+    /* Style du titre de l'événement */
     .events .event .title {
         display: flex;
         align-items: center;
         pointer-events: none;
     }
+
+    /* Style du titre de l'événement */
     .events .event .title .event-title {
         font-size: 1rem;
         font-weight: 400;
         margin-left: 20px;
     }
+
+    /* Style de l'icône de l'événement */
     .events .event i {
         color: var(--primary-clr);
         font-size: 0.5rem;
     }
+
+    /* Style de l'icône de l'événement lors du survol */
     .events .event:hover i {
         color: #fff;
     }
+
+    /* Style de l'heure de l'événement */
     .events .event .event-time {
         font-size: 0.8rem;
         font-weight: 400;
@@ -1146,9 +1213,13 @@
         margin-left: 15px;
         pointer-events: none;
     }
+
+    /* Style de l'heure de l'événement lors du survol */
     .events .event:hover .event-time {
         color: #fff;
     }
+
+    /* Style de l'icône de validation de l'événement */
     .events .event::after {
         content: "✓";
         position: absolute;
@@ -1163,9 +1234,13 @@
         color: var(--primary-clr);
         transform: translateY(-50%);
     }
+
+    /* Style de l'icône de validation de l'événement lors du survol */
     .events .event:hover::after {
         display: flex;
     }
+
+    /* Style du bouton d'ajout d'événement */
     .add-event {
         position: fixed;
         bottom: 30px;
@@ -1183,12 +1258,18 @@
         background-color: transparent;
         cursor: pointer;
     }
+
+    /* Style du bouton d'ajout d'événement lors du survol */
     .add-event:hover {
         opacity: 1;
     }
+
+    /* Désactivation de l'événement de pointer */
     .add-event i {
         pointer-events: none;
     }
+
+    /* Style du message "Aucun événement" */
     .events .no-event {
         width: 100%;
         height: 100%;
@@ -1199,6 +1280,8 @@
         font-weight: 500;
         color: #878895;
     }
+
+    /* Style du conteneur d'ajout d'événement */
     .add-event-wrapper {
         position: fixed;
         bottom: 100px;
@@ -1211,9 +1294,13 @@
         transform: translateX(-50%);
         transition: max-height 0.5s ease;
     }
+
+    /* Activation du conteneur d'ajout d'événement */
     .add-event-wrapper.active {
         max-height: 400px;
     }
+
+    /* Style de l'en-tête du conteneur d'ajout d'événement */
     .add-event-header {
         width: 100%;
         height: 50px;
@@ -1224,17 +1311,25 @@
         color: #373c4f;
         border-bottom: 1px solid #f5f5f5;
     }
+
+    /* Style du bouton de fermeture du conteneur d'ajout d'événement */
     .add-event-header .close {
         font-size: 1.5rem;
         cursor: pointer;
     }
+
+    /* Style du bouton de fermeture du conteneur d'ajout d'événement lors du survol */
     .add-event-header .close:hover {
         color: var(--primary-clr);
     }
+
+    /* Style du titre du conteneur d'ajout d'événement */
     .add-event-header .title {
         font-size: 1.2rem;
         font-weight: 500;
     }
+
+    /* Style du corps du conteneur d'ajout d'événement */
     .add-event-body {
         width: 100%;
         height: 100%;
@@ -1243,6 +1338,8 @@
         gap: 5px;
         padding: 20px;
     }
+
+    /* Style de l'entrée du conteneur d'ajout d'événement */
     .add-event-body .add-event-input {
         width: 100%;
         height: 40px;
@@ -1251,6 +1348,8 @@
         justify-content: space-between;
         gap: 10px;
     }
+
+    /* Style de l'entrée du conteneur d'ajout d'événement */
     .add-event-body .add-event-input input {
         width: 100%;
         height: 100%;
@@ -1262,21 +1361,31 @@
         font-weight: 400;
         color: #373c4f;
     }
+
+    /* Style du texte de l'entrée du conteneur d'ajout d'événement */
     .add-event-body .add-event-input input::placeholder {
         color: #a5a5a5;
     }
+
+    /* Style du texte de l'entrée du conteneur d'ajout d'événement lors du focus */
     .add-event-body .add-event-input input:focus {
         border-bottom: 1px solid var(--primary-clr);
     }
+
+    /* Style du texte de l'entrée du conteneur d'ajout d'événement lors du focus */
     .add-event-body .add-event-input input:focus::placeholder {
         color: var(--primary-clr);
     }
+
+    /* Style du pied du conteneur d'ajout d'événement */
     .add-event-footer {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
     }
+
+    /* Style du bouton du pied du conteneur d'ajout d'événement */
     .add-event-footer .add-event-btn {
         height: 40px;
         font-size: 1rem;
@@ -1290,147 +1399,11 @@
         padding: 5px 10px;
         border: 1px solid var(--primary-clr);
     }
+
+    /* Style du bouton du pied du conteneur d'ajout d'événement lors du survol */
     .add-event-footer .add-event-btn:hover {
         background-color: transparent;
         color: var(--primary-clr);
     }
-    @media screen and (max-width: 1000px) {
-        body {
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
-        .container {
-            min-height: 100vh;
-            flex-direction: column;
-            border-radius: 0;
-        }
-        .container .left {
-            width: 100%;
-            height: 100%;
-            padding: 20px 0;
-        }
-        .container .right {
-            width: 100%;
-            height: 100%;
-            padding: 20px 0;
-        }
-        .calendar::before,
-        .calendar::after {
-            top: 100%;
-            left: 50%;
-            width: 97%;
-            height: 12px;
-            border-radius: 0 0 5px 5px;
-            transform: translateX(-50%);
-        }
-        .calendar::before {
-            width: 94%;
-            top: calc(100% + 12px);
-        }
-        .events {
-            padding-bottom: 340px;
-        }
-        .add-event-wrapper {
-            bottom: 100px;
-        }
-    }
-    @media screen and (max-width: 500px) {
-        .calendar .month {
-            height: 75px;
-        }
-        .calendar .weekdays {
-            height: 50px;
-        }
-        .calendar .days .day {
-            height: 40px;
-            font-size: 0.8rem;
-        }
-        .calendar .days .day.active,
-        .calendar .days .day.today {
-            font-size: 1rem;
-        }
-        .right .today-date {
-            padding: 20px;
-        }
-    }
-    #toggleNav {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1001;
-        /* Doit être supérieur à la navigation */
-        background-color: rgba(55, 60, 79, 0.8);
-        border: none;
-        border-radius: 10px;
-        padding: 10px 20px;
-        color: #fff;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-    .navigation {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        bottom: 20px;
-        z-index: 1000;
-        background-color: rgba(55, 60, 79, 0.8);
-        border-radius: 10px;
-        padding: 10px;
-        /* La navigation est cachée par défaut */
-        display: none;
-    }
-    .navigation .top-right {
-        margin-bottom: auto;
-        /* Place les liens en haut */
-    }
-    #other-agendas {
-        padding: 10px;
-        font-size: 16px;
-        border: none;
-        border-radius: 5px;
-        background-color: var(--primary-clr);
-        color: #fff;
-        cursor: pointer;
-        outline: none;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-    }
-    #other-agendas option {
-        padding: 10px;
-        font-size: 16px;
-        background-color: var(--primary-clr);
-        color: #fff;
-        cursor: pointer;
-        outline: none;
-    }
-    .navigation .middle-right {
-        margin-left: auto;
-        /* Centre l'élément horizontalement */
-        margin-right: auto;
-        /* Centre l'élément horizontalement */
-    }
-    .add-calendar {
-        position: fixed;
-        bottom: 400px;
-        right: 85px;
-        width: 150px;
-        height: 150px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        color: #878895;
-        border: 2px solid #878895;
-        border-radius: 50%;
-        background-color: transparent;
-        cursor: pointer;
-        transition: bottom 0.3s;
-    }
-    .add-calendar:hover {
-        background-color: rgba(135, 136, 149, 0.5);
-    }
-    .add-calendar i {
-        pointer-events: none;
-    }
-}
+
+   
