@@ -37,7 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "pas valide";
             $message = "Code d'agenda invalide";
         }
+        echo "eiste pas";
     }
+    echo "eiste pas2";
 }
 ?>
 
