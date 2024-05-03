@@ -5,6 +5,10 @@ use PHPMailer\PHPMailer\Exception;
 // Inclure PHPMailer
 require 'vendor/autoload.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Connexion à la base de données
 $servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
