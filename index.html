@@ -10,7 +10,7 @@
 <div class="container">
   <h1>Agenda Collaboratif - CY'Calender</h1>
   <h2> Avez-vous déjà un compte ? </h2>
-  <form action="login.php" method="post">
+  <form id="loginForm" action="login.php" method="post">
     <div class="form-group">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required/>
@@ -25,15 +25,7 @@
   </form>
 
   <!-- Afficher le bouton "Continuer avec le compte" si l'utilisateur s'est déjà connecté -->
-  <?php
-  if (isset($_COOKIE['device_id'])) {
-      echo '<form action="Agenda.html" method="post">';
-      echo '<input type="hidden" name="username" value="' . $_POST['username'] . '">';
-      echo '<input type="hidden" name="password" value="' . $_POST['password'] . '">';
-      echo '<input type="submit" value="Continuer avec le compte ' . $_COOKIE['device_id'] . '">';
-      echo '</form>';
-  }
-  ?>
+  <button id="continueBtn" style="display:none;">Continuer avec le compte</button>
 
   <!-- Lien pour ouvrir le formulaire de création de compte dans une autre page -->
   <h2> Créer un compte </h2>
@@ -61,6 +53,23 @@ function acceptCookies() {
     document.cookie = "cookie_accepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     document.getElementById("cookie-consent").style.display = "none";
 }
+
+// Vérifie si l'utilisateur est déjà connecté et affiche le bouton "Continuer avec le compte"
+window.onload = function() {
+    var device_id = '<?php echo isset($_COOKIE['device_id']) ? $_COOKIE['device_id'] : ''; ?>';
+    if (device_id) {
+        document.getElementById("continueBtn").style.display = "block";
+    }
+}
+
+// Redirige vers Agenda.html avec les données de connexion si l'utilisateur continue avec son compte
+document.getElementById("continueBtn").addEventListener("click", function() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("pass").value;
+    document.cookie = "username=" + username;
+    document.cookie = "password=" + password;
+    window.location.href = "Agenda.html";
+});
 </script>
 
 <!-- Message pour accepter les cookies -->
