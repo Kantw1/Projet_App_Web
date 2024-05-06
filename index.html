@@ -29,7 +29,7 @@
   </div>
 
   <!-- Afficher le bouton "Continuer avec le compte" si l'utilisateur s'est déjà connecté -->
-  <button id="continueBtn">Continuer avec le compte</button>
+  <button id="continueBtn" style="display: none;">Continuer avec le compte</button>
 
   <!-- Lien pour ouvrir le formulaire de création de compte dans une autre page -->
   <h2> Créer un compte </h2>
@@ -62,10 +62,11 @@
 function acceptCookies() {
     document.cookie = "cookie_accepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
     document.getElementById("cookie-consent").style.display = "none";
+    checkCookies(); // Ajout de cette ligne pour vérifier les cookies après leur acceptation
 }
 
 // Vérifie si l'utilisateur est déjà connecté et affiche le bouton "Continuer avec le compte"
-window.onload = function() {
+function checkCookies() {
     var cookieAccepted = getCookie("cookie_accepted");
     var username = getCookie("username");
     
@@ -91,6 +92,9 @@ function getCookie(name) {
 document.getElementById("continueBtn").addEventListener("click", function() {
     window.location.href = "Agenda.html";
 });
+
+// Vérifie les cookies au chargement de la page
+window.onload = checkCookies;
 </script>
 
 </body>
