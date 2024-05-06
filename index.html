@@ -66,21 +66,32 @@ function acceptCookies() {
 
 // Vérifie si l'utilisateur est déjà connecté et affiche le bouton "Continuer avec le compte"
 window.onload = function() {
-    var device_id = '<?php echo isset($_COOKIE['device_id']) ? $_COOKIE['device_id'] : ''; ?>';
-    if (device_id) {
+    var username = getCookie("username");
+    if (username) {
         document.getElementById("continueBtn").style.display = "block";
     }
 }
 
+// Fonction pour obtenir un cookie spécifique
+function getCookie(name) {
+    var cookieArr = document.cookie.split("; ");
+    for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+        if (name === cookiePair[0]) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
 // Redirige vers Agenda.html avec les données de connexion si l'utilisateur continue avec son compte
 document.getElementById("continueBtn").addEventListener("click", function() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("pass").value;
-    document.cookie = "username=" + username;
-    document.cookie = "password=" + password;
+    var username = getCookie("username");
+    var password = getCookie("password");
     window.location.href = "Agenda.html";
 });
 </script>
 
 </body>
 </html>
+
