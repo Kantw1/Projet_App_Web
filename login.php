@@ -33,6 +33,16 @@ if ($result->num_rows > 0) {
     $_SESSION['last_name'] = $row['last_name'];
     $_SESSION['user_id'] = $row['id']; // Stockage de l'ID de l'utilisateur
     
+    // Création d'un cookie sécurisé pour se souvenir de l'utilisateur
+    $cookie_name = "user_id";
+    $cookie_value = $row['id'];
+    $cookie_expire = time() + (86400 * 30); // Expire dans 30 jours
+    $cookie_path = "/"; // Chemin du cookie
+    $cookie_domain = "cycalender.site"; // Votre domaine
+    $cookie_secure = true; // Cookie sécurisé (HTTPS uniquement)
+    $cookie_httponly = true; // Cookie accessible uniquement via HTTP
+    setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly);
+    
     // Redirection vers l'agenda collaboratif
     header('Location: Agenda.html');
     exit;
