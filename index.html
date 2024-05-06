@@ -64,6 +64,17 @@ function acceptCookies() {
     document.getElementById("cookie-consent").style.display = "none";
 }
 
+// Vérifie si l'utilisateur est déjà connecté et affiche le bouton "Continuer avec le compte"
+window.onload = function() {
+    var cookieAccepted = getCookie("cookie_accepted");
+    var username = getCookie("username");
+    
+    if (cookieAccepted === "true" && username) {
+        document.getElementById("continueBtn").style.display = "block";
+        document.getElementById("continueBtn").innerHTML = "Connexion avec le compte " + username;
+    }
+}
+
 // Fonction pour obtenir un cookie spécifique
 function getCookie(name) {
     var cookieArr = document.cookie.split("; ");
@@ -77,22 +88,7 @@ function getCookie(name) {
 }
 
 // Redirige vers Agenda.html avec les données de connexion si l'utilisateur continue avec son compte
-window.onload = function() {
-    var username = getCookie("username");
-    if (username) {
-        document.getElementById("continueBtn").style.display = "block";
-        document.getElementById("continueBtn").innerHTML = "Connexion avec le compte " + username;
-    }
-}
-
-// Bouton pour se connecter automatiquement avec le compte
 document.getElementById("continueBtn").addEventListener("click", function() {
-    var username = getCookie("username");
-    var password = getCookie("password");
-    // Vous pouvez ajouter ici le code pour la connexion automatique
-    // par exemple, soumettre le formulaire de connexion avec les informations des cookies
-    // window.location.href = "login.php?username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
-    // ou rediriger vers la page Agenda.html si l'utilisateur est déjà connecté
     window.location.href = "Agenda.html";
 });
 </script>
