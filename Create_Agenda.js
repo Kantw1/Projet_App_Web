@@ -19,8 +19,7 @@ const Agenda_name = document.querySelector(".Agenda_name"),
         .then(response => response.text())
             .then(data => {
                 //alert(data);
-                deleteAllAgendaElements()
-                //getAgendaData();
+                getAgendaData();
             })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
    });

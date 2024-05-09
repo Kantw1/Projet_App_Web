@@ -29,6 +29,12 @@ const agendaData = [
 // Fonction pour afficher les données des agendas dans la liste
 function displayAgendaData(agendaData) {
     const agendaList = document.getElementById("agenda-list");
+
+    // Supprimer tous les éléments de la liste
+    while (agendaList.firstChild) {
+        agendaList.removeChild(agendaList.firstChild);
+    }
+    
     if (agendaList) {
         agendaData.forEach(function(agenda, index) {
             const li = document.createElement("li");
@@ -85,14 +91,6 @@ function deleteAgenda(codeAgenda, liElement) {
         .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
     }
 }
-
-function deleteAllAgendaElements() {
-    const agendaList = document.getElementById("agenda-list");
-    if (agendaList) {
-        agendaList.remove();
-        }
-    }
-
 
 // Appel de la fonction pour récupérer les données des agendas au chargement de la page
 //window.onload = getAgendaData;
