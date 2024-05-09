@@ -1,6 +1,6 @@
 
 // Fonction pour récupérer les données des agendas depuis Liste_agenda.php
-function getAgendaData(num_verif) {
+function getAgendaDatas() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
     .then(Data => {
@@ -14,7 +14,7 @@ function getAgendaData(num_verif) {
         // Afficher les données des agendas dans une alerte
         //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         // Appeler la fonction pour afficher les données des agendas
-        displayAgendaData(agendaData);
+        displayAgendaDatas(agendaData);
        
         
     })
@@ -29,7 +29,7 @@ const agendaData = [
 */
 
 // Fonction pour afficher les données des agendas dans la liste
-function displayAgendaData(agendaData) {
+function displayAgendaDatas(agendaData) {
     const agendaList = document.getElementById("agenda-list");
 
     // Supprimer tous les éléments de la liste
