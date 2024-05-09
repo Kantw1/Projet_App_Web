@@ -16,7 +16,7 @@ function getAgendaData(num_verif) {
         // Appeler la fonction pour afficher les données des agendas
         if(num_verif === 0){
             alert("ici");
-            displayAgendaData(agendaData);
+            //displayAgendaData(agendaData);
         }
         else {
             alert("la");
