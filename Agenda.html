@@ -55,9 +55,9 @@
         <p>ou</p>
         <form action="Create_Agenda.php" method="post">
           <label for="Agenda_name">Nom de l'agenda:</label>
-          <br />
-          <input type="text" id="Agenda_name" name="Agenda_name" required />
-          <br /><br />
+          </br>
+          <input type="text" id="Agenda_name" name="Agenda_name" required/>
+          </br></br>
           <button type="submit" name="create-agenda">Créer un nouvel agenda</button>
         </form>
       </div>
@@ -112,31 +112,36 @@
             <i class="fas fa-times close"></i>
           </div>
           <div class="add-event-body">
-            <h2>Créer un événement</h2>
-    <form action="create_event.php" method="post">
-        <label for="event_name">Nom de l'événement :</label><br>
-        <input type="text" id="event_name" name="event_name" required><br><br>
-
-        <label for="event_start_time">Heure de début :</label><br>
-        <input type="datetime-local" id="event_start_time" name="event_start_time" required><br><br>
-
-        <label for="event_end_time">Heure de fin :</label><br>
-        <input type="datetime-local" id="event_end_time" name="event_end_time" required><br><br>
-
-        <label for="event_description">Description :</label><br>
-        <textarea id="event_description" name="event_description" required></textarea><br><br>
-
-        <label for="event_place">Lieu :</label><br>
-        <input type="text" id="event_place" name="event_place" required><br><br>
-
-        <label for="event_creator">Créateur :</label><br>
-        <input type="text" id="event_creator" name="event_creator" required><br><br>
-
-        <!-- Champ pour le code de l'agenda -->
-        <input type="hidden" id="agenda_code" name="agenda_code" value="ABC123">
-
-        <input type="submit" name="create-event" value="Créer l'événement">
-    </form>
+            <form action="Create_Event.php" method="post">
+              <div class="add-event-input">
+                <input type="text" placeholder="Nom de l'événement" class="event-name" name="event-name"/>
+              </div>
+              <div class="add-event-input">
+                <input
+                  type="text"
+                  placeholder="Heure de début de l'événement"
+                  class="event-time-from"
+                  name="event-time-from"
+                />
+              </div>
+              <div class="add-event-input">
+                <input
+                  type="text"
+                  placeholder="Heure de fin de l'événement"
+                  class="event-time-to"
+                  name="event-time-to"
+                />
+              </div>
+              <div class="add-event-input">
+                <input type="text" placeholder="Description de l'événement" class="event-description" name="event-description"/>
+              </div>
+              <div class="add-event-input">
+                <input type="text" placeholder="Lieu de l'événement" class="event-place" name="event-place"/>
+              </div>
+            </form>
+          </div>
+          <div class="add-event-footer">
+            <button class="add-event-btn">Ajouter l'événement</button>
           </div>
         </div>
       </div>
@@ -156,7 +161,7 @@
       </div>
     </div>
 
-    <script src="Agenda_page.js"></script>
+    <script src="Agenda_page.js" ></script>
     <script src="Agenda_bouton.js"></script>
     <script src="User.js"></script>
     <script src="Liste_agenda.js"></script>
@@ -164,3 +169,4 @@
     <script src="Liste_autres_agenda.js"></script>
   </body>
 </html>
+
