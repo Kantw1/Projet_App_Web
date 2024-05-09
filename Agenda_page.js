@@ -639,3 +639,9 @@ selectElement.addEventListener("change", function() {
 
 //username
 
+const toggleNav = document.getElementById('toggleNav');
+const body = document.body;
+
+toggleNav.addEventListener('click', () => {
+  body.classList.toggle('nav-open');
+});
