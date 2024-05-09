@@ -907,21 +907,31 @@
 }   
 
 @media screen and (max-width: 768px) {
-  .navigation {
-    position: fixed;
+  body.nav-open .navigation {
+    display: flex;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 50%;
     z-index: 1000;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
   }
 
-  .container {
+  body.nav-open .container {
     margin-top: 0;
+  }
+
+  body.nav-open .account {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 900;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
