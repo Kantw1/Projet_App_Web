@@ -27,7 +27,6 @@ const agendaData = [
     { name: "Agenda Travail", code: "GHI789" }
 ];
 */
-/*
 // Fonction pour afficher les données des agendas dans la liste
 function displayAgendaData(agendaData) {
     const agendaList = document.getElementById("agenda-list");
@@ -73,7 +72,6 @@ function displayAgendaData(agendaData) {
         });
     }
 }
-*/
 // Fonction pour supprimer un agenda
 function deleteAgenda(codeAgenda, liElement) {
     if (confirm("Voulez-vous vraiment supprimer cet agenda ?")) {
