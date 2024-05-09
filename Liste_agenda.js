@@ -14,13 +14,13 @@ function getAgendaData(num_verif) {
         // Afficher les données des agendas dans une alerte
         //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         // Appeler la fonction pour afficher les données des agendas
-        if(num_verif === 1){
+        if(num_verif){
             alert("ici");
             displayAgendaData(agendaData);
         }
         else {
             alert("la");
-            displayLastAgendaData(agendaData)
+            //displayLastAgendaData(agendaData)
         }
         
     })
