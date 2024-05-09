@@ -365,27 +365,17 @@ function compareTimes(hours1,minutes1,hours2,minutes2) {
 }
 
 
+//function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
-  const eventDescription = addEventDescription.value;
-  const eventPlace = addEventPlace.value;
-  
-  // Envoi des données à create_event.php via une requête AJAX
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "create_event.php", true);
-  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      // Afficher la réponse
-      console.log(xhr.responseText);
-    }
-  };
-  const data = `eventTitle=${eventTitle}&eventTimeFrom=${eventTimeFrom}&eventTimeTo=${eventTimeTo}&eventDescription=${eventDescription}&eventPlace=${eventPlace}`;
-  xhr.send(data);
-});
-
+  const eventDescription = addEventDescription.value; // Ajout de la description
+  const eventPlace = addEventPlace.value; // Ajout de la position
+  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+    alert("Please fill all the fields");
+    return;
+  }
 
   //check correct time format 24 hour
   const timeFromArr = eventTimeFrom.split(":");
