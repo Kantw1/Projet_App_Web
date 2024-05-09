@@ -35,13 +35,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_end_time = $_POST['event_end_time'];
         $event_description = $_POST['event_description'];
         $event_place = $_POST['event_place'];
-        $code_agenda = $_POST['code_agenda']; // Ajout du code_agenda
+        $event_creator = $_POST['event_creator'];
 
         // Génération d'un code d'événement unique
         $uniqueCode = generateUniqueCode();
 
         // Insertion de l'événement dans la base de données
-        $sql_insert = "INSERT INTO events (title, time_from, time_to, description, place, creator, code_agenda) VALUES ('$event_name', '$event_start_time', '$event_end_time', '$event_description', '$event_place', 'creator_name', '$code_agenda')";
+        $sql_insert = "INSERT INTO events (title, day, month, year, time, description, place, creator, code_agenda) VALUES ('$event_name', '$event_start_time', '$event_end_time', '$event_description', '$event_place', '$event_creator', '$uniqueCode')";
         if ($conn->query($sql_insert) === TRUE) {
             $alert_message = "Nouvel événement créé avec succès avec le code : " . $uniqueCode;
         } else {
