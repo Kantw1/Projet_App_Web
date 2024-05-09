@@ -26,7 +26,7 @@ function generateUniqueCode($length = 7) {
 $alert_message = "";
 
     // Vérification si le bouton "Créer un nouvel agenda" a été soumis
-    if (isset($_POST["create-agenda"])) {
+    if (isset($_POST["Agenda_name"])) {
         // Récupération du nom de l'agenda depuis le formulaire
         $agenda_name = $_POST['Agenda_name'];
 
