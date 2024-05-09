@@ -47,7 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $uniqueCode = generateUniqueCode();
 
         // Insertion de l'événement dans la base de données
-        $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES ('$event_start_time', '$event_end_time', '$event_name', '$event_description', '$event_place', '$event_creator', '$agenda_code')";
+        $sql_insert = "INSERT INTO events (title, start_time, end_time, description, place, creator, code_agenda) VALUES ('$event_name', '$event_start_time', '$event_end_time', '$event_description', '$event_place', '$event_creator', '$agenda_code')";
+
 
         if ($conn->query($sql_insert) === TRUE) {
             $alert_message = "Nouvel événement créé avec succès avec le code : " . $uniqueCode;
