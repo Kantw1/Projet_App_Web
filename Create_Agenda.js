@@ -16,5 +16,9 @@ const Agenda_name = document.querySelector(".Agenda_name"),
             },
             body: 'Agenda_name=' + encodeURIComponent(AgendaName),
         })
+        .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
    });
