@@ -1,172 +1,157 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Restez organisé avec notre Calendrier convivial proposant des événements, des rappels et une interface personnalisable. Construit avec HTML, CSS et JavaScript. Commencez à planifier dès aujourd'hui!"
-    />
-    <meta
-      name="keywords"
-      content="calendrier, événements javascript, html, css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="Agenda.css" />
-    <title>Calendrier</title>
-  </head>
-  <body>
-    <button id="toggleNav">Menu</button>
-    <div class="navigation">
-      <div class="top-right">
-        <select id="other-agendas">
-          <option value="" selected disabled>Autres Agendas</option>
-        </select>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Restez organisé avec notre Calendrier convivial proposant des événements, des rappels et une interface personnalisable. Construit avec HTML, CSS et JavaScript. Commencez à planifier dès aujourd'hui!" />
+  <meta name="keywords" content="calendrier, événements javascript, html, css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="Agenda.css" />
+  <title>Calendrier</title>
+</head>
+<body>
+<button id="toggleNav">Menu</button>
+<div class="navigation">
+  <div class="top-right">
+    <select id="other-agendas">
+      <option value="" selected disabled>Autres Agendas</option>
+    </select>
+  </div>
+  <div class="middle-right">
+    <button id="toggleADD" class="add-calendar">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+  <div class="bottom-left">
+    <ul>
+      <li><button id="toggleCount">Mon compte</button></li>
+      <li><a href="deconnection.php">Se déconnecter</a></li>
+    </ul>
+  </div>
+</div>
+<div class="new-agenda">
+  <h3>Ajouter un nouvel agenda :</h3>
+  <div class="code-input">
+    <form action="Agenda.html" method="POST">
+      <label for="agenda-code">Entrez le code de l'agenda :</label>
+      <input type="text" id="agenda-code" name="agenda-code" maxlength="8" pattern="[A-Za-z0-9]{1,8}" title="Le code ne doit contenir que des chiffres et des lettres, et avoir une longueur maximale de 8 caractères" required>
+      <button type="submit" id="add-agenda">Ajouter</button>
+    </form>
+  </div>
+  <div class="create-new">
+    <p>ou</p>
+    <form action="Create_Agenda.php" method="post">
+      <label for="Agenda_name">Nom de l'agenda:</label>
+      </br>
+      <input type="text" id="Agenda_name" name="Agenda_name" required/>
+      </br></br>
+      <button type="submit" name="create-agenda">Créer un nouvel agenda</button>
+    </form>
+  </div>
+</div>
+<div class="information-evenement">
+  <p id="eventTitle" class="event-detail"></p>
+  <p id="eventTime" class="event-detail"></p>
+  <p id="eventPlace" class="event-detail"></p>
+  <p id="eventDescription" class="event-detail"></p>
+  <button id="toggleSUPP">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+</div>
+
+<div class="container">
+  <div class="left">
+    <div class="calendar">
+      <div class="month">
+        <i class="fas fa-angle-left prev"></i>
+        <div class="date">décembre 2015</div>
+        <i class="fas fa-angle-right next"></i>
       </div>
-      <div class="middle-right">
-        <button id="toggleADD" class="add-calendar">
-          <i class="fas fa-plus"></i>
-        </button>
+      <div class="weekdays">
+        <div>Lundi</div>
+        <div>Mardi</div>
+        <div>Mercredi</div>
+        <div>Jeudi</div>
+        <div>Vendredi</div>
+        <div>Samedi</div>
+        <div>Dimanche</div>
       </div>
-      <div class="bottom-left">
-        <ul>
-          <li><button id="toggleCount">Mon compte</button></li>
-          <li><a href="deconnection.php">Se déconnecter</a></li>
-        </ul>
+      <div class="days"></div>
+      <div class="goto-today">
+        <div class="goto">
+          <input type="text" placeholder="mm/aaaa" class="date-input" />
+          <button class="goto-btn">Aller</button>
+        </div>
+        <button class="today-btn">Aujourd'hui</button>
       </div>
     </div>
-    <div class="new-agenda">
-      <h3>Ajouter un nouvel agenda :</h3>
-      <div class="code-input">
-        <form action="Agenda.html" method="POST">
-          <label for="agenda-code">Entrez le code de l'agenda :</label>
-          <input type="text" id="agenda-code" name="agenda-code" maxlength="8" pattern="[A-Za-z0-9]{1,8}" title="Le code ne doit contenir que des chiffres et des lettres, et avoir une longueur maximale de 8 caractères" required>
-          <button type="submit" id="add-agenda">Ajouter</button>
+  </div>
+
+  <div class="right">
+    <div class="today-date">
+      <div class="event-day">mer</div>
+      <div class="event-date">12 décembre 2022</div>
+    </div>
+    <div class="events"></div>
+    <div class="add-event-wrapper">
+      <div class="add-event-header">
+        <div class="title">Ajouter un événement</div>
+        <i class="fas fa-times close"></i>
+      </div>
+      <div class="add-event-body">
+        <form action="Create_Event.php" method="post">
+          <div class="add-event-input">
+            <input type="text" placeholder="Nom de l'événement" class="event-name" name="event_name" />
+          </div>
+          <div class="add-event-input">
+            <input type="date" placeholder="Date de début" class="event-date" name="event_date" />
+            <input type="time" placeholder="Heure de début" class="event-time-from" name="event_time_from" />
+          </div>
+          <div class="add-event-input">
+            <input type="date" placeholder="Date de fin" class="event-date" name="event_date_end" />
+            <input type="time" placeholder="Heure de fin" class="event-time-to" name="event_time_to" />
+          </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Description de l'événement" class="event-description" name="event_description" />
+          </div>
+          <div class="add-event-input">
+            <input type="text" placeholder="Lieu de l'événement" class="event-place" name="event_place" />
+          </div>
+          <div class="add-event-input">
+            <input type="hidden" value="<?php echo $agenda_code; ?>" name="agenda_code" />
+            <input type="hidden" value="<?php echo $event_creator; ?>" name="event_creator" />
+          </div>
         </form>
       </div>
-      <div class="create-new">
-        <p>ou</p>
-        <form action="Create_Agenda.php" method="post">
-          <label for="Agenda_name">Nom de l'agenda:</label>
-          </br>
-          <input type="text" id="Agenda_name" name="Agenda_name" required/>
-          </br></br>
-          <button type="submit" name="create-agenda">Créer un nouvel agenda</button>
-        </form>
+      <div class="add-event-footer">
+        <button class="add-event-btn">Ajouter l'événement</button>
       </div>
     </div>
-    <div class="information-evenement">
-      <p id="eventTitle" class="event-detail"></p>
-      <p id="eventTime" class="event-detail"></p>
-      <p id="eventPlace" class="event-detail"></p>
-      <p id="eventDescription" class="event-detail"></p>
-      <button id="toggleSUPP">
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </div>
+  </div>
+  <button class="add-event">
+    <i class="fas fa-plus"></i>
+  </button>
+</div>
 
-    <div class="container">
-      <div class="left">
-        <div class="calendar">
-          <div class="month">
-            <i class="fas fa-angle-left prev"></i>
-            <div class="date">décembre 2015</div>
-            <i class="fas fa-angle-right next"></i>
-          </div>
-          <div class="weekdays">
-            <div>Lundi</div>
-            <div>Mardi</div>
-            <div>Mercredi</div>
-            <div>Jeudi</div>
-            <div>Vendredi</div>
-            <div>Samedi</div>
-            <div>Dimanche</div>
-          </div>
-          <div class="days"></div>
-          <div class="goto-today">
-            <div class="goto">
-              <input type="text" placeholder="mm/aaaa" class="date-input" />
-              <button class="goto-btn">Aller</button>
-            </div>
-            <button class="today-btn">Aujourd'hui</button>
-          </div>
-        </div>
-      </div>
+<div class="sidebar">
+  <div class="user-data">
+    <!-- Insérez ici les données de l'utilisateur -->
+  </div>
+  <div class="agendas-list">
+    <h2>Liste des Agendas</h2>
+    <ul id="agenda-list">
+      <!-- Les éléments de liste des agendas seront ajoutés dynamiquement ici -->
+    </ul>
+  </div>
+</div>
 
-      <div class="right">
-        <div class="today-date">
-          <div class="event-day">mer</div>
-          <div class="event-date">12 décembre 2022</div>
-        </div>
-        <div class="events"></div>
-        <div class="add-event-wrapper">
-          <div class="add-event-header">
-            <div class="title">Ajouter un événement</div>
-            <i class="fas fa-times close"></i>
-          </div>
-          <div class="add-event-body">
-            <form action="Create_Event.php" method="post">
-              <div class="add-event-input">
-                <input type="text" placeholder="Nom de l'événement" class="event-name" name="event-name"/>
-              </div>
-              <div class="add-event-input">
-                <input
-                  type="text"
-                  placeholder="Heure de début de l'événement"
-                  class="event-time-from"
-                  name="event-time-from"
-                />
-              </div>
-              <div class="add-event-input">
-                <input
-                  type="text"
-                  placeholder="Heure de fin de l'événement"
-                  class="event-time-to"
-                  name="event-time-to"
-                />
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Description de l'événement" class="event-description" name="event-description"/>
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Lieu de l'événement" class="event-place" name="event-place"/>
-              </div>
-            </form>
-          </div>
-          <div class="add-event-footer">
-            <button class="add-event-btn">Ajouter l'événement</button>
-          </div>
-        </div>
-      </div>
-      <button class="add-event">
-        <i class="fas fa-plus"></i>
-      </button>
-    </div>
-    <div class="sidebar">
-      <div class="user-data">
-        <!-- Insérez ici les données de l'utilisateur -->
-      </div>
-      <div class="agendas-list">
-        <h2>Liste des Agendas</h2>
-        <ul id="agenda-list">
-          <!-- Les éléments de liste des agendas seront ajoutés dynamiquement ici -->
-        </ul>
-      </div>
-    </div>
-
-    <script src="Agenda_page.js" ></script>
-    <script src="Agenda_bouton.js"></script>
-    <script src="User.js"></script>
-    <script src="Liste_agenda.js"></script>
-    <script src="window_onload.js"></script>
-    <script src="Liste_autres_agenda.js"></script>
-  </body>
+<script src="Agenda_page.js"></script>
+<script src="Agenda_bouton.js"></script>
+<script src="User.js"></script>
+<script src="Liste_agenda.js"></script>
+<script src="window_onload.js"></script>
+<script src="Liste_autres_agenda.js"></script>
+</body>
 </html>
 
