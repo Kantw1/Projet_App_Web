@@ -112,34 +112,31 @@
             <i class="fas fa-times close"></i>
           </div>
           <div class="add-event-body">
-            <form action="create_event.php" method="post">
-              <div class="add-event-input">
-                <input type="text" placeholder="Nom de l'événement" name="event_name" />
-              </div>
-              <div class="add-event-input">
-                <input
-                  type="text"
-                  placeholder="Heure de début de l'événement"
-                  name="event_start_time"
-                />
-              </div>
-              <div class="add-event-input">
-                <input
-                  type="text"
-                  placeholder="Heure de fin de l'événement"
-                  name="event_end_time"
-                />
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Description de l'événement" name="event_description" />
-              </div>
-              <div class="add-event-input">
-                <input type="text" placeholder="Lieu de l'événement" name="event_place" />
-              </div>
-              <div class="add-event-footer">
-                <button type="submit" class="add-event-btn">Ajouter l'événement</button>
-              </div>
-            </form>
+            <h2>Créer un événement</h2>
+    <form action="create_event.php" method="post">
+        <label for="event_name">Nom de l'événement :</label><br>
+        <input type="text" id="event_name" name="event_name" required><br><br>
+
+        <label for="event_start_time">Heure de début :</label><br>
+        <input type="datetime-local" id="event_start_time" name="event_start_time" required><br><br>
+
+        <label for="event_end_time">Heure de fin :</label><br>
+        <input type="datetime-local" id="event_end_time" name="event_end_time" required><br><br>
+
+        <label for="event_description">Description :</label><br>
+        <textarea id="event_description" name="event_description" required></textarea><br><br>
+
+        <label for="event_place">Lieu :</label><br>
+        <input type="text" id="event_place" name="event_place" required><br><br>
+
+        <label for="event_creator">Créateur :</label><br>
+        <input type="text" id="event_creator" name="event_creator" required><br><br>
+
+        <!-- Champ pour le code de l'agenda -->
+        <input type="hidden" id="agenda_code" name="agenda_code" value="ABC123">
+
+        <input type="submit" name="create-event" value="Créer l'événement">
+    </form>
           </div>
         </div>
       </div>
