@@ -5,14 +5,12 @@ $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
-// Affichage des erreurs PHP à l'écran
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Connexion à la base de données avec gestion des erreurs
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $conn = new mysqli($servername, $username, $password, $dbname);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Vérification de la connexion
 if ($conn->connect_error) {
@@ -43,15 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $event_description = $_POST['event_description'];
         $event_place = $_POST['event_place'];
         $event_creator = $_POST['event_creator'];
-
-        // Génération d'un code d'événement unique
-        $uniqueCode = generateUniqueCode();
+        $agenda_code = $_POST['agenda_code']; // Ajout du code de l'agenda
 
         // Insertion de l'événement dans la base de données
-        $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES ('$event_start_time', '$event_end_time', '$event_name', '$event_description', '$event_place', '$event_creator', '$uniqueCode')";
+        $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES ('$event_start_time', '$event_end_time', '$event_name', '$event_description', '$event_place', '$event_creator', '$agenda_code')";
 
         if ($conn->query($sql_insert) === TRUE) {
-            $alert_message = "Nouvel événement créé avec succès avec le code : " . $uniqueCode;
+            $alert_message = "Nouvel événement créé avec succès dans l'agenda : " . $agenda_code;
         } else {
             $alert_message = "Erreur lors de la création de l'événement : " . $conn->error;
         }
