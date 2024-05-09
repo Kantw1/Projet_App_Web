@@ -5,6 +5,8 @@ $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 error_reporting(E_ALL);
