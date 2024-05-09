@@ -61,6 +61,8 @@ $alert_message = "";
             $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }
+
+/*
 ?>
 
 <!-- Affichage de l'alerte en JavaScript -->
@@ -69,4 +71,5 @@ $alert_message = "";
     <?php if (!empty($alert_message)) { ?>
         alert("<?php echo $alert_message; ?>");
     <?php } ?>
-</script>
+</script>*/
+?>
