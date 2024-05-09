@@ -89,10 +89,9 @@ function deleteAgenda(codeAgenda, liElement) {
 function deleteAllAgendaElements() {
     const agendaList = document.getElementById("agenda-list");
     if (agendaList) {
-        agendaList.innerHTML = ""; // Supprime tous les éléments enfants
+        agendaList.remove();
+        }
     }
-}
-
 
 
 // Appel de la fonction pour récupérer les données des agendas au chargement de la page
