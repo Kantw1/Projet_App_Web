@@ -55,13 +55,11 @@
     </div>
     <div class="create-new">
     	<p>ou</p>
-      <form action="Create_Agenda.php" method="post">
         <label for="Agenda_name">Nom de l'agenda:</label>
       </br>
-        <input type="text" id="Agenda_name" name="Agenda_name" required/>
+        <input type="text" id="Agenda_name" name="Agenda_name" class="Agenda_name" required/>
       </br></br>
-        <button type="submit" name="create-agenda">Créer un nouvel agenda</button>
-    </form>    
+        <button type="submit" name="create-agenda" class="create-agenda">Créer un nouvel agenda</button> 
     </div>
 </div>
 <div class="information-evenement">
@@ -165,5 +163,6 @@
     <script src="Liste_agenda.js"></script>  
     <script src="window_onload.js"></script>
     <script src="Liste_autres_agenda.js"></script>
+    <script src="Create_Agenda.js"></script>
   </body>
 </html>

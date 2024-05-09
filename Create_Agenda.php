@@ -25,8 +25,6 @@ function generateUniqueCode($length = 7) {
 // Déclaration de la variable pour stocker le message d'alerte
 $alert_message = "";
 
-// Vérification de la méthode de requête
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérification si le bouton "Créer un nouvel agenda" a été soumis
     if (isset($_POST["create-agenda"])) {
         // Récupération du nom de l'agenda depuis le formulaire
@@ -57,14 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['agenda_code'] = $uniqueCode;
 
             include 'connection_agenda_user.php';
-            header('Location: Agenda.html');
             $alert_message = "Nouvel agenda créé avec succès avec le code : " . $uniqueCode;
         } else {
             //header('Location: Agenda.html');
             $alert_message = "Erreur lors de la création de l'agenda : " . $conn->error;
         }
     }
-}
 ?>
 
 <!-- Affichage de l'alerte en JavaScript -->
