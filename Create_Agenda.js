@@ -4,7 +4,7 @@ const Agenda_name = document.querySelector(".Agenda_name"),
    Create_agenda.addEventListener("click", () => {
     const AgendaName = Agenda_name.value;
 
-    alert(AgendaName);
+    //alert(AgendaName);
     if (AgendaName === "") {
       alert("Please fill all the fields");
       return;
@@ -18,7 +18,8 @@ const Agenda_name = document.querySelector(".Agenda_name"),
         })
         .then(response => response.text())
             .then(data => {
-                alert(data);
+                //alert(data);
+                deleteAllAgendaElements()
                 getAgendaData();
             })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
