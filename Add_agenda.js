@@ -16,15 +16,14 @@ Add_agenda.addEventListener("click", () => {
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message); // Afficher le message de réponse
-        if(data.message === "Agenda trouvé") {
-            // Code à exécuter si l'agenda est trouvé
+        if(data.message === "Ajout de l'agenda") {
+            getAgendaData_ajout();
+            var nav = document.querySelector('.new-agenda');
+            nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
         } else {
-            // Code à exécuter si l'agenda n'est pas trouvé
+            alert(data.message); // Afficher le message de réponse
         }
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));    
 
-    var nav = document.querySelector('.new-agenda');
-    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
 });
