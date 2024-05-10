@@ -36,9 +36,6 @@ if (isset($_POST["Agenda_Code"])) {
                 if (in_array($agenda_code, $agenda_codes)) {
                     $message = "Agenda déjà acquis";
                 } else {
-                    $message = "";
-                    echo json_encode(array("message" => $message));
-
                     $_SESSION['agenda_code'] = $agenda_code;
                     include 'connection_agenda_user.php';
                 }
@@ -46,13 +43,13 @@ if (isset($_POST["Agenda_Code"])) {
         } else {
             // Si le code n'existe pas, envoyer un message "Agenda non trouvé"
             $message = "Agenda non trouvé";
-            echo json_encode(array("message" => $message));
         }
     } else {
         // Si l'utilisateur n'est pas connecté, renvoyer un message d'erreur
         $message = "Utilisateur non connecté";
-        echo json_encode(array("message" => $message));
     }
+
+    echo json_encode(array("message" => $message));
 }
 
 $conn->close();
