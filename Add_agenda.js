@@ -5,7 +5,6 @@ const Agenda_code = document.querySelector(".agenda-code"),
     const AgendaCode = Agenda_code.value;
     alert(AgendaCode);
 
-    //alert(AgendaName);
     if (AgendaCode === "") {
       alert("Please fill all the fields");
       return;

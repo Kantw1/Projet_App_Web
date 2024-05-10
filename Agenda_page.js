@@ -569,24 +569,19 @@ eventsContainer.addEventListener("click", (e) => {
 });
 
 
-const eventForm = document.querySelector(".add-event-body");
-const addEventBtn = document.querySelector(".add-event-btn");
+//function to get events from local storage
+function getEvents() {
+  //check if events are already saved in local storage then return event else nothing
+  if (localStorage.getItem("events") === null) {
+    return;
+  }
+  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+}
 
-addEventBtn.addEventListener("click", () => {
-    const formData = new FormData(eventForm);
-
-    fetch('create_event.php', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);
-        // Ajoutez ici le code pour mettre à jour l'affichage des événements si nécessaire
-    })
-    .catch(error => console.error('Erreur lors de la création de l\'événement:', error));
-});
-
+//function to save events in local storage enregistrer plus tard sur un fichier externe
+function saveEvents() {
+  localStorage.setItem("events", JSON.stringify(eventsArr));
+}
 
 
 function convertTime(time) {
