@@ -12,12 +12,16 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
- // Vérification si le bouton "Ajouter un agenda" a été soumis
- if (isset($_POST["Agenda_Code"])) {
-    // Récupération du nom de l'agenda depuis le formulaire
-    $agenda_code = $_POST['Agenda_code'];
+// Vérification si le bouton "Ajouter un agenda" a été soumis
+if (isset($_POST["Agenda_Code"])) {
+    // Récupération du code de l'agenda depuis le formulaire
+    $agenda_code = $_POST['Agenda_Code'];
+
     // Démarrer la session
     session_start();
+    // Récupérer l'ID de l'utilisateur depuis la session
+    $user_id = $_SESSION['user_id'];
+
     // Requête SQL pour vérifier si l'Agenda_code appartient à user_Agenda
     $sql = "SELECT COUNT(*) as count FROM user_agenda WHERE user_id = '$user_id' AND FIND_IN_SET('$agenda_code', agenda_code)";
 
@@ -29,15 +33,13 @@ if ($conn->connect_error) {
         if ($count > 0) {
             // Le code Agenda_code appartient à l'utilisateur
             echo "Agenda déjà existant";
-            return true;
         } else {
             // Le code Agenda_code n'appartient pas à l'utilisateur
             echo "Agenda ajouté";
-            return false;
         }
     } else {
         // Erreur lors de l'exécution de la requête SQL
-        return false;
+        echo "Erreur lors de la vérification de l'agenda.";
     }
 
     $conn->close();
