@@ -31,7 +31,8 @@ Add_agenda.addEventListener("click", () => {
                 getAgendaData_ajout();
                 var nav = document.querySelector('.new-agenda');
                 nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
-            });
+            })
+            .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));
         }
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));    
