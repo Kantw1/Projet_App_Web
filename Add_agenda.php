@@ -41,6 +41,9 @@ if (isset($_POST["Agenda_Code"])) {
             } else {
                 // Si l'utilisateur n'a pas d'agenda, ajoutez simplement celui-ci
                 $message = "Ajout de l'agenda";
+                
+                $_SESSION['agenda_code'] = $agenda_code;
+                include 'connection_agenda_user.php';
             }
         } else {
             // Si le code n'existe pas, envoyer un message "Agenda non trouvé"
