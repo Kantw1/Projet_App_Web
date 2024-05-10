@@ -1,68 +1,52 @@
 <?php
 // Connexion à la base de données
-$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$servername = "localhost"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
 $password = "CYCalender1234";
-$dbname = "CYCalenderB";
-
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+$dbname = "votre_base_de_données";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 // Vérification de la connexion
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fonction pour générer un code d'événement aléatoire
-function generateUniqueCode($length = 7) {
-    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $code = '';
-    for ($i = 0; $i < $length; $i++) {
-        $code .= $characters[rand(0, strlen($characters) - 1)];
+// Vérification si les données du formulaire ont été envoyées
+if (isset($_POST["event_name"])) {
+    // Récupération des données du formulaire
+    $day = $_POST['day'];
+    $month = $_POST['month'];
+    $year = $_POST['year'];
+    $title = $_POST['event_name'];
+    $start_time = $_POST['event_time_from'];
+    $end_time = $_POST['event_time_to'];
+    $description = $_POST['event_description'];
+    $place = $_POST['event_place'];
+    $creator = "Nom du créateur"; // A ajuster selon votre système d'authentification
+    $code_agenda = "Code de l'agenda"; // A ajuster selon votre système d'authentification
+
+    // Insertion de l'événement dans la table d'événements
+    $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    // Préparation de la requête
+    $stmt = $conn->prepare($sql_insert);
+    $stmt->bind_param("iiisssssss", $day, $month, $year, $title, $start_time, $end_time, $description, $place, $creator, $code_agenda);
+
+    // Exécution de la requête
+    if ($stmt->execute()) {
+        echo "Événement ajouté avec succès.";
+    } else {
+        echo "Erreur lors de l'ajout de l'événement : " . $conn->error;
     }
-    return $code;
+
+    // Fermeture de la connexion
+    $stmt->close();
 }
 
-// Déclaration de la variable pour stocker le message d'alerte
-$alert_message = "";
-
-// Vérification de la méthode de requête
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification si le formulaire pour créer un événement a été soumis
-    if (isset($_POST["create-event"])) {
-        // Récupération des données de l'événement depuis le formulaire
-        $event_name = $_POST['event_name'];
-        $event_date = $_POST['event_date'];
-        $event_time_from = $_POST['event_time_from'];
-        $event_date_end = $_POST['event_date_end'];
-        $event_time_to = $_POST['event_time_to'];
-        $event_description = $_POST['event_description'];
-        $event_place = $_POST['event_place'];
-        $event_creator = $_POST['event_creator'];
-        $agenda_code = $_POST['agenda_code']; // Ajout de la récupération du code de l'agenda
-
-        // Insertion de l'événement dans la base de données
-        $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES ('$event_date', '$event_month', '$event_year', '$event_name', '$event_date $event_time_from', '$event_date_end $event_time_to', '$event_description', '$event_place', '$event_creator', '$agenda_code')";
-
-        if ($conn->query($sql_insert) === TRUE) {
-            $alert_message = "Nouvel événement créé avec succès avec le code : " . $uniqueCode;
-        } else {
-            $alert_message = "Erreur lors de la création de l'événement : " . $conn->error;
-        }
-    }
-}
+// Fermeture de la connexion
+$conn->close();
 ?>
 
-<!-- Affichage de l'alerte en JavaScript -->
-<script>
-    // Vérification si un message d'alerte est présent
-    <?php if (!empty($alert_message)) { ?>
-        alert("<?php echo $alert_message; ?>");
-    <?php } ?>
-</script>
 
 
