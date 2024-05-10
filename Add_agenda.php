@@ -17,18 +17,16 @@ if (isset($_POST["Agenda_Code"])) {
     // Récupération du code de l'agenda depuis le formulaire
     $agenda_code = $_POST['Agenda_Code'];
 
-    // Démarrer la session
-    session_start();
-    // Récupérer l'ID de l'utilisateur depuis la session
-    $user_id = $_SESSION['user_id'];
-
+    // Vérification si le code généré est présent dans la base de données
     $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$agenda_code'";
     $result_check = $conn->query($sql_check);
     if ($result_check->num_rows > 0) {
-        // Le code existe
-        $_SESSION['agenda_code'] = $agenda_code;
-
-        include 'connection_agenda_user.php';
+        // Si le code existe afficher une alerte : agenda trouvé
+        echo "Agenda trouvé";
+    }
+    else{
+        //afficher une alerte disant agenda non trouvé
+        echo "Agenda non trouvé";
     }
 }
 

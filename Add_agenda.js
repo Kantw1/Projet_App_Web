@@ -18,7 +18,7 @@ const Agenda_code = document.querySelector(".agenda-code"),
         })
         .then(response => response.text())
             .then(data => {
-                getAgendaData_ajout();
+                //getAgendaData_ajout();
                 var nav = document.querySelector('.new-agenda');
                 nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
             })
