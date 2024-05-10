@@ -3,6 +3,7 @@ const Agenda_code = document.querySelector(".agenda-code"),
 
    Create_agenda.addEventListener("click", () => {
     const AgendaCode = Agenda_code.value;
+    alert("test");
 
     //alert(AgendaName);
     if (AgendaCode === "") {
@@ -18,7 +19,7 @@ const Agenda_code = document.querySelector(".agenda-code"),
         })
         .then(response => response.text())
             .then(data => {
-                //alert(data);
+                alert(data);
                 getAgendaData_ajout();
             })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
