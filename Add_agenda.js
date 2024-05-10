@@ -1,7 +1,7 @@
 const Agenda_code = document.querySelector(".agenda-code"),
    Add_agenda = document.querySelector(".add-agenda");
 
-   Create_agenda.addEventListener("click", () => {
+   Add_agenda.addEventListener("click", () => {
     const AgendaCode = Agenda_code.value;
     alert("test");
 
