@@ -16,7 +16,8 @@ Add_agenda.addEventListener("click", () => {
     })
     .then(response => response.json())
     .then(data => {
-        getAgendaData_ajout();
+        alert(data.message); // Afficher le message de réponse
+            getAgendaData_ajout();
             var nav = document.querySelector('.new-agenda');
             nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
     })

@@ -36,6 +36,7 @@ if (isset($_POST["Agenda_Code"])) {
                 if (in_array($agenda_code, $agenda_codes)) {
                     $message = "Agenda déjà acquis";
                 } else {
+                    $message = "TOP";
                     $_SESSION['agenda_code'] = $agenda_code;
                     include 'connection_agenda_user.php';
                 }
