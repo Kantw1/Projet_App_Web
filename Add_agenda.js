@@ -16,24 +16,9 @@ Add_agenda.addEventListener("click", () => {
     })
     .then(response => response.json())
     .then(data => {
-        if(data.message) {
-            alert(data.message); // Afficher le message de réponse
-        } else {
-            fetch('connection_agenda_user.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: '', // Ajoutez le corps de la requête si nécessaire
-            })
-            .then(response => response.json())
-            .then(data => {
-                getAgendaData_ajout();
-                var nav = document.querySelector('.new-agenda');
-                nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
-            })
-            .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));
-        }
+        getAgendaData_ajout();
+        var nav = document.querySelector('.new-agenda');
+        nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));    
 });
