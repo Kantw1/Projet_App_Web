@@ -22,29 +22,15 @@ if (isset($_POST["Agenda_Code"])) {
     // Récupérer l'ID de l'utilisateur depuis la session
     $user_id = $_SESSION['user_id'];
 
-    // Requête SQL pour vérifier si l'Agenda_code appartient à user_Agenda
-    $sql = "SELECT COUNT(*) as count FROM user_agenda WHERE user_id = '$user_id' AND FIND_IN_SET('$agenda_code', agenda_code)";
+    $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$agenda_code'";
+    $result_check = $conn->query($sql_check);
+    if ($result_check->num_rows == 0) {
+        // Le code Agenda_code n'appartient pas à l'utilisateur
+        $_SESSION['agenda_code'] = $agenda_code;
 
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $count = $row["count"];
-        if ($count > 0) {
-            // Le code Agenda_code appartient à l'utilisateur
-            echo "Agenda déjà existant";
-        } else {
-            // Le code Agenda_code n'appartient pas à l'utilisateur
-            $_SESSION['agenda_code'] = $agenda_code;
-
-            include 'connection_agenda_user.php';
-            echo "Agenda ajouté";
-        }
-    } else {
-        // Erreur lors de l'exécution de la requête SQL
-        echo "Erreur lors de la vérification de l'agenda.";
+        include 'connection_agenda_user.php';
     }
-
-    $conn->close();
 }
+
+$conn->close();
 ?>
