@@ -18,16 +18,18 @@ if (isset($_POST["Agenda_Code"])) {
     $agenda_code = $_POST['Agenda_Code'];
 
     // Vérification si le code généré est présent dans la base de données
-    $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$agenda_code'";
-    $result_check = $conn->query($sql_check);
-    if ($result_check->num_rows > 0) {
-        // Si le code existe afficher une alerte : agenda trouvé
-        echo "Agenda trouvé";
-    }
-    else{
-        //afficher une alerte disant agenda non trouvé
-        echo "Agenda non trouvé";
-    }
+$sql_check = "SELECT id FROM agendas WHERE agenda_code = '$agenda_code'";
+$result_check = $conn->query($sql_check);
+if ($result_check->num_rows > 0) {
+    // Si le code existe afficher une alerte : agenda trouvé
+    $message = "Agenda trouvé";
+} else {
+    //afficher une alerte disant agenda non trouvé
+    $message = "Agenda non trouvé";
+}
+
+echo json_encode(array("message" => $message));
+
 }
 
 $conn->close();
