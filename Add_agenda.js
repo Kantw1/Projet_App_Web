@@ -19,11 +19,10 @@ Add_agenda.addEventListener("click", () => {
         if(data.message) {
             alert(data.message); // Afficher le message de réponse
             return;
-        } else {
-            getAgendaData_ajout();
-            var nav = document.querySelector('.new-agenda');
-            nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
         }
+        getAgendaData_ajout();
+        var nav = document.querySelector('.new-agenda');
+        nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));    
 
