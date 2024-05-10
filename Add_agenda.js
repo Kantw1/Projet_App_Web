@@ -3,7 +3,7 @@ const Agenda_code = document.querySelector(".agenda-code"),
 
    Add_agenda.addEventListener("click", () => {
     const AgendaCode = Agenda_code.value;
-    alert("test");
+    alert(AgendaCode);
 
     //alert(AgendaName);
     if (AgendaCode === "") {

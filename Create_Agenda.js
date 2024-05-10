@@ -20,6 +20,8 @@ const Agenda_name = document.querySelector(".Agenda_name"),
             .then(data => {
                 //alert(data);
                 getAgendaData_ajout();
+                var nav = document.querySelector('.new-agenda');
+                nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
             })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
    });
