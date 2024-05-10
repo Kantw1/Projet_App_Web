@@ -20,23 +20,19 @@ function displayLastAgendaData_ajout(agendaData) {
     if (agendaList && agendaData.length > 0) {
         const agenda = agendaData[0]; // Récupérer le premier (et unique) membre du tableau
         const li = document.createElement("li");
-        const nameInput = document.createElement("input");
-        nameInput.setAttribute("type", "text");
-        nameInput.setAttribute("class", "agenda-name");
-        nameInput.setAttribute("value", agenda.name);
-        nameInput.setAttribute("readonly", true); // Rendre le nom d'agenda en lecture seule
-        const codeInput = document.createElement("input");
-        codeInput.setAttribute("type", "text");
-        codeInput.setAttribute("class", "agenda-code");
-        codeInput.setAttribute("value", agenda.code); // Ajouter la valeur du code pour le dernier agenda
-        codeInput.setAttribute("readonly", true);
+            const nameInput = document.createElement("input");
+            nameInput.setAttribute("type", "text");
+            nameInput.setAttribute("class", "agenda-name");
+            nameInput.setAttribute("value", agenda.name);
+            const codeInput = document.createElement("input");
+            codeInput.setAttribute("type", "text");
+            codeInput.setAttribute("class", "agenda-code");
+                codeInput.setAttribute("value", agenda.code); // Ajouter la valeur du code pour les autres agendas
+            codeInput.setAttribute("readonly", true);
 
-        li.appendChild(nameInput);
-        li.appendChild(codeInput);
-
-        agendaList.appendChild(li);
-
-        const deleteButton = document.createElement("button");
+            li.appendChild(nameInput);
+            li.appendChild(codeInput);
+                const deleteButton = document.createElement("button");
                 deleteButton.innerText = "🗑️"; // Poubelle emoji
                 deleteButton.setAttribute("class", "delete-agenda-button");
                 deleteButton.addEventListener("click", function() {
@@ -44,5 +40,7 @@ function displayLastAgendaData_ajout(agendaData) {
                     deleteAgenda(codeAgenda, li);
                 });
                 li.appendChild(deleteButton, li);
+            
+            agendaList.appendChild(li);
     }
 }
