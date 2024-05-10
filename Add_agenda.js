@@ -19,8 +19,9 @@ const Agenda_code = document.querySelector(".agenda-code"),
         })
         .then(response => response.text())
             .then(data => {
-                alert(data);
                 getAgendaData_ajout();
+                var nav = document.querySelector('.new-agenda');
+                nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
             })
         .catch(error => console.error('Erreur lors de la creation de l\'agenda:', error));
    });

@@ -24,8 +24,8 @@ if (isset($_POST["Agenda_Code"])) {
 
     $sql_check = "SELECT id FROM agendas WHERE agenda_code = '$agenda_code'";
     $result_check = $conn->query($sql_check);
-    if ($result_check->num_rows == 0) {
-        // Le code Agenda_code n'appartient pas à l'utilisateur
+    if ($result_check->num_rows > 0) {
+        // Le code existe
         $_SESSION['agenda_code'] = $agenda_code;
 
         include 'connection_agenda_user.php';
