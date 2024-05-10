@@ -20,7 +20,7 @@ Add_agenda.addEventListener("click", () => {
             alert(data.message); // Afficher le message de réponse
             return;
         }
-        getAgendaData_ajout();
+        //getAgendaData_ajout();
         var nav = document.querySelector('.new-agenda');
         nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
     })
