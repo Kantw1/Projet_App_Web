@@ -16,13 +16,13 @@ Add_agenda.addEventListener("click", () => {
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message); // Afficher le message de réponse
-        if(data.message == "Ajout de l'agenda") {
+        if(data.message) {
+            alert(data.message); // Afficher le message de réponse
+            return;
+        } else {
             getAgendaData_ajout();
             var nav = document.querySelector('.new-agenda');
             nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
-        } else {
-            alert(data.message); // Afficher le message de réponse
         }
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));    
