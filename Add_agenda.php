@@ -35,6 +35,9 @@ if (isset($_POST["Agenda_Code"])) {
             echo "Agenda déjà existant";
         } else {
             // Le code Agenda_code n'appartient pas à l'utilisateur
+            $_SESSION['agenda_code'] = $agenda_code;
+
+            include 'connection_agenda_user.php';
             echo "Agenda ajouté";
         }
     } else {
