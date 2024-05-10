@@ -40,7 +40,7 @@ if (isset($_POST["Agenda_Code"])) {
                 }
             } else {
                 // Si l'utilisateur n'a pas d'agenda, ajoutez simplement celui-ci
-                $message = "Ajout de l'agenda";
+                //$message = "Ajout de l'agenda";
 
                 $_SESSION['agenda_code'] = $agenda_code;
                 $message = $_SESSION['agenda_code'];
