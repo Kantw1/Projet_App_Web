@@ -26,7 +26,7 @@ Add_agenda.addEventListener("click", () => {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
             })
-            then(response => response.json())
+            .then(response => response.json())
             .then(data => {
                 getAgendaData_ajout();
                 var nav = document.querySelector('.new-agenda');
