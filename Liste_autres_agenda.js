@@ -90,6 +90,8 @@ function getAgendaCodeAndSelectAgenda() {
                     break;
                 }
             }
+
+            getAgendaData2();
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
