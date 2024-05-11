@@ -1,56 +1,35 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Connexion à la base de données
-$servername = "localhost";
-$username = "cycalguj";
-$password = "CYCalender1234";
-$dbname = "CYCalenderB";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    die(json_encode(array("error" => "Connection failed: " . $conn->connect_error)));
-}
-
-// Récupération des données envoyées en JSON
-$data = json_decode(file_get_contents("php://input"), true);
-
-session_start();
-
-// Traitement des données et insertion dans la base de données
-foreach ($data as $event_data) {
-    $day = $event_data['day'];
-    $month = $event_data['month'];
-    $year = $event_data['year'];
-    $events = $event_data['events'];
-
-    foreach ($events as $event) {
-        $title = $event['title'];
-        $time = $event['time'];
-        $event_time = $time; // Gardez la valeur d'origine comme une chaîne de caractères
-        $description = isset($event['description']) ? $event['description'] : '';
-        $place = isset($event['place']) ? $event['place'] : '';
-        $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-        $code_agenda = isset($_SESSION['agenda_code']) ? $_SESSION['agenda_code'] : '';
-
-        $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("ssssssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
-        if (!$stmt->execute()) {
-            die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
+// Vérifier si le formulaire a été soumis
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Inclure le fichier de configuration de la base de données
+    require_once "config.php";
+    
+    // Récupérer les données du formulaire
+    $eventTitle = $_POST["eventTitle"];
+    $eventTimeFrom = $_POST["eventTimeFrom"];
+    $eventTimeTo = $_POST["eventTimeTo"];
+    $eventDescription = $_POST["eventDescription"];
+    $eventPlace = $_POST["eventPlace"];
+    
+    // Préparer la requête SQL pour insérer l'événement dans la base de données
+    $sql = "INSERT INTO events (title, time_from, time_to, description, place) VALUES (?, ?, ?, ?, ?)";
+    
+    if ($stmt = $mysqli->prepare($sql)) {
+        // Lier les paramètres à la requête
+        $stmt->bind_param("sssss", $eventTitle, $eventTimeFrom, $eventTimeTo, $eventDescription, $eventPlace);
+        
+        // Exécuter la requête
+        if ($stmt->execute()) {
+            echo "L'événement a été ajouté avec succès.";
+        } else {
+            echo "Erreur lors de l'ajout de l'événement : " . $stmt->error;
         }
+        
+        // Fermer la déclaration
+        $stmt->close();
     }
+    
+    // Fermer la connexion à la base de données
+    $mysqli->close();
 }
-
-// Fermeture de la connexion
-$conn->close();
-
-// Répondre avec succès
-echo json_encode(array("message" => "Événements enregistrés avec succès"));
 ?>
-
-
