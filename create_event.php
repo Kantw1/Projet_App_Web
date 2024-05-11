@@ -1,10 +1,11 @@
 <?php
-// Connexion à la base de données
+// Paramètres de connexion à la base de données
 $servername = "localhost";
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
+// Connexion à la base de données
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Vérification de la connexion
@@ -24,8 +25,8 @@ foreach ($data as $event) {
         $title = $subEvent['title'];
         $start_time = $subEvent['time']; // Notez que vous devez séparer l'heure de début et l'heure de fin si nécessaire
         $end_time = $subEvent['time']; // Si l'heure de fin est différente, utilisez la valeur appropriée
-        $description = $subEvent['description'];
-        $place = $subEvent['place'];
+        $description = isset($subEvent['description']) ? $subEvent['description'] : '';
+        $place = isset($subEvent['place']) ? $subEvent['place'] : '';
         $creator = "Nom du créateur"; // Ajustez selon votre système d'authentification
         $code_agenda = "Code de l'agenda"; // Ajustez selon votre système d'authentification
 
@@ -37,13 +38,11 @@ foreach ($data as $event) {
     }
 }
 
-// Fermeture de la connexion
-$conn->close();
-
 // Répondre avec succès
 echo json_encode(array("message" => "Events saved successfully"));
+
+// Fermeture de la connexion
+$conn->close();
 ?>
-
-
 
 
