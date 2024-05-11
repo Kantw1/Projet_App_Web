@@ -74,23 +74,17 @@ function getAgendaCodeAndSelectAgenda() {
             if (!response.ok) {
                 throw new Error('Erreur HTTP, status = ' + response.status);
             }
-            return response.text();
+            return response.json(); // Récupérer la réponse au format JSON
         })
-        .then(agendaCode => {
-            console.log('Code de l\'agenda récupéré:', agendaCode);
-            // Sélectionner l'élément <select> par son ID
-            const selectElement = document.getElementById("other-agendas");
-            // Sélectionner l'option correspondant au code de l'agenda récupéré
-            const optionToSelect = selectElement.querySelector(`option[value="${agendaCode}"]`);
-            // Vérifier si l'option à sélectionner existe
-            if (optionToSelect) {
-                // Sélectionner l'option correspondante
-                optionToSelect.selected = true;
-                // Appeler la fonction pour changer le code de l'agenda
-                change_agenda_session(agendaCode);
-            } else {
-                console.log('Code de l\'agenda non trouvé dans la liste déroulante.');
-            }
+        .then(agendaData => {
+            console.log('Données de l\'agenda récupérées:', agendaData);
+            // Appeler la fonction pour afficher les données des agendas dans un élément <select>
+            Agenda_deroulant(agendaData);
+
+            // Sélectionner l'agenda correspondant
+            const selectedAgendaCode = agendaData.find(agenda => agenda.selected === true).code;
+            change_agenda_session(selectedAgendaCode); // Changer la session avec l'agenda sélectionné
         })
-        .catch(error => console.error('Erreur lors de la récupération du code de l\'agenda:', error));
+        .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
+
