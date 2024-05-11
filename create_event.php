@@ -27,7 +27,7 @@ foreach ($data as $event) {
         $description = isset($subEvent['description']) ? $subEvent['description'] : ''; // Vérification de la description
         $place = isset($subEvent['place']) ? $subEvent['place'] : ''; // Vérification du lieu
         $creator = $_SESSION['username']; // Ajustez selon votre système d'authentification
-        $code_agenda = "Code de l'agenda"; // Ajustez selon votre système d'authentification
+        $code_agenda = $_SESSION['agenda_code'];; // Ajustez selon votre système d'authentification
 
         // Insertion de l'événement dans la table d'événements
         $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
