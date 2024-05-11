@@ -69,7 +69,7 @@ function change_agenda_session(nvCode){
 }
 
 function getAgendaCodeAndSelectAgenda() {
-    fetch('get_agenda_session.php')
+    fetch('get_agenda_code.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur HTTP, status = ' + response.status);
@@ -82,9 +82,9 @@ function getAgendaCodeAndSelectAgenda() {
             Agenda_deroulant(agendaData);
 
             // Sélectionner l'agenda correspondant
-            const selectedAgendaCode = agendaData.find(agenda => agenda.selected === true).code;
-            change_agenda_session(selectedAgendaCode); // Changer la session avec l'agenda sélectionné
+            agendaData.find(agenda => agenda.selected === true);
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
+
 
