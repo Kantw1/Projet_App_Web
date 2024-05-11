@@ -579,10 +579,8 @@ function getEvents() {
 }
 
 function saveEvents() {
-  // Affichage des données transmises dans la console
   console.log('Données transmises :', JSON.stringify(eventsArr));
 
-  // Envoi des événements vers le fichier PHP pour enregistrement
   fetch('create_event.php', {
     method: 'POST',
     headers: {
@@ -592,17 +590,18 @@ function saveEvents() {
   })
   .then(response => {
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Erreur de réponse du réseau');
     }
     return response.json();
   })
   .then(data => {
-    console.log('Events saved:', data);
+    console.log('Événements enregistrés:', data);
   })
   .catch(error => {
-    console.error('Error saving events:', error);
+    console.error('Erreur lors de l\'enregistrement des événements:', error);
   });
 }
+
 
 
 
