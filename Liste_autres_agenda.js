@@ -16,7 +16,7 @@ function getAgendaData() {
         // Afficher les données des agendas dans une alerte
         //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         // Appeler la fonction pour afficher les données des agendas
-        displayAgendaData(agendaData);
+        Agenda_deroulant(agendaData);
        
         
     })
@@ -30,6 +30,7 @@ const agendaData = [
     { name: "Agenda Travail", code: "GHI789" }
 ];
 */
+Agenda_deroulant(agendaData){
 // Parcourir le tableau des agendas et ajouter des options à l'élément <select>
 agendaData.forEach((agenda) => {
     // Créer un nouvel élément d'option
@@ -48,3 +49,4 @@ selectElement.addEventListener("change", function() {
     // Appeler la fonction change_agenda_session avec le code de l'agenda sélectionné
     change_agenda_session(selectedCode);
 });
+}
