@@ -2,7 +2,7 @@
 const selectElement = document.getElementById("other-agendas");
 
 // Fonction pour récupérer les données des agendas depuis Liste_agenda.php
-function getAgendaData() {
+function getAgendaData2() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
     .then(Data => {
