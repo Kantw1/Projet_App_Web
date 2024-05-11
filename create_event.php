@@ -15,6 +15,8 @@ if ($conn->connect_error) {
 // Récupération des données envoyées en JSON
 $data = json_decode(file_get_contents("php://input"), true);
 
+session_start();
+
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event) {
     $date = $event['year'] . "-" . $event['month'] . "-" . $event['day'];
