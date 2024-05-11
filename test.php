@@ -3,7 +3,7 @@
 session_start();
 
 // Simuler la récupération de l'agenda_code à partir de la session (à remplacer par la méthode réelle)
-$agenda_code = "example_agenda_code";
+$agenda_code = "J12VC4I";
 
 // Tableau d'exemple de données d'événements
 $events = array(
