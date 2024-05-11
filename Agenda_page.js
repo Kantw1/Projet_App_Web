@@ -589,6 +589,7 @@ function saveEvents() {
     body: JSON.stringify(eventsArr),
   })
   .then(response => {
+    console.log('Réponse du serveur :', response); // Ajoutez cette ligne pour déboguer
     if (!response.ok) {
       throw new Error('Erreur de réponse du réseau');
     }
