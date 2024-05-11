@@ -579,6 +579,9 @@ function getEvents() {
 }
 
 function saveEvents() {
+  // Affichage des données transmises dans la console
+  console.log('Données transmises :', JSON.stringify(eventsArr));
+
   // Envoi des événements vers le fichier PHP pour enregistrement
   fetch('create_event.php', {
     method: 'POST',
@@ -600,6 +603,7 @@ function saveEvents() {
     console.error('Error saving events:', error);
   });
 }
+
 
 
 
