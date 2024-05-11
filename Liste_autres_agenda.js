@@ -81,12 +81,19 @@ function getAgendaCodeAndSelectAgenda() {
             // Appeler la fonction pour afficher les données des agendas dans un élément <select>
             getAgendaData2();
 
-            // Sélectionner par défaut l'agenda avec le code agendaData
+            // Sélectionner par défaut l'agenda avec le code agendaCode
             const selectElement = document.getElementById("other-agendas");
-            selectElement.value = agendaCode;
+            // Parcourir les options pour trouver l'agenda correspondant
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === agendaCode) {
+                    selectElement.selectedIndex = i;
+                    break;
+                }
+            }
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
+
 
 
 
