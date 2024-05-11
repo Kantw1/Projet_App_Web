@@ -595,11 +595,16 @@ function saveEvents() {
   })
   .then(data => {
     console.log('Events saved:', data);
+    // Affichage d'une alerte lorsque les événements sont sauvegardés avec succès
+    alert('Événements sauvegardés avec succès !');
   })
   .catch(error => {
     console.error('Error saving events:', error);
+    // Affichage d'une alerte en cas d'erreur lors de la sauvegarde des événements
+    alert('Erreur lors de la sauvegarde des événements. Veuillez réessayer.');
   });
 }
+
 
 
 
