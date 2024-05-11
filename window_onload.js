@@ -2,7 +2,7 @@
 window.onload = function() {
     getUserData();
     //getAgendaData();
-    getAgendaData2();
+    //getAgendaData2();
     
     
 
