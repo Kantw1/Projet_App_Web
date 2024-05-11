@@ -17,9 +17,9 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event) {
-    $day = (int)$event['day'];
-    $month = (int)$event['month'];
-    $year = (int)$event['year'];
+    $day = intval($event['day']);
+    $month = intval($event['month']);
+    $year = intval($event['year']);
     foreach ($event['events'] as $subEvent) {
         $title = $subEvent['title'];
         $start_time = $subEvent['time']; // Notez que vous devez séparer l'heure de début et l'heure de fin si nécessaire
@@ -43,6 +43,7 @@ $conn->close();
 // Répondre avec succès
 echo json_encode(array("message" => "Events saved successfully"));
 ?>
+
 
 
 
