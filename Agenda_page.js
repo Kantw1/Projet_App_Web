@@ -578,10 +578,29 @@ function getEvents() {
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }
 
-//function to save events in local storage enregistrer plus tard sur un fichier externe
 function saveEvents() {
-  localStorage.setItem("events", JSON.stringify(eventsArr));
+  // Envoi des événements vers le fichier PHP pour enregistrement
+  fetch('create_event.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(eventsArr),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Events saved:', data);
+  })
+  .catch(error => {
+    console.error('Error saving events:', error);
+  });
 }
+
 
 
 function convertTime(time) {
