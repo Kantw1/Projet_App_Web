@@ -21,6 +21,13 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 session_start();
 
+// Vérifier si le code d'agenda est défini dans la session
+if (!isset($_SESSION['agenda_code'])) {
+    die(json_encode(array("error" => "Code d'agenda non défini")));
+}
+
+$code_agenda = $_SESSION['agenda_code'];
+
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event_data) {
     $day = $event_data['day'];
@@ -35,7 +42,6 @@ foreach ($data as $event_data) {
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
         $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-        $code_agenda = isset($_SESSION['agenda_code']) ? $_SESSION['agenda_code'] : '';
 
         $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql_insert);
