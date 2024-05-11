@@ -25,6 +25,9 @@ if(isset($_SESSION['user_id'])) {
         'username' => $_SESSION['username']
     );
 
+    // Définir agenda_code sur 0
+    $userData['agenda_code'] = 0;
+
     // Convertir le tableau en format JSON et le renvoyer
     header('Content-Type: application/json');
     echo json_encode($userData);
