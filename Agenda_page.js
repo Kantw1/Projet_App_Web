@@ -571,11 +571,23 @@ eventsContainer.addEventListener("click", (e) => {
 
 //function to get events from local storage
 function getEvents() {
-  //check if events are already saved in local storage then return event else nothing
-  if (localStorage.getItem("events") === null) {
-    return;
-  }
-  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+  fetch('get_events.php', {
+    method: 'POST',
+    //credentials: 'same-origin' // Ajoutez cette ligne si votre site utilise des cookies de session
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erreur de réponse du serveur');
+    }
+    return response.json();
+  })
+  .then(data => {
+    eventsArr.push(...data);
+    initCalendar(); // Mettre à jour le calendrier une fois les événements récupérés
+  })
+  .catch(error => {
+    console.error('Erreur lors de la récupération des événements:', error);
+  });
 }
 
 function saveEvents() {
