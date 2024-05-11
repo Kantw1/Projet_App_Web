@@ -69,7 +69,7 @@ function change_agenda_session(nvCode){
 }
 
 function getAgendaCodeAndSelectAgenda() {
-    fetch('get_agenda_code.php')
+    fetch('get_agenda_session.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erreur HTTP, status = ' + response.status);
