@@ -1,12 +1,19 @@
 // Fonction pour récupérer les données des agendas depuis Liste_agenda.php
 function getAgendaData2() {
-    const agendaData = [
-        { name: "Agenda Personnel", code: "ABC123" },
-        { name: "Agenda Ecole", code: "DEF456" },
-        { name: "Agenda Travail", code: "GHI789" }
-    ];
-
-    Agenda_deroulant(agendaData);
+    fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
+    .then(response => response.json()) // Convertir la réponse en JSON
+    .then(data => {
+        // Supprimer les guillemets autour des clés du tableau JSON
+        const agendaData = data.map(item => {
+            return {
+                name: item.name,
+                code: item.code
+            };
+        });
+        alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(data));
+        Agenda_deroulant(agendaData);
+    })
+    .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
 
 // Fonction pour afficher les données des agendas dans un élément <select>
@@ -36,4 +43,3 @@ function Agenda_deroulant(agendaData) {
         change_agenda_session(selectedCode);
     });
 }
-getAgendaData2();
