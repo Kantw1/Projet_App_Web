@@ -31,7 +31,7 @@ foreach ($data as $event_data) {
     foreach ($events as $event) {
         $title = $event['title'];
         $time = $event['time'];
-        $event_time = date("H:i", strtotime($time));
+        $event_time = $time; // Gardez la valeur d'origine comme une chaîne de caractères
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
         $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
@@ -52,4 +52,5 @@ $conn->close();
 // Répondre avec succès
 echo json_encode(array("message" => "Événements enregistrés avec succès"));
 ?>
+
 
