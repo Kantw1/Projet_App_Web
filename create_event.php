@@ -44,7 +44,7 @@ foreach ($data as $event_data) {
         $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 
         // Vérifier si l'événement existe déjà
-        $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ? AND creator = ? AND code_agenda = ?";
+        $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ? AND code_agenda = ?";
         $stmt_check = $conn->prepare($sql_check);
         $stmt_check->bind_param("sssssssss", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
         $stmt_check->execute();
