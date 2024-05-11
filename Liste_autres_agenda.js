@@ -10,7 +10,7 @@ function getAgendaData2() {
                 code: item.code
             };
         });
-        alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(data));
+        //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(data));
         Agenda_deroulant(agendaData);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
@@ -42,4 +42,22 @@ function Agenda_deroulant(agendaData) {
         // Appeler la fonction change_agenda_session avec le code de l'agenda sélectionné
         change_agenda_session(selectedCode);
     });
+}
+
+function change_agenda_session(nvCode){
+    fetch('change_agenda_session.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'code_agenda=' + encodeURIComponent(nvCode),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur HTTP, status = ' + response.status);
+        }
+        return response.text();
+    })
+    .then(text => console.log(text))
+    .catch(error => console.error('Erreur lors de la modification de l\'agenda:', error));
 }
