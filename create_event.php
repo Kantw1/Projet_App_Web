@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Connexion à la base de données
 $servername = "localhost";
 $username = "cycalguj";
 $password = "CYCalender1234";
@@ -10,16 +11,19 @@ $dbname = "CYCalenderB";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Vérification de la connexion
 if ($conn->connect_error) {
-    die("Échec de la connexion: " . $conn->connect_error);
+    die(json_encode(array("error" => "Connection failed: " . $conn->connect_error)));
 }
 
+// Récupération des données envoyées en JSON
 $data = json_decode(file_get_contents("php://input"), true);
 
 session_start();
 
+// Traitement des données et insertion dans la base de données
 foreach ($data as $event_data) {
-    $day = intval($event_data['day']); // Convertir en entier
+    $day = intval($event_data['day']);
     $month = intval($event_data['month']);
     $year = intval($event_data['year']);
     $events = $event_data['events'];
@@ -30,20 +34,22 @@ foreach ($data as $event_data) {
         $event_time = date("H:i", strtotime($time));
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
-        $creator = isset($_SESSION['username']) ? $_SESSION['username'] : ''; // Vérifier si la clé 'username' est définie
-        $code_agenda = isset($_SESSION['agenda_code']) ? $_SESSION['agenda_code'] : ''; // Vérifier si la clé 'agenda_code' est définie
+        $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+        $code_agenda = 0; // Définir agenda_code sur 0
 
         $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("iiissssss", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
-        $stmt->execute();
+        $stmt->bind_param("iiisssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
+        if (!$stmt->execute()) {
+            die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
+        }
     }
 }
 
+// Fermeture de la connexion
 $conn->close();
 
+// Répondre avec succès
 echo json_encode(array("message" => "Événements enregistrés avec succès"));
 ?>
-
-
 
