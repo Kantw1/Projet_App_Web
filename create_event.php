@@ -20,8 +20,8 @@ foreach ($data as $event) {
     $date = $event['year'] . "-" . $event['month'] . "-" . $event['day'];
     foreach ($event['events'] as $subEvent) {
         $title = $subEvent['title'];
-        $start_time = $subEvent['time']; // Notez que vous devez séparer l'heure de début et l'heure de fin si nécessaire
-        $end_time = $subEvent['time']; // Si l'heure de fin est différente, utilisez la valeur appropriée
+        $start_time = date("H:i", strtotime($subEvent['time'])); // Conversion de l'heure au format 'HH:MM'
+        $end_time = date("H:i", strtotime($subEvent['time'])); // Si nécessaire, ajustez pour l'heure de fin
         $description = isset($subEvent['description']) ? $subEvent['description'] : '';
         $place = isset($subEvent['place']) ? $subEvent['place'] : '';
         $creator = "Nom du créateur"; // Ajustez selon votre système d'authentification
@@ -41,6 +41,4 @@ $conn->close();
 // Répondre avec succès
 echo json_encode(array("message" => "Events saved successfully"));
 ?>
-
-
 
