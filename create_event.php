@@ -55,6 +55,7 @@ foreach ($data as $event_data) {
 // Fermeture de la connexion
 $conn->close();
 
-// Répondre avec succès
-echo json_encode(array("message" => "Événements enregistrés avec succès"));
+// Répondre avec succès, inclure le code d'agenda
+echo json_encode(array("message" => "Événements enregistrés avec succès", "agenda_code" => $code_agenda));
 ?>
+
