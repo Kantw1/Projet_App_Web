@@ -43,11 +43,21 @@ foreach ($data as $event_data) {
         $place = isset($event['place']) ? $event['place'] : '';
         $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 
-        $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("ssssssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
-        if (!$stmt->execute()) {
-            die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
+        // Vérifier si l'événement existe déjà
+        $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ? AND creator = ? AND code_agenda = ?";
+        $stmt_check = $conn->prepare($sql_check);
+        $stmt_check->bind_param("ssssssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
+        $stmt_check->execute();
+        $result = $stmt_check->get_result();
+
+        if ($result->num_rows == 0) {
+            // L'événement n'existe pas, l'insérer dans la base de données
+            $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql_insert);
+            $stmt->bind_param("ssssssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
+            if (!$stmt->execute()) {
+                die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
+            }
         }
     }
 }
@@ -58,4 +68,3 @@ $conn->close();
 // Répondre avec succès, inclure le code d'agenda
 echo json_encode(array("message" => "Événements enregistrés avec succès", "agenda_code" => $code_agenda));
 ?>
-
