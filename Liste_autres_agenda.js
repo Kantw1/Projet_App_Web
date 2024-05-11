@@ -83,11 +83,7 @@ function getAgendaCodeAndSelectAgenda() {
 
             // Sélectionner par défaut l'agenda avec le code agendaData
             const selectElement = document.getElementById("other-agendas");
-            agendaData.forEach(agenda => {
-                if (agenda.code === agendaCode) {
-                    selectElement.value = agendaCode;
-                }
-            });
+            selectElement.value = agendaCode;
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
