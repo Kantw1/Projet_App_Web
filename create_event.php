@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données
-$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$servername = "localhost";
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
@@ -12,41 +12,38 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Vérification si les données du formulaire ont été envoyées
-if (isset($_POST["event_name"])) {
-    // Récupération des données du formulaire
-    $day = $_POST['day'];
-    $month = $_POST['month'];
-    $year = $_POST['year'];
-    $title = $_POST['event_name'];
-    $start_time = $_POST['event_time_from'];
-    $end_time = $_POST['event_time_to'];
-    $description = $_POST['event_description'];
-    $place = $_POST['event_place'];
-    $creator = "Nom du créateur"; // A ajuster selon votre système d'authentification
-    $code_agenda = "Code de l'agenda"; // A ajuster selon votre système d'authentification
+// Récupération des données envoyées en JSON
+$data = json_decode(file_get_contents("php://input"), true);
 
-    // Insertion de l'événement dans la table d'événements
-    $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-    // Préparation de la requête
-    $stmt = $conn->prepare($sql_insert);
-    $stmt->bind_param("iiisssssss", $day, $month, $year, $title, $start_time, $end_time, $description, $place, $creator, $code_agenda);
+// Traitement des données et insertion dans la base de données
+foreach ($data as $event) {
+    $day = $event['day'];
+    $month = $event['month'];
+    $year = $event['year'];
+    foreach ($event['events'] as $subEvent) {
+        $title = $subEvent['title'];
+        $start_time = $subEvent['time']; // Notez que vous devez séparer l'heure de début et l'heure de fin si nécessaire
+        $end_time = $subEvent['time']; // Si l'heure de fin est différente, utilisez la valeur appropriée
+        $description = $subEvent['description'];
+        $place = $subEvent['place'];
+        $creator = "Nom du créateur"; // Ajustez selon votre système d'authentification
+        $code_agenda = "Code de l'agenda"; // Ajustez selon votre système d'authentification
 
-    // Exécution de la requête
-    if ($stmt->execute()) {
-        echo "Événement ajouté avec succès.";
-    } else {
-        echo "Erreur lors de l'ajout de l'événement : " . $conn->error;
+        // Insertion de l'événement dans la table d'événements
+        $sql_insert = "INSERT INTO events (day, month, year, title, start_time, end_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql_insert);
+        $stmt->bind_param("iiisssssss", $day, $month, $year, $title, $start_time, $end_time, $description, $place, $creator, $code_agenda);
+        $stmt->execute();
     }
-
-    // Fermeture de la connexion
-    $stmt->close();
 }
 
 // Fermeture de la connexion
 $conn->close();
+
+// Répondre avec succès
+echo json_encode(array("message" => "Events saved successfully"));
 ?>
+
 
 
 
