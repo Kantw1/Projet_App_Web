@@ -11,13 +11,25 @@ function getAgendaData2() {
             };
         });
         //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(data));
-        Agenda_deroulant(agendaData);
+
+        fetch('get_agenda_code.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur HTTP, status = ' + response.status);
+            }
+            return response.json(); // Récupérer la réponse au format JSON
+        })
+        .then(agendaCode => {
+            console.log('Données de l\'agenda récupérées:', agendaCode);
+            Agenda_deroulant(agendaData,agendaCode);
+        })
+        .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
 
 // Fonction pour afficher les données des agendas dans un élément <select>
-function Agenda_deroulant(agendaData) {
+function Agenda_deroulant(agendaData, agendaCode) {
     // Sélectionner l'élément <select> dans le DOM
     const selectElement = document.getElementById("other-agendas");
 
@@ -31,6 +43,12 @@ function Agenda_deroulant(agendaData) {
         // Définir la valeur et le texte de l'option
         option.value = agenda.code;
         option.text = agenda.name;
+
+        // Vérifier si l'agenda correspond à celui sélectionné par défaut
+        if (agenda.code === agendaCode) {
+            option.selected = true; // Sélectionner cette option par défaut
+        }
+
         // Ajouter l'option à l'élément <select>
         selectElement.appendChild(option);
     });
@@ -43,6 +61,7 @@ function Agenda_deroulant(agendaData) {
         change_agenda_session(selectedCode);
     });
 }
+
 
 function change_agenda_session(nvCode){
     fetch('change_agenda_session.php', {
@@ -67,35 +86,6 @@ function change_agenda_session(nvCode){
     })
     .catch(error => console.error('Erreur lors de la modification de l\'agenda:', error));
 }
-
-function getAgendaCodeAndSelectAgenda() {
-    fetch('get_agenda_code.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur HTTP, status = ' + response.status);
-            }
-            return response.json(); // Récupérer la réponse au format JSON
-        })
-        .then(agendaCode => {
-            console.log('Données de l\'agenda récupérées:', agendaCode);
-            // Appeler la fonction pour afficher les données des agendas dans un élément <select>
-            getAgendaData2();
-
-            // Sélectionner par défaut l'agenda avec le code agendaCode
-            const selectElement = document.getElementById("other-agendas");
-            // Parcourir les options pour trouver l'agenda correspondant
-            for (let i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].value === agendaCode) {
-                    selectElement.selectedIndex = i;
-                    break;
-                }
-            }
-
-            getAgendaData2();
-        })
-        .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
-}
-
 
 
 

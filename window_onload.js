@@ -3,7 +3,6 @@ window.onload = function() {
     getUserData();
     getAgendaData();
     getAgendaData2();
-    getAgendaCodeAndSelectAgenda();
     
     
 
