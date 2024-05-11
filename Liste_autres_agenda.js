@@ -68,3 +68,29 @@ function change_agenda_session(nvCode){
     .catch(error => console.error('Erreur lors de la modification de l\'agenda:', error));
 }
 
+function getAgendaCodeAndSelectAgenda() {
+    fetch('get_agenda_code.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur HTTP, status = ' + response.status);
+            }
+            return response.text();
+        })
+        .then(agendaCode => {
+            console.log('Code de l\'agenda récupéré:', agendaCode);
+            // Sélectionner l'élément <select> par son ID
+            const selectElement = document.getElementById("other-agendas");
+            // Sélectionner l'option correspondant au code de l'agenda récupéré
+            const optionToSelect = selectElement.querySelector(`option[value="${agendaCode}"]`);
+            // Vérifier si l'option à sélectionner existe
+            if (optionToSelect) {
+                // Sélectionner l'option correspondante
+                optionToSelect.selected = true;
+                // Appeler la fonction pour changer le code de l'agenda
+                change_agenda_session(agendaCode);
+            } else {
+                console.log('Code de l\'agenda non trouvé dans la liste déroulante.');
+            }
+        })
+        .catch(error => console.error('Erreur lors de la récupération du code de l\'agenda:', error));
+}
