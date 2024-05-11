@@ -12,7 +12,7 @@ function getAgendaData() {
             };
         });
         // Afficher les données des agendas dans une alerte
-        alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
+        //alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         // Appeler la fonction pour afficher les données des agendas
         displayAgendaData(agendaData);
        
