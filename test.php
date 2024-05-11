@@ -6,16 +6,26 @@ if(isset($_SESSION['agenda_code']) && $_SESSION['agenda_code'] == "J12VC4I") {
     // Tableau de données de test
     $donnees_test = array(
         array(
-            "id" => 1,
-            "nom" => "Événement 1",
-            "date" => "2024-05-11",
-            "heure" => "10:00:00"
+            "day" => "11",
+            "month" => "5",
+            "year" => "2024",
+            "title" => "Événement 1",
+            "event_time" => "10:00:00",
+            "description" => "Description de l'événement 1",
+            "place" => "Lieu de l'événement 1",
+            "creator" => "Créateur de l'événement 1",
+            "code_agenda" => "J12VC4I"
         ),
         array(
-            "id" => 2,
-            "nom" => "Événement 2",
-            "date" => "2024-05-12",
-            "heure" => "14:00:00"
+            "day" => "12",
+            "month" => "5",
+            "year" => "2024",
+            "title" => "Événement 2",
+            "event_time" => "14:00:00",
+            "description" => "Description de l'événement 2",
+            "place" => "Lieu de l'événement 2",
+            "creator" => "Créateur de l'événement 2",
+            "code_agenda" => "J12VC4I"
         ),
         // Ajoutez plus de données au besoin
     );
@@ -30,5 +40,4 @@ if(isset($_SESSION['agenda_code']) && $_SESSION['agenda_code'] == "J12VC4I") {
     echo "Accès non autorisé";
 }
 ?>
-
 
