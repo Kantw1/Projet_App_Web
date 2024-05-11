@@ -58,6 +58,11 @@ function change_agenda_session(nvCode){
         }
         return response.text();
     })
-    .then(newCode => console.log('Nouveau code de session:', newCode))
+    .then(newCode => {
+        console.log('Nouveau code de session:', newCode);
+        // Appeler initCalendar() après avoir changé le code de l'agenda
+        initCalendar();
+    })
     .catch(error => console.error('Erreur lors de la modification de l\'agenda:', error));
 }
+
