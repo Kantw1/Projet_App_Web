@@ -1,5 +1,4 @@
-// Sélectionner l'élément <select> dans le DOM
-const selectElement = document.getElementById("other-agendas");
+
 
 // Fonction pour récupérer les données des agendas depuis Liste_agenda.php
 function getAgendaData2() {
@@ -21,6 +20,10 @@ function getAgendaData2() {
 
 // Fonction pour afficher les données des agendas dans un élément <select>
 function Agenda_deroulant(agendaData) {
+
+    // Sélectionner l'élément <select> dans le DOM
+    const selectElement = document.getElementById("other-agendas");
+
     // Réinitialiser le contenu de l'élément <select>
     selectElement.innerHTML = "";
 
