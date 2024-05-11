@@ -81,8 +81,9 @@ function getAgendaCodeAndSelectAgenda() {
             // Appeler la fonction pour afficher les données des agendas dans un élément <select>
             Agenda_deroulant(agendaData);
 
-            // Sélectionner l'agenda correspondant
-            agendaData.find(agenda => agenda.selected === true);
+            if (agenda.code === agendaData) {
+                option.selected = true;
+            }
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
