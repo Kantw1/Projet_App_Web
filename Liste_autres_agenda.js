@@ -13,6 +13,7 @@ function getAgendaData2() {
                 code: item.code
             };
         });
+        alert("Données des agendas récupérées avec succès :\n" + JSON.stringify(Data));
         Agenda_deroulant(agendaData);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
