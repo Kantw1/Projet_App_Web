@@ -35,7 +35,7 @@ foreach ($data as $event_data) {
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
         $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-        $code_agenda = 0; // Définir agenda_code sur 0
+        $code_agenda = isset($_SESSION['agenda_code']) ? $_SESSION['agenda_code'] : '';
 
         $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql_insert);
