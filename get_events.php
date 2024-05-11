@@ -8,11 +8,10 @@ if (!isset($_SESSION['agenda_code'])) {
 }
 
 // Connexion à la base de données
-// Remplacez les valeurs suivantes par vos propres paramètres de connexion
-$host = 'localhost';
-$user = 'votre_utilisateur';
-$password = 'votre_mot_de_passe';
-$database = 'votre_base_de_donnees';
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$username = "cycalguj";
+$password = "CYCalender1234";
+$dbname = "CYCalenderB";
 
 $agenda_code = $_SESSION['agenda_code'];
 
