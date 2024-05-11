@@ -582,6 +582,8 @@ function getEvents() {
     return response.json();
   })
   .then(data => {
+    // Vide complètement eventsArr avant de le remplir avec les nouveaux événements
+    eventsArr.length = 0;
     eventsArr.push(...data);
     initCalendar(); // Mettre à jour le calendrier une fois les événements récupérés
   })
