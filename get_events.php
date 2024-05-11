@@ -8,54 +8,73 @@ if (!isset($_SESSION['agenda_code'])) {
 }
 
 // Connexion à la base de données
-$servername = "localhost";
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Vérification de la connexion
-if ($conn->connect_error) {
-    http_response_code(500);
-    die("Erreur de connexion à la base de données: " . $conn->connect_error);
-}
-
 $agenda_code = $_SESSION['agenda_code'];
 
-// Récupérer les événements de la base de données
-$sql = "SELECT day, month, year, title, event_time, description, place FROM events WHERE code_agenda = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $agenda_code);
-$stmt->execute();
-$result = $stmt->get_result();
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Créer un tableau pour stocker les événements
-$eventsArr = [];
+    // Préparation de la requête
+    $stmt = $pdo->prepare("SELECT * FROM events WHERE code_agenda = :code_agenda");
+    $stmt->bindParam(':code_agenda', $agenda_code);
+    $stmt->execute();
 
-// Parcourir les résultats et les formatter
-while ($row = $result->fetch_assoc()) {
-    $event = array(
-        "day" => $row["day"],
-        "month" => $row["month"],
-        "year" => $row["year"],
-        "events" => array(
-            array(
-                "title" => $row["title"],
-                "time" => $row["event_time"],
-                "description" => $row["description"],
-                "place" => $row["place"]
-            )
-        )
-    );
+    $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Ajouter l'événement au tableau
-    $eventsArr[] = $event;
+    // Structure de données pour stocker les événements par jour, mois et année
+    $eventsArr = array();
+
+    foreach ($events as $event) {
+        $day = $event['day'];
+        $month = $event['month'];
+        $year = $event['year'];
+        $title = $event['title'];
+        $time = $event['event_time'];
+        $description = $event['description'];
+        $place = $event['place'];
+
+        // Vérifier si les valeurs essentielles ne sont pas vides
+        if (!empty($title) && !empty($time)) {
+            // Créer un nouvel événement
+            $newEvent = array(
+                'title' => $title,
+                'time' => $time,
+                'description' => $description,
+                'place' => $place
+            );
+
+            // Vérifier si le jour existe déjà dans le tableau des événements
+            $found = false;
+            foreach ($eventsArr as &$dayObj) {
+                if ($dayObj['day'] == $day && $dayObj['month'] == $month && $dayObj['year'] == $year) {
+                    // Ajouter l'événement au jour existant
+                    $dayObj['events'][] = $newEvent;
+                    $found = true;
+                    break;
+                }
+            }
+
+            // Si le jour n'existe pas encore, le créer
+            if (!$found) {
+                $eventsArr[] = array(
+                    'day' => $day,
+                    'month' => $month,
+                    'year' => $year,
+                    'events' => array($newEvent)
+                );
+            }
+        }
+    }
+
+    // Retourner les événements au format JSON
+    echo json_encode($eventsArr);
+} catch (PDOException $e) {
+    http_response_code(500);
+    die("Erreur de base de données: " . $e->getMessage());
 }
-
-// Fermeture de la connexion
-$conn->close();
-
-// Retourner les événements au format JSON
-echo json_encode($eventsArr);
 ?>
