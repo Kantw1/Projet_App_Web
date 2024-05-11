@@ -23,9 +23,9 @@ session_start();
 
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event_data) {
-    $day = intval($event_data['day']);
-    $month = intval($event_data['month']);
-    $year = intval($event_data['year']);
+    $day = $event_data['day'];
+    $month = $event_data['month'];
+    $year = $event_data['year'];
     $events = $event_data['events'];
 
     foreach ($events as $event) {
@@ -39,7 +39,7 @@ foreach ($data as $event_data) {
 
         $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("iiisssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
+        $stmt->bind_param("ssssssssi", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
         if (!$stmt->execute()) {
             die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
         }
@@ -52,4 +52,5 @@ $conn->close();
 // Répondre avec succès
 echo json_encode(array("message" => "Événements enregistrés avec succès"));
 ?>
+
 
