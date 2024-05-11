@@ -32,7 +32,6 @@ if ($result->num_rows > 0) {
     $_SESSION['first_name'] = $row['first_name'];
     $_SESSION['last_name'] = $row['last_name'];
     $_SESSION['user_id'] = $row['id']; // Stockage de l'ID de l'utilisateur
-    $_SESSION['agenda_code'] = 'JPXGPVX'
     
     // Création d'un cookie sécurisé pour se souvenir de l'utilisateur
     $cookie_name = "user_id";
