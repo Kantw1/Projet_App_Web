@@ -5,8 +5,14 @@ const selectElement = document.getElementById("other-agendas");
 function getAgendaData() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
-    .then(data => {
-        // Appeler la fonction pour afficher les données des agendas
+    .then(Data => {
+        // Supprimer les guillemets autour des clés du tableau JSON
+        const agendaData = Data.map(item => {
+            return {
+                name: item.name,
+                code: item.code
+            };
+        });
         Agenda_deroulant(data);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
