@@ -571,7 +571,7 @@ eventsContainer.addEventListener("click", (e) => {
 
 //function to get events from local storage
 function getEvents() {
-  fetch('get_events.php', {
+  fetch('test.php', {
     method: 'POST',
     //credentials: 'same-origin' // Ajoutez cette ligne si votre site utilise des cookies de session
   })
