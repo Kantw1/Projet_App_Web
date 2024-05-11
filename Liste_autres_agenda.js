@@ -36,3 +36,4 @@ function Agenda_deroulant(agendaData) {
         change_agenda_session(selectedCode);
     });
 }
+getAgendaData2();
