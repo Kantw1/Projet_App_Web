@@ -1,11 +1,10 @@
 <?php
-// Paramètres de connexion à la base de données
+// Connexion à la base de données
 $servername = "localhost";
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
-// Connexion à la base de données
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Vérification de la connexion
@@ -18,9 +17,9 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event) {
-    $day = $event['day'];
-    $month = $event['month'];
-    $year = $event['year'];
+    $day = (int)$event['day'];
+    $month = (int)$event['month'];
+    $year = (int)$event['year'];
     foreach ($event['events'] as $subEvent) {
         $title = $subEvent['title'];
         $start_time = $subEvent['time']; // Notez que vous devez séparer l'heure de début et l'heure de fin si nécessaire
@@ -38,11 +37,12 @@ foreach ($data as $event) {
     }
 }
 
-// Répondre avec succès
-echo json_encode(array("message" => "Events saved successfully"));
-
 // Fermeture de la connexion
 $conn->close();
+
+// Répondre avec succès
+echo json_encode(array("message" => "Events saved successfully"));
 ?>
+
 
 
