@@ -76,16 +76,21 @@ function getAgendaCodeAndSelectAgenda() {
             }
             return response.json(); // Récupérer la réponse au format JSON
         })
-        .then(agendaData => {
-            console.log('Données de l\'agenda récupérées:', agendaData);
+        .then(agendaCode => {
+            console.log('Données de l\'agenda récupérées:', agendaCode);
             // Appeler la fonction pour afficher les données des agendas dans un élément <select>
-            Agenda_deroulant(agendaData);
+            getAgendaData2();
 
-            if (agenda.code === agendaData) {
-                option.selected = true;
-            }
+            // Sélectionner par défaut l'agenda avec le code agendaData
+            const selectElement = document.getElementById("other-agendas");
+            agendaData.forEach(agenda => {
+                if (agenda.code === agendaCode) {
+                    selectElement.value = agendaCode;
+                }
+            });
         })
         .catch(error => console.error('Erreur lors de la récupération des données de l\'agenda:', error));
 }
+
 
 
