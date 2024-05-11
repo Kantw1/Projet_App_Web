@@ -13,7 +13,7 @@ function getAgendaData() {
                 code: item.code
             };
         });
-        Agenda_deroulant(data);
+        Agenda_deroulant(agendadata);
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
