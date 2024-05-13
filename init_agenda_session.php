@@ -29,6 +29,7 @@ if(isset($_SESSION['user_id'])) {
 
         // Initialiser $_SESSION['agenda_code'] avec le premier agenda du tableau
         $_SESSION['agenda_code'] = $agenda_codes[0];
+        $_SESSION['agenda_perso_code'] = $agenda_codes[0];
     }
 }
 ?>
