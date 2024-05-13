@@ -1,15 +1,25 @@
 // Fonction pour récupérer les données de l'utilisateur depuis User.php
 function getUserData() {
     fetch('User.php') // Envoyer une requête HTTP à User.php pour récupérer les données de l'utilisateur
-    .then(response => response.json()) // Convertir la réponse en JSON
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur HTTP, status = ' + response.status);
+        }
+        return response.json(); // Convertir la réponse en JSON
+    })
     .then(data => {
         // Stocker les données de l'utilisateur dans une constante
         const userData = data;
         // Appeler la fonction pour afficher les données de l'utilisateur
         displayUserData(userData);
     })
-    .catch(error => console.error('Erreur lors de la récupération des données de l\'utilisateur:', error));
+    .catch(error => {
+        console.error('Erreur lors de la récupération des données de l\'utilisateur:', error);
+        // Redirection vers index.html en cas d'erreur
+        window.location.href = 'index.html';
+    });
 }
+
 
 // Fonction pour afficher les données de l'utilisateur dans la classe 'user-data'
 function displayUserData(userData) {
