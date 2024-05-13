@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 // Vérification si le code de l'agenda est présent dans la session
 if (isset($_SESSION['agenda_code'])) {
     // Récupération du code de l'agenda depuis la session

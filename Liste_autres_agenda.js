@@ -15,7 +15,6 @@ function getAgendaData2() {
         fetch('get_agenda_code.php')
         .then(response => {
             if (!response.ok) {
-                window.location.href = 'index.html';
                 throw new Error('Erreur HTTP, status = ' + response.status);
             }
             return response.json(); // Récupérer la réponse au format JSON
