@@ -26,7 +26,7 @@ function getAgendaData2() {
                         if (!response.ok) {
                             throw new Error('Erreur HTTP, status = ' + response.status);
                         }
-                        // Relancer la récupération des données de l'agenda
+                        // Relancer la récupération des données de l'agenda après l'initialisation du code de l'agenda
                         return getAgendaData2();
                     });
             }
@@ -37,6 +37,7 @@ function getAgendaData2() {
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
+
 
 
 // Fonction pour afficher les données des agendas dans un élément <select>
