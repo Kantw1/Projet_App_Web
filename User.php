@@ -32,5 +32,7 @@ if(isset($_SESSION['user_id'])) {
     echo json_encode($userData);
 } else {
     echo "Session utilisateur non trouvée.";
+    header('Location: index.html');
+    exit;
 }
 ?>
