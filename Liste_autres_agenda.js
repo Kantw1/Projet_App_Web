@@ -1,3 +1,4 @@
+// Fonction pour récupérer les données des agendas depuis Liste_agenda.php
 function getAgendaData2() {
     fetch('Liste_agenda.php') // Envoyer une requête HTTP à Liste_agenda.php pour récupérer les données des agendas
     .then(response => response.json()) // Convertir la réponse en JSON
@@ -14,22 +15,12 @@ function getAgendaData2() {
         fetch('get_agenda_code.php')
         .then(response => {
             if (!response.ok) {
+                window.location.href = 'index.html';
                 throw new Error('Erreur HTTP, status = ' + response.status);
             }
             return response.json(); // Récupérer la réponse au format JSON
         })
         .then(agendaCode => {
-            if (!agendaCode) {
-                // Si aucune donnée de code d'agenda n'est récupérée, initialiser le code de l'agenda
-                return fetch('init_agenda_session.php')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erreur HTTP, status = ' + response.status);
-                        }
-                        // Relancer la récupération des données de l'agenda après l'initialisation du code de l'agenda
-                        return getAgendaData2();
-                    });
-            }
             console.log('Données de l\'agenda récupérées:', agendaCode);
             Agenda_deroulant(agendaData,agendaCode);
         })
@@ -37,8 +28,6 @@ function getAgendaData2() {
     })
     .catch(error => console.error('Erreur lors de la récupération des données des agendas :', error));
 }
-
-
 
 // Fonction pour afficher les données des agendas dans un élément <select>
 function Agenda_deroulant(agendaData, agendaCode) {
