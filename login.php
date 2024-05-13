@@ -44,6 +44,7 @@ if ($result->num_rows > 0) {
     setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly);
     
     // Redirection vers l'agenda collaboratif
+    include 'init_agenda_session.php';
     header('Location: Agenda.html');
     exit;
 } else {
