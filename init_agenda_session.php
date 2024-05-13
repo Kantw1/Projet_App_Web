@@ -1,3 +1,4 @@
+<?php
 // Connexion à la base de données
 $servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
@@ -30,3 +31,4 @@ if(isset($_SESSION['user_id'])) {
         $_SESSION['agenda_code'] = $agenda_codes[0];
     }
 }
+?>
