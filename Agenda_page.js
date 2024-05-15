@@ -595,14 +595,15 @@ function getEvents() {
 }
 
 function saveEvents() {
-  //console.log('Données transmises :', JSON.stringify(eventsArr));
+  const newEvents = eventsArr.filter(event => !event.synced); // Sélectionner uniquement les nouveaux événements
+  console.log('Données transmises :', JSON.stringify(newEvents));
 
   fetch('create_event.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(eventsArr),
+    body: JSON.stringify(newEvents),
   })
   .then(response => {
     console.log('Réponse du serveur :', response); // Ajoutez cette ligne pour déboguer
@@ -613,12 +614,15 @@ function saveEvents() {
   })
   .then(data => {
     console.log('Événements enregistrés:', data);
+    // Marquer les nouveaux événements comme synchronisés
+    newEvents.forEach(event => event.synced = true);
   })
   .catch(error => {
     console.error('Erreur lors de l\'enregistrement des événements:', error);
-    //console.log('Erreur dans le JSON envoyé:', JSON.stringify(eventsArr));
+    console.log('Erreur dans le JSON envoyé:', JSON.stringify(newEvents));
   });
 }
+
 
 
 
