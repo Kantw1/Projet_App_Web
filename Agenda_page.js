@@ -584,13 +584,16 @@ function getEvents() {
     return response.json();
   })
   .then(data => {
+    console.log('Données reçues du serveur :', data); // Affiche les données reçues
     eventsArr.push(...data);
+    console.log('Événements après ajout à eventsArr :', eventsArr); // Affiche les événements après les avoir ajoutés
     initCalendar(); // Mettre à jour le calendrier une fois les événements récupérés
   })
   .catch(error => {
     console.error('Erreur lors de la récupération des événements:', error);
   });
 }
+
 
 function saveEvents() {
   console.log('Données transmises :', JSON.stringify(eventsArr));
@@ -613,8 +616,8 @@ function saveEvents() {
     console.log('Événements enregistrés:', data);
   })
   .catch(error => {
-    console.error('Erreur lors de l\'enregistrement des événements:', error);
-    console.log('Erreur dans le JSON envoyé:', JSON.stringify(eventsArr));
+    //console.error('Erreur lors de l\'enregistrement des événements:', error);
+    //console.log('Erreur dans le JSON envoyé:', JSON.stringify(eventsArr));
   });
 }
 
