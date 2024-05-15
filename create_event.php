@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Connexion à la base de données
-$servername = "localhost";
+$servername = "localhost:3306";
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
