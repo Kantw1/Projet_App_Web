@@ -802,10 +802,11 @@
 @media only screen and (max-width: 767px) {
   .sidebar {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 1px; /* Positionne la barre latérale au bas de l'écran */
-    max-height: 50vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
+    top: 200px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px; /* Positionne la barre latérale au bas de l'écran */
+    max-height: 100vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
     width: 100%;
     padding: 20px;
     background-color: #FFC8D3;
