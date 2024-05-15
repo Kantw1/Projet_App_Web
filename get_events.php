@@ -72,10 +72,10 @@ try {
     }
 
     // Retourner les événements au format JSON
+    header('Content-Type: application/json');
     echo json_encode($eventsArr);
 } catch (PDOException $e) {
     http_response_code(500);
     die("Erreur de base de données: " . $e->getMessage());
 }
 ?>
-
