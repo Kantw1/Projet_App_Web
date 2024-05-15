@@ -573,7 +573,7 @@ eventsContainer.addEventListener("click", (e) => {
 function getEvents() {
   // Vide complètement eventsArr avant de le remplir avec les nouveaux événements
   eventsArr.length = 0;
-  fetch('test.php', {
+  fetch('get_events.php', {
     method: 'POST',
     //credentials: 'same-origin' // Ajoutez cette ligne si votre site utilise des cookies de session
   })
