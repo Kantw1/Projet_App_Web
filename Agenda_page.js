@@ -616,8 +616,8 @@ function saveEvents() {
     console.log('Événements enregistrés:', data);
   })
   .catch(error => {
-    //console.error('Erreur lors de l\'enregistrement des événements:', error);
-    //console.log('Erreur dans le JSON envoyé:', JSON.stringify(eventsArr));
+    console.error('Erreur lors de l\'enregistrement des événements:', error);
+    console.log('Erreur dans le JSON envoyé:', JSON.stringify(eventsArr));
   });
 }
 
