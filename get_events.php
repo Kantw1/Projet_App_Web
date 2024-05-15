@@ -32,58 +32,62 @@ try {
     // Ajout de prints pour déboguer
     print("Nombre d'événements récupérés : " . count($events) . "<br>");
 
-    foreach ($events as $event) {
-        $day = $event['day'];
-        $month = $event['month'];
-        $year = $event['year'];
-        $title = $event['title'];
-        $time = $event['event_time'];
-        $description = $event['description'];
-        $place = $event['place'];
+    if (count($events) > 0) {
+        foreach ($events as $event) {
+            $day = $event['day'];
+            $month = $event['month'];
+            $year = $event['year'];
+            $title = $event['title'];
+            $time = $event['event_time'];
+            $description = $event['description'];
+            $place = $event['place'];
 
-        print("Traitement de l'événement : $title<br>");
+            print("Traitement de l'événement : $title<br>");
 
-        // Vérifier si les valeurs essentielles ne sont pas vides
-        if (!empty($title) && !empty($time)) {
-            // Créer un nouvel événement
-            $newEvent = array(
-                'title' => $title,
-                'time' => $time,
-                'description' => $description,
-                'place' => $place
-            );
+            // Vérifier si les valeurs essentielles ne sont pas vides
+            if (!empty($title) && !empty($time)) {
+                // Créer un nouvel événement
+                $newEvent = array(
+                    'title' => $title,
+                    'time' => $time,
+                    'description' => $description,
+                    'place' => $place
+                );
 
-            // Vérifier si le jour existe déjà dans le tableau des événements
-            $found = false;
-            foreach ($eventsArr as &$dayObj) {
-                if ($dayObj['day'] == $day && $dayObj['month'] == $month && $dayObj['year'] == $year) {
-                    // Vérifier si l'événement n'est pas déjà présent
-                    $eventExists = false;
-                    foreach ($dayObj['events'] as $existingEvent) {
-                        if ($existingEvent['title'] == $title && $existingEvent['time'] == $time && $existingEvent['description'] == $description && $existingEvent['place'] == $place) {
-                            $eventExists = true;
-                            break;
+                // Vérifier si le jour existe déjà dans le tableau des événements
+                $found = false;
+                foreach ($eventsArr as &$dayObj) {
+                    if ($dayObj['day'] == $day && $dayObj['month'] == $month && $dayObj['year'] == $year) {
+                        // Vérifier si l'événement n'est pas déjà présent
+                        $eventExists = false;
+                        foreach ($dayObj['events'] as $existingEvent) {
+                            if ($existingEvent['title'] == $title && $existingEvent['time'] == $time && $existingEvent['description'] == $description && $existingEvent['place'] == $place) {
+                                $eventExists = true;
+                                break;
+                            }
                         }
+                        if (!$eventExists) {
+                            // Ajouter l'événement au jour existant
+                            $dayObj['events'][] = $newEvent;
+                        }
+                        $found = true;
+                        break;
                     }
-                    if (!$eventExists) {
-                        // Ajouter l'événement au jour existant
-                        $dayObj['events'][] = $newEvent;
-                    }
-                    $found = true;
-                    break;
+                }
+
+                // Si le jour n'existe pas encore, le créer
+                if (!$found) {
+                    $eventsArr[] = array(
+                        'day' => $day,
+                        'month' => $month,
+                        'year' => $year,
+                        'events' => array($newEvent)
+                    );
                 }
             }
-
-            // Si le jour n'existe pas encore, le créer
-            if (!$found) {
-                $eventsArr[] = array(
-                    'day' => $day,
-                    'month' => $month,
-                    'year' => $year,
-                    'events' => array($newEvent)
-                );
-            }
         }
+    } else {
+        print("Aucun événement trouvé pour cet agenda<br>");
     }
 
     // Retourner les événements au format JSON
