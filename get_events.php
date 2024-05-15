@@ -7,13 +7,13 @@ if (!isset($_SESSION['agenda_code'])) {
     die("Vous n'êtes pas autorisé à accéder à cet agenda.");
 }
 
+$agenda_code = $_SESSION['agenda_code'];
+
 // Connexion à la base de données
 $servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
-
-$agenda_code = $_SESSION['agenda_code'];
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -78,3 +78,4 @@ try {
     die("Erreur de base de données: " . $e->getMessage());
 }
 ?>
+
