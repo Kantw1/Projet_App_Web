@@ -20,11 +20,12 @@ if (!isset($_SESSION['agenda_code'])) {
 
 $agenda_code = $_SESSION['agenda_code'];
 $agenda_code_personnel = $_SESSION['agenda_perso_code'];
-echo "Agenda personnel : " . $agenda_code_personnel;
+
 
 if ($agenda_code == $agenda_code_personnel) {
     // Si l'agenda_code est égal à l'agenda_code_personnel, appeler get_events_perso.php
     include('get_events_perso.php');
+    echo "Agenda personnel : " . $agenda_code_personnel;
     exit();
 }
 
