@@ -20,6 +20,9 @@ if (!isset($_SESSION['agenda_code'])) {
 
 $agenda_code_personnel = $_SESSION['agenda_perso_code'];
 
+// Message de vérification
+echo "Le code PHP est lancé.";
+
 // Préparation de la requête
 $query = "SELECT * FROM user_agenda WHERE agenda_code = :agenda_code";
 $stmt = $pdo->prepare($query);
@@ -75,3 +78,4 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
+
