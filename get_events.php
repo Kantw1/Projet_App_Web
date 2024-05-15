@@ -14,26 +14,29 @@ try {
 
 // Vérifie si l'utilisateur est connecté
 session_start();
-if (!isset($_SESSION['agenda_code'])) {
+if (!isset($_SESSION['user_id'])) {
     die("Vous n'êtes pas connecté.");
 }
 
-$agenda_code = $_SESSION['agenda_code'];
+// Récupérer l'agenda personnel de l'utilisateur
+$query_agenda_perso = "SELECT agenda_code FROM user_agenda WHERE user_id = :user_id AND agenda_perso_code = :agenda_perso_code";
+$stmt_agenda_perso = $pdo->prepare($query_agenda_perso);
+$stmt_agenda_perso->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+$stmt_agenda_perso->bindParam(':agenda_perso_code', $_SESSION['agenda_perso_code'], PDO::PARAM_STR);
+$stmt_agenda_perso->execute();
+$agenda_perso = $stmt_agenda_perso->fetch(PDO::FETCH_ASSOC);
 
-// Vérifie si l'agenda est personnel ou non
-$query_agenda_type = "SELECT agenda_perso_code FROM user_agenda WHERE agenda_code = :agenda_code";
-$stmt_agenda_type = $pdo->prepare($query_agenda_type);
-$stmt_agenda_type->bindParam(':agenda_code', $agenda_code, PDO::PARAM_STR);
-$stmt_agenda_type->execute();
-$agenda_type = $stmt_agenda_type->fetchColumn();
-
-if ($agenda_type == $_SESSION['agenda_perso_code']) {
-    // Si l'agenda est personnel, récupérer tous les événements de tous les agendas de l'utilisateur
+if ($agenda_perso) {
+    // Si l'utilisateur a un agenda personnel, récupérer tous les événements de tous les agendas
     $query_events = "SELECT * FROM events WHERE code_agenda IN (SELECT agenda_code FROM user_agenda WHERE user_id = :user_id)";
     $stmt_events = $pdo->prepare($query_events);
     $stmt_events->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
 } else {
     // Sinon, récupérer uniquement les événements de l'agenda spécifié
+    if (!isset($_SESSION['agenda_code'])) {
+        die("Aucun agenda sélectionné.");
+    }
+    $agenda_code = $_SESSION['agenda_code'];
     $query_events = "SELECT * FROM events WHERE code_agenda = :code_agenda";
     $stmt_events = $pdo->prepare($query_events);
     $stmt_events->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
@@ -74,4 +77,3 @@ while ($row = $stmt_events->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
-
