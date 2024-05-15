@@ -6,7 +6,7 @@ $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
 try {
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
@@ -21,9 +21,9 @@ if (!isset($_SESSION['agenda_code'])) {
 $agenda_code = $_SESSION['agenda_code'];
 
 // Préparation de la requête
-$query = "SELECT * FROM events WHERE agenda_code = :agenda_code";
+$query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
 $stmt = $pdo->prepare($query);
-$stmt->bindParam(':agenda_code', $agenda_code, PDO::PARAM_STR);
+$stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
 $stmt->execute();
 
 $eventsArr = [];
