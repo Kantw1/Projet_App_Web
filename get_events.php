@@ -6,7 +6,7 @@ if (!isset($_SESSION['agenda_code'])) {
     http_response_code(403);
     die("Vous n'êtes pas autorisé à accéder à cet agenda.");
 }
-
+//agenda de la session
 $agenda_code = $_SESSION['agenda_code'];
 
 // Connexion à la base de données
