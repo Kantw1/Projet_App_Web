@@ -20,49 +20,72 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Récupérer tous les événements des agendas accessibles
-    $stmt = $pdo->prepare("
-        SELECT day, month, year, title, event_time, description, place
-        FROM events
-        WHERE code_agenda = :agenda_code OR code_agenda = :agenda_perso_code
-    ");
-    $stmt->execute(['agenda_code' => $user_id, 'agenda_perso_code' => $agenda_perso_code]);
-    $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Récupérer tous les codes d'agenda auxquels l'utilisateur a accès
+    $stmt = $pdo->prepare('
+        SELECT agenda_code
+        FROM user_agenda
+        WHERE user_id = :user_id
+    ');
+    $stmt->execute(['user_id' => $user_id]);
+    $agenda_codes = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    // Formatage des données
+    // Inclure le code d'agenda personnel de l'utilisateur
+    if ($agenda_perso_code) {
+        $agenda_codes[] = $agenda_perso_code;
+    }
+
+    if (empty($agenda_codes)) {
+        echo json_encode([]);
+        exit();
+    }
+
+    // Initialiser le tableau d'événements
     $eventsArr = [];
-    foreach ($events as $event) {
-        $date = [
-            'day' => $event['day'],
-            'month' => $event['month'],
-            'year' => $event['year'],
-        ];
 
-        $eventData = [
-            'title' => $event['title'],
-            'time' => $event['event_time'],
-            'description' => $event['description'],
-            'place' => $event['place'],
-        ];
+    // Pour chaque agenda de l'utilisateur, récupérer les événements
+    foreach ($agenda_codes as $agenda_code) {
+        $stmt = $pdo->prepare("
+            SELECT day, month, year, title, event_time, description, place
+            FROM events
+            WHERE code_agenda = :code_agenda
+        ");
+        $stmt->execute(['code_agenda' => $agenda_code]);
+        $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Vérifier si la date existe déjà dans $eventsArr
-        $found = false;
-        foreach ($eventsArr as &$item) {
-            if ($item['day'] == $date['day'] && $item['month'] == $date['month'] && $item['year'] == $date['year']) {
-                $item['events'][] = $eventData;
-                $found = true;
-                break;
-            }
-        }
-
-        // Si la date n'existe pas encore, l'ajouter à $eventsArr
-        if (!$found) {
-            $eventsArr[] = [
-                'day' => $date['day'],
-                'month' => $date['month'],
-                'year' => $date['year'],
-                'events' => [$eventData],
+        // Ajouter chaque événement dans $eventsArr
+        foreach ($events as $event) {
+            $date = [
+                'day' => $event['day'],
+                'month' => $event['month'],
+                'year' => $event['year'],
             ];
+
+            $eventData = [
+                'title' => $event['title'],
+                'time' => $event['event_time'],
+                'description' => $event['description'],
+                'place' => $event['place'],
+            ];
+
+            // Vérifier si la date existe déjà dans $eventsArr
+            $found = false;
+            foreach ($eventsArr as &$item) {
+                if ($item['day'] == $date['day'] && $item['month'] == $date['month'] && $item['year'] == $date['year']) {
+                    $item['events'][] = $eventData;
+                    $found = true;
+                    break;
+                }
+            }
+
+            // Si la date n'existe pas encore, l'ajouter à $eventsArr
+            if (!$found) {
+                $eventsArr[] = [
+                    'day' => $date['day'],
+                    'month' => $date['month'],
+                    'year' => $date['year'],
+                    'events' => [$eventData],
+                ];
+            }
         }
     }
 
