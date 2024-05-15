@@ -798,23 +798,28 @@
 }
 
 @media only screen and (max-width: 767px) {
-.sidebar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0; /* Positionne la barre latérale au bas de l'écran */
-  max-height: 50vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
-  width: 100%;
-  padding: 20px;
-  background-color: #FFC8D3;
-  border-radius: 10px 10px 0 0; /* Arrondit uniquement les coins supérieurs */
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow-y: auto;
-  display: none;
-}
+  .sidebar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0; /* Positionne la barre latérale au bas de l'écran */
+    width: 100%;
+    padding: 20px;
+    background-color: #FFC8D3;
+    border-radius: 10px 10px 0 0; /* Arrondit uniquement les coins supérieurs */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    transform: translateY(100%); /* Déplace la barre latérale vers le bas de 100% de sa hauteur */
+    transition: transform 0.3s ease; /* Ajoute une transition pour une animation fluide */
+  }
+
+  /* Définir une classe active pour afficher la barre latérale */
+  .sidebar.active {
+    transform: translateY(calc(0% - 60px)); /* Déplace la barre latérale vers le haut, ajusté en fonction de la hauteur de la barre d'état du téléphone (généralement autour de 60px) */
+  }
 }
 
 .user-data {
