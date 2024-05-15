@@ -21,9 +21,18 @@ if (!isset($_SESSION['agenda_code'])) {
 $agenda_code = $_SESSION['agenda_code'];
 
 // Préparation de la requête
-$query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
+if ($_SESSION['agenda_code'] != $_SESSION['agenda_perso_code']) {
+    // Si l'agenda actuel n'est pas un agenda personnel
+    $query = "SELECT * FROM events WHERE code_agenda IN (SELECT agenda_code FROM user_agenda WHERE user_id = :user_id)";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+} else {
+    // Si l'agenda actuel est un agenda personnel
+    $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
+}
+
 $stmt->execute();
 
 $eventsArr = [];
@@ -59,3 +68,4 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
+
