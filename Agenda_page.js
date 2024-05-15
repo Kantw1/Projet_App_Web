@@ -242,6 +242,7 @@ function getActiveDay(date) {
 
 
 //function update events when a day is active
+// function to update events when a day is active
 function updateEvents(date) {
   let events = "";
   eventsArr.forEach((event) => {
@@ -275,35 +276,105 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  saveEvents();
 }
 
-//function to add event
-addEventBtn.addEventListener("click", () => {
-  addEventWrapper.classList.toggle("active");
-});
-
-addEventCloseBtn.addEventListener("click", () => {
-  addEventWrapper.classList.remove("active");
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
-    addEventWrapper.classList.remove("active");
+// function to add event to eventsArr
+addEventSubmit.addEventListener("click", () => {
+  const eventTitle = addEventTitle.value;
+  const eventTimeFrom = addEventFrom.value;
+  const eventTimeTo = addEventTo.value;
+  const eventDescription = addEventDescription.value; // Ajout de la description
+  const eventPlace = addEventPlace.value; // Ajout de la position
+  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+    alert("Please fill all the fields");
+    return;
   }
-});
 
-//allow 50 chars in eventtitle
-addEventTitle.addEventListener("input", (e) => {
-  addEventTitle.value = addEventTitle.value.slice(0, 60);
-});
+  // check correct time format 24 hour
+  const timeFromArr = eventTimeFrom.split(":");
+  const timeToArr = eventTimeTo.split(":");
+  if (
+    timeFromArr.length !== 2 ||
+    timeToArr.length !== 2 ||
+    timeFromArr[0] > 23 ||
+    timeFromArr[1] > 59 ||
+    timeToArr[0] > 23 ||
+    timeToArr[1] > 59 ||
+    compareTimes(timeFromArr[0], timeFromArr[1],timeToArr[0], timeToArr[1]) != -1
+  ) {
+    alert("Format d'heure invalide");
+    return;
+  }
 
-addEventDescription.addEventListener("input", (e) => {
-  addEventDescription.value = addEventDescription.value.slice(0, 600);
-});
+  const timeFrom = convertTime(eventTimeFrom);
+  const timeTo = convertTime(eventTimeTo);
 
-addEventPlace.addEventListener("input", (e) => {
-  addEventPlace.value = addEventPlace.value.slice(0, 600);
+  // check if event is already added
+  let eventExist = false;
+  eventsArr.forEach((event) => {
+    if (
+      event.day === activeDay &&
+      event.month === month + 1 &&
+      event.year === year
+    ) {
+      event.events.forEach((event) => {
+        if (event.title === eventTitle) {
+          eventExist = true;
+        }
+      });
+    }
+  });
+  if (eventExist) {
+    alert("Evenement déjà existant");
+    return;
+  }
+
+  const newEvent = {
+    title: eventTitle,
+    time: timeFrom + " - " + timeTo,
+    description: eventDescription,
+    place: eventPlace,
+  };
+
+  let eventAdded = false;
+  if (eventsArr.length > 0) {
+    eventsArr.forEach((item) => {
+      if (
+        item.day === activeDay &&
+        item.month === month + 1 &&
+        item.year === year
+      ) {
+        item.events.push(newEvent);
+        eventAdded = true;
+      }
+    });
+  }
+
+  if (!eventAdded) {
+    eventsArr.push({
+      day: activeDay,
+      month: month + 1,
+      year: year,
+      events: [newEvent],
+    });
+  }
+
+  // Save events only when a new event is created
+  saveEvents();
+
+  addEventWrapper.classList.remove("active");
+  addEventTitle.value = "";
+  addEventFrom.value = "";
+  addEventTo.value = "";
+  addEventDescription.value = "";
+  addEventPlace.value = "";
+  updateEvents(activeDay);
+
+  // select active day and add event class if not added
+  const activeDayEl = document.querySelector(".day.active");
+  if (!activeDayEl.classList.contains("event")) {
+    activeDayEl.classList.add("event");
+  }
 });
 
 function defineProperty() {
