@@ -1,9 +1,9 @@
 <?php
 // Connexion à la base de données
-$db_host = 'localhost';
-$db_name = 'nom_de_votre_base_de_donnees';
-$db_user = 'votre_utilisateur';
-$db_pass = 'votre_mot_de_passe';
+$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$username = "cycalguj";
+$password = "CYCalender1234";
+$dbname = "CYCalenderB";
 
 try {
     $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
