@@ -1,78 +1,52 @@
 <?php
-// Connexion à la base de données
-$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
-$username = "cycalguj";
-$password = "CYCalender1234";
-$dbname = "CYCalenderB";
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur : " . $e->getMessage());
-}
-
-// Vérifie si l'utilisateur est connecté
 session_start();
-if (!isset($_SESSION['agenda_code'])) {
-    die("Vous n'êtes pas connecté.");
-}
+header('Content-Type: application/json');
 
-$agenda_code_personnel = $_SESSION['agenda_perso_code'];
-
-// Préparation de la requête
-$query = "SELECT * FROM user_agenda WHERE agenda_code = :agenda_code";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':agenda_code', $agenda_code_personnel, PDO::PARAM_STR);
-$stmt->execute();
-
-$user_agenda = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$user_agenda) {
-    // Si l'agenda personnel n'existe pas pour cet utilisateur, retourner un tableau vide
-    echo json_encode([]);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['error' => 'User not logged in']);
     exit();
 }
 
-$user_id = $user_agenda['user_id'];
+$user_id = $_SESSION['user_id'];
+$agenda_perso_code = $_SESSION['agenda_perso_code'];
 
-// Préparation de la requête pour récupérer les événements
-$query = "SELECT * FROM events WHERE creator = :user_id";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-$stmt->execute();
+try {
+    $pdo = new PDO('mysql:host=your_host;dbname=your_db', 'your_user', 'your_password');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$eventsArr = [];
+    // Récupérer tous les codes d'agenda auxquels l'utilisateur a accès
+    $stmt = $pdo->prepare('
+        SELECT agenda_code
+        FROM agenda_access
+        WHERE user_id = :user_id
+    ');
+    $stmt->execute(['user_id' => $user_id]);
+    $agenda_codes = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-// Récupération des résultats
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $event = [
-        'day' => (int)$row['day'],
-        'month' => (int)$row['month'],
-        'year' => (int)$row['year'],
-        'events' => [
-            [
-                'title' => $row['title'],
-                'time' => $row['event_time'], // Utilise le champ event_time pour l'heure
-                'description' => $row['description'],
-                'place' => $row['place']
-            ]
-        ]
-    ];
-
-    // Recherche si un événement existe déjà pour ce jour
-    $index = array_search($event['day'], array_column($eventsArr, 'day'));
-
-    // Si un événement existe pour ce jour, ajoute le nouvel événement à cet index
-    if ($index !== false) {
-        array_push($eventsArr[$index]['events'], $event['events'][0]);
-    } else {
-        // Sinon, ajoute le nouvel événement à $eventsArr
-        array_push($eventsArr, $event);
+    // Inclure le code d'agenda personnel de l'utilisateur
+    if ($agenda_perso_code) {
+        $agenda_codes[] = $agenda_perso_code;
     }
-}
 
-// Envoie des données au format JSON
-echo json_encode($eventsArr);
+    if (empty($agenda_codes)) {
+        echo json_encode([]);
+        exit();
+    }
+
+    // Récupérer tous les événements des agendas accessibles
+    $placeholders = str_repeat('?,', count($agenda_codes) - 1) . '?';
+    $stmt = $pdo->prepare("
+        SELECT e.event_id, e.agenda_code, e.title, e.description, e.place, e.time_from, e.time_to, e.event_date
+        FROM events e
+        WHERE e.agenda_code IN ($placeholders)
+    ");
+    $stmt->execute($agenda_codes);
+    $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo json_encode($events);
+
+} catch (PDOException $e) {
+    echo json_encode(['error' => $e->getMessage()]);
+}
 ?>
 
