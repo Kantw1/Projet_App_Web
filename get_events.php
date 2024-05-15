@@ -52,8 +52,18 @@ try {
             $found = false;
             foreach ($eventsArr as &$dayObj) {
                 if ($dayObj['day'] == $day && $dayObj['month'] == $month && $dayObj['year'] == $year) {
-                    // Ajouter l'événement au jour existant
-                    $dayObj['events'][] = $newEvent;
+                    // Vérifier si l'événement n'est pas déjà présent
+                    $eventExists = false;
+                    foreach ($dayObj['events'] as $existingEvent) {
+                        if ($existingEvent['title'] == $title && $existingEvent['time'] == $time && $existingEvent['description'] == $description && $existingEvent['place'] == $place) {
+                            $eventExists = true;
+                            break;
+                        }
+                    }
+                    if (!$eventExists) {
+                        // Ajouter l'événement au jour existant
+                        $dayObj['events'][] = $newEvent;
+                    }
                     $found = true;
                     break;
                 }
