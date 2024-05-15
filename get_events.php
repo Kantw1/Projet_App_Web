@@ -37,7 +37,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         'events' => [
             [
                 'title' => $row['title'],
-                'time' => $row['time'],
+                'time' => $row['event_time'], // Utilise le champ event_time pour l'heure
                 'description' => $row['description'],
                 'place' => $row['place']
             ]
@@ -59,4 +59,3 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
-
