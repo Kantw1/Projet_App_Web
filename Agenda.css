@@ -566,7 +566,7 @@
 @media only screen and (max-width: 767px) {
 .navigation {
     position: fixed;
-    top: 500px;
+    top: 550px;
     left: 20px;
     right: 20px;
     bottom: 0px;
@@ -801,7 +801,7 @@
   bottom: 20px;
   width: 300px;
   padding: 20px;
-  background-color: #FFC8D3;
+  background-color: #373c4f;
   border-radius: 10px;
   color: #fff;
   display: flex;
@@ -816,14 +816,14 @@
 @media only screen and (max-width: 767px) {
   .sidebar {
     position: fixed;
-    top: 350px;
+    top: 0px;
     left: 0px;
     right: 0px;
-    bottom: 0px; /* Positionne la barre latérale au bas de l'écran */
+    bottom: 400px; /* Positionne la barre latérale au bas de l'écran */
     max-height: 100vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
     width: 100%;
     padding: 20px;
-    background-color: #FFC8D3;
+    background-color: #373c4f;
     border-radius: 10px 10px 10px 10px; /* Arrondit uniquement les coins supérieurs */
     color: #fff;
     display: flex;
