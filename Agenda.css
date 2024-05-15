@@ -804,8 +804,8 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: ; /* Positionne la barre latérale au bas de l'écran */
-    max-height: 80vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
+    bottom: 0; /* Positionne la barre latérale au bas de l'écran */
+    max-height: 50vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
     width: 100%;
     padding: 20px;
     background-color: #FFC8D3;
