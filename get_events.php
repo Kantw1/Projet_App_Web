@@ -29,6 +29,9 @@ try {
     // Structure de données pour stocker les événements par jour, mois et année
     $eventsArr = array();
 
+    // Ajout de prints pour déboguer
+    print("Nombre d'événements récupérés : " . count($events) . "<br>");
+
     foreach ($events as $event) {
         $day = $event['day'];
         $month = $event['month'];
@@ -37,6 +40,8 @@ try {
         $time = $event['event_time'];
         $description = $event['description'];
         $place = $event['place'];
+
+        print("Traitement de l'événement : $title<br>");
 
         // Vérifier si les valeurs essentielles ne sont pas vides
         if (!empty($title) && !empty($time)) {
@@ -89,3 +94,4 @@ try {
     die("Erreur de base de données: " . $e->getMessage());
 }
 ?>
+
