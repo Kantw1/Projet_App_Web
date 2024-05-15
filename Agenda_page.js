@@ -275,36 +275,64 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  saveEvents();
+
+  // Écoute les clics sur les événements pour afficher les détails et la possibilité de suppression
+  document.querySelectorAll(".event").forEach((eventElement) => {
+    eventElement.addEventListener("click", (e) => {
+      // Récupère les détails de l'événement cliqué
+      const eventTitle = e.currentTarget.querySelector(".event-title").textContent;
+      const eventTime = e.currentTarget.querySelector(".event-time").textContent;
+      const eventDescription = e.currentTarget.querySelector(".event-description").textContent;
+      const eventPlace = e.currentTarget.querySelector(".event-place").textContent;
+      
+      // Affiche les informations de l'événement dans une boîte de dialogue ou une section dédiée
+      var nav = document.querySelector('.information-evenement');
+      nav.style.display = 'block';
+      nav.innerHTML = `
+        <h2>Détails de l'événement</h2>
+        <p><strong>Titre:</strong> ${eventTitle}</p>
+        <p><strong>Heure:</strong> ${eventTime}</p>
+        <p><strong>Description:</strong> ${eventDescription}</p>
+        <p><strong>Lieu:</strong> ${eventPlace}</p>
+        <button id="deleteEventBtn">Supprimer</button>
+      `;
+
+      // Écoute les clics sur le bouton de suppression
+      document.getElementById("deleteEventBtn").addEventListener("click", () => {
+        // Confirmation de suppression
+        if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
+          // Supprime l'événement du tableau des événements
+          eventsArr.forEach((event) => {
+            if (
+              event.day === activeDay &&
+              event.month === month + 1 &&
+              event.year === year
+            ) {
+              event.events = event.events.filter(ev => ev.title !== eventTitle);
+              if (event.events.length === 0) {
+                eventsArr = eventsArr.filter(ev => ev !== event);
+                // Supprime la classe "event" du jour s'il n'y a plus d'événements
+                const activeDayEl = document.querySelector(".day.active");
+                if (activeDayEl.classList.contains("event")) {
+                  activeDayEl.classList.remove("event");
+                }
+              }
+            }
+          });
+
+          // Met à jour les événements affichés et sauvegarde les changements
+          updateEvents(activeDay);
+          saveEvents();
+
+          // Cache la boîte de dialogue des informations sur l'événement
+          var nav = document.querySelector('.information-evenement');
+          nav.style.display = 'none';
+        }
+      });
+    });
+  });
 }
 
-//function to add event
-addEventBtn.addEventListener("click", () => {
-  addEventWrapper.classList.toggle("active");
-});
-
-addEventCloseBtn.addEventListener("click", () => {
-  addEventWrapper.classList.remove("active");
-});
-
-document.addEventListener("click", (e) => {
-  if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
-    addEventWrapper.classList.remove("active");
-  }
-});
-
-//allow 50 chars in eventtitle
-addEventTitle.addEventListener("input", (e) => {
-  addEventTitle.value = addEventTitle.value.slice(0, 60);
-});
-
-addEventDescription.addEventListener("input", (e) => {
-  addEventDescription.value = addEventDescription.value.slice(0, 600);
-});
-
-addEventPlace.addEventListener("input", (e) => {
-  addEventPlace.value = addEventPlace.value.slice(0, 600);
-});
 
 function defineProperty() {
   var osccred = document.createElement("div");
