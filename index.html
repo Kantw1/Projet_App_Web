@@ -28,9 +28,6 @@
     </form>
   </div>
 
-  <!-- Afficher le bouton "Continuer avec le compte" si l'utilisateur s'est déjà connecté -->
-  <button id="continueBtn" style="display: none;">Continuer avec le compte</button>
-
   <!-- Lien pour ouvrir le formulaire de création de compte dans une autre page -->
   <h2> Créer un compte </h2>
   <a href="signup.html">Créer un compte</a>
@@ -50,52 +47,6 @@
 <footer class="copyright">
     <p>&copy; 2024 <a href="https://www.youtube.com/watch?v=ZRTNHDd0gL8&ab_channel=AdamOndra">CY'Calender</a>. Tous droits réservés.</p>
 </footer>
-
-<!-- Message pour accepter les cookies -->
-<div id="cookie-consent" class="cookie-consent">
-    <p>Ce site utilise des cookies pour améliorer l'expérience utilisateur. En continuant à naviguer sur ce site, vous acceptez l'utilisation de cookies.</p>
-    <button onclick="acceptCookies()">Accepter les cookies</button>
-</div>
-
-<!-- Script JavaScript pour gérer l'acceptation des cookies -->
-<script>
-function acceptCookies() {
-    document.cookie = "cookie_accepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-    document.getElementById("cookie-consent").style.display = "none";
-    checkCookies(); // Appel de la fonction pour vérifier les cookies après leur acceptation
-}
-
-// Fonction pour vérifier les cookies et afficher le bouton
-function checkCookies() {
-    var cookieAccepted = getCookie("cookie_accepted");
-    var username = getCookie("username");
-    
-    if (cookieAccepted === "true" && username) {
-        document.getElementById("continueBtn").style.display = "block";
-        document.getElementById("continueBtn").innerHTML = "Connexion avec le compte " + username;
-    }
-}
-
-// Fonction pour obtenir un cookie spécifique
-function getCookie(name) {
-    var cookieArr = document.cookie.split("; ");
-    for (var i = 0; i < cookieArr.length; i++) {
-        var cookiePair = cookieArr[i].split("=");
-        if (name === cookiePair[0]) {
-            return decodeURIComponent(cookiePair[1]);
-        }
-    }
-    return null;
-}
-
-// Redirige vers Agenda.html avec les données de connexion si l'utilisateur continue avec son compte
-document.getElementById("continueBtn").addEventListener("click", function() {
-    window.location.href = "Agenda.html";
-});
-
-// Vérifie les cookies au chargement de la page
-window.onload = checkCookies;
-</script>
 
 </body>
 </html>
