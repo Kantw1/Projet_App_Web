@@ -885,19 +885,4 @@
 .hidden {
   display: none;
 }
-.weekdays {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
 
-.weekday {
-  font-size: 1.5rem;
-}
-
-@media only screen and (max-width: 600px) {
-  /* Styles pour les écrans de largeur inférieure à 600 pixels */
-  .weekday {
-    font-size: 1rem;
-  }
-}
