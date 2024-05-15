@@ -777,7 +777,7 @@
     border: none;
     background-color: #007bff;
     color: #fff;
-    cursor: crosshair;
+    cursor: pointer;
 }
 
 .sidebar {
@@ -787,7 +787,7 @@
   bottom: 20px;
   width: 300px;
   padding: 20px;
-  background-color: #373c4f;
+  background-color: #FFC8D3;
   border-radius: 10px;
   color: #fff;
   display: flex;
