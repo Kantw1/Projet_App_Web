@@ -6,8 +6,10 @@ $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
 try {
+    echo "Tentative de connexion à la base de données...<br>";
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion réussie à la base de données.<br>";
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }
@@ -30,6 +32,7 @@ $user_agenda = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user_agenda) {
     // Si l'agenda personnel n'existe pas pour cet utilisateur, retourner un tableau vide
+    echo "Aucun agenda personnel trouvé pour cet utilisateur.<br>";
     echo json_encode([]);
     exit();
 }
@@ -45,6 +48,7 @@ $stmt->execute();
 $eventsArr = [];
 
 // Récupération des résultats
+echo "Récupération des événements...<br>";
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $event = [
         'day' => (int)$row['day'],
@@ -73,14 +77,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 }
 
 // Envoie des données au format JSON
-$response = json_encode($eventsArr);
-
-if ($response === false) {
-    die("Erreur lors de la conversion en JSON");
-} else {
-    echo $response;
-    // Ajoutez un message pour indiquer que le script PHP est lancé avec succès
-    error_log("Le script PHP pour récupérer les événements a été exécuté avec succès.");
-}
+echo "Récupération des événements terminée.<br>";
+echo json_encode($eventsArr);
 ?>
-
