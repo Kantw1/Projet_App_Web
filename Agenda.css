@@ -566,10 +566,10 @@
 @media only screen and (max-width: 767px) {
 .navigation {
     position: fixed;
-    top: 20px;
+    top: 500px;
     left: 20px;
     right: 20px;
-    bottom: 350px;
+    bottom: 0px;
     z-index: 1000;
     background-color: rgba(55, 60, 79, 0.8);
     border-radius: 10px;
