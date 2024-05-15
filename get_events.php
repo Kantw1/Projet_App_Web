@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+print("PHP appelé<br>");
+
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['agenda_code'])) {
     http_response_code(403);
@@ -24,13 +26,13 @@ try {
     $stmt->bindParam(':code_agenda', $agenda_code);
     $stmt->execute();
 
+    // Ajout de prints pour déboguer
+    print("Nombre de lignes récupérées : " . $stmt->rowCount() . "<br>");
+
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Structure de données pour stocker les événements par jour, mois et année
     $eventsArr = array();
-
-    // Ajout de prints pour déboguer
-    print("Nombre d'événements récupérés : " . count($events) . "<br>");
 
     if (count($events) > 0) {
         foreach ($events as $event) {
