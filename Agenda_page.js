@@ -568,7 +568,7 @@ eventsContainer.addEventListener("click", (e) => {
     }
 });
 
-/*
+
 //function to get events from local storage
 function getEvents() {
   // Vide complètement eventsArr avant de le remplir avec les nouveaux événements
@@ -593,10 +593,9 @@ function getEvents() {
     console.error('Erreur lors de la récupération des événements:', error);
   });
 }
-/*/
 
 function saveEvents() {
-  console.log('Données transmises :', JSON.stringify(eventsArr));
+  //console.log('Données transmises :', JSON.stringify(eventsArr));
 
   fetch('create_event.php', {
     method: 'POST',
