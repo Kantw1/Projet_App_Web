@@ -19,6 +19,13 @@ if (!isset($_SESSION['agenda_code'])) {
 }
 
 $agenda_code = $_SESSION['agenda_code'];
+$agenda_code_personnel = $_SESSION['agenda_perso_code'];
+
+if ($agenda_code == $agenda_code_personnel) {
+    // Si l'agenda_code est égal à l'agenda_code_personnel, appeler get_events_perso.php
+    include('get_events_perso.php');
+    exit();
+}
 
 // Préparation de la requête
 $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
@@ -59,3 +66,4 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
+
