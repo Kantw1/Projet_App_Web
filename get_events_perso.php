@@ -20,33 +20,13 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Récupérer tous les codes d'agenda auxquels l'utilisateur a accès
-    $stmt = $pdo->prepare('
-        SELECT code_agenda
-        FROM agenda_access
-        WHERE user_id = :user_id
-    ');
-    $stmt->execute(['user_id' => $user_id]);
-    $agenda_codes = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-    // Inclure le code d'agenda personnel de l'utilisateur
-    if ($agenda_perso_code) {
-        $agenda_codes[] = $agenda_perso_code;
-    }
-
-    if (empty($agenda_codes)) {
-        echo json_encode([]);
-        exit();
-    }
-
     // Récupérer tous les événements des agendas accessibles
-    $placeholders = str_repeat('?,', count($agenda_codes) - 1) . '?';
     $stmt = $pdo->prepare("
         SELECT day, month, year, title, event_time, description, place
         FROM events
-        WHERE code_agenda IN ($placeholders)
+        WHERE code_agenda = :agenda_code OR code_agenda = :agenda_perso_code
     ");
-    $stmt->execute($agenda_codes);
+    $stmt->execute(['agenda_code' => $user_id, 'agenda_perso_code' => $agenda_perso_code]);
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Formatage des données
