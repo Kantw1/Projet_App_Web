@@ -14,23 +14,31 @@ try {
 
 // Vérifie si l'utilisateur est connecté
 session_start();
-if (!isset($_SESSION['agenda_code'])) {
+if (!isset($_SESSION['agenda_code']) || !isset($_SESSION['user_id'])) {
     die("Vous n'êtes pas connecté.");
 }
 
+// Afficher les valeurs de agenda_code et user_id pour le débogage
+echo "agenda_code: " . $_SESSION['agenda_code'] . "<br>";
+echo "user_id: " . $_SESSION['user_id'] . "<br>";
+
 $agenda_code = $_SESSION['agenda_code'];
+$user_id = $_SESSION['user_id'];
 
 // Préparation de la requête
-if ($_SESSION['agenda_code'] != $_SESSION['agenda_perso_code']) {
-    // Si l'agenda actuel n'est pas un agenda personnel
+$query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
+
+// Si l'agenda est personnel, récupérer tous les événements de tous les agendas de l'utilisateur
+if ($agenda_code == $_SESSION['agenda_perso_code']) {
     $query = "SELECT * FROM events WHERE code_agenda IN (SELECT agenda_code FROM user_agenda WHERE user_id = :user_id)";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-} else {
-    // Si l'agenda actuel est un agenda personnel
-    $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
+}
+
+$stmt = $pdo->prepare($query);
+$stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
+
+// Si l'agenda est personnel, lier également user_id à la requête
+if ($agenda_code == $_SESSION['agenda_perso_code']) {
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 }
 
 $stmt->execute();
