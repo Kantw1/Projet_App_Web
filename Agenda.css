@@ -804,7 +804,7 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 500px; /* Positionne la barre latérale au bas de l'écran */
+    bottom: 1px; /* Positionne la barre latérale au bas de l'écran */
     max-height: 50vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
     width: 100%;
     padding: 20px;
