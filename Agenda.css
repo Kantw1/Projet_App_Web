@@ -558,7 +558,7 @@
     right: 20px;
     bottom: 20px;
     z-index: 1000;
-    background-color: rgba(55, 60, 79, 0.8);
+    background-color: #FFC8D3;
     border-radius: 10px;
     padding: 10px;
     display: none; /* La navigation est cachée par défaut */
