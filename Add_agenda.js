@@ -2,6 +2,7 @@ const Agenda_code = document.querySelector(".agenda-code"),
    Add_agenda = document.querySelector(".add-agenda");
 
 Add_agenda.addEventListener("click", () => {
+    var info_agenda_cree = 1;
     const AgendaCode = Agenda_code.value;
     if (AgendaCode === "") {
         alert("Veuillez remplir tous les champs");
@@ -17,6 +18,7 @@ Add_agenda.addEventListener("click", () => {
     .then(response => response.json())
     .then(data => {
         if(data.message) {
+            var info_agenda_cree = 0;
             alert(data.message); // Afficher le message de réponse
             return;
         }
@@ -24,7 +26,7 @@ Add_agenda.addEventListener("click", () => {
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));
     
-    if(!(data.message)) {
+    if(info_agenda_cree) {
         getAgendaData_ajout();
         var nav = document.querySelector('.new-agenda');
         nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';}
