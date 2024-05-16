@@ -42,7 +42,6 @@ if(isset($_SESSION['user_id'])) {
                         "time" => $row_agenda_events["event_time"],
                         "description" => $row_agenda_events["description"],
                         "place" => $row_agenda_events["place"],
-                        "agenda_code" => $agenda_code
                     );
                     array_push($Data, $event);
                 }
