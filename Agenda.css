@@ -941,4 +941,13 @@
 .hidden {
   display: none;
 }
+@media only screen and (max-width: 767px) {
+#toggleADD {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin-top: 20px;
+}
+}
 
