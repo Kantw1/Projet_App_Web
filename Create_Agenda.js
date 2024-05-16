@@ -20,6 +20,7 @@ const Agenda_name = document.querySelector(".Agenda_name"),
             .then(data => {
                 //alert(data);
                 getAgendaData_ajout();
+                getAgendaData2();
                 var nav = document.querySelector('.new-agenda');
                 nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
             })
