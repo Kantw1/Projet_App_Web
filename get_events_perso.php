@@ -92,6 +92,9 @@ try {
     echo json_encode($eventsArr);
 
 } catch (PDOException $e) {
+    // Afficher l'erreur dans la console client
     echo json_encode(['error' => $e->getMessage()]);
+    // Afficher l'erreur dans les logs du serveur
+    error_log($e->getMessage(), 0);
 }
 ?>
