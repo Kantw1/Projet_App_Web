@@ -20,7 +20,6 @@ Add_agenda.addEventListener("click", () => {
             alert(data.message); // Afficher le message de réponse
         }
         else{
-            alert("caca");
             fetch('connection_agenda_user.php', {
                 method: 'POST',
                 headers: {
@@ -33,7 +32,6 @@ Add_agenda.addEventListener("click", () => {
                     alert(data.message); // Afficher le message de réponse
                 }
                 else{
-                    alert("ca devrait etre bon");
                     getAgendaData_ajout();
                     var nav = document.querySelector('.new-agenda');
                     nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
