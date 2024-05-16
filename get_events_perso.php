@@ -20,13 +20,21 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-foreach($agenda_codes as $agenda_code) {
-            $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
-            $sql_agenda_info = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
-            $result_agenda_info = $conn->query($sql_agenda_info);
+$agenda_codes = []; // Définir le tableau des codes d'agenda
 
-            if ($result_agenda_info->num_rows > 0) {
-                $row_agenda_info = $result_agenda_info->fetch_assoc();
+// Récupérer les codes d'agenda de l'utilisateur (à remplacer par votre propre méthode)
+// Exemple : $agenda_codes = get_user_agenda_codes($user_id);
+
+$Data = []; // Initialiser le tableau des données
+
+if (!empty($agenda_codes)) {
+    foreach($agenda_codes as $agenda_code) {
+        $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
+        $sql_agenda_info = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
+        $result_agenda_info = $conn->query($sql_agenda_info);
+
+        if ($result_agenda_info->num_rows > 0) {
+            while ($row_agenda_info = $result_agenda_info->fetch_assoc()) {
                 $event = array(
                     'day' => $row_agenda_info['day'],
                     'month' => $row_agenda_info['month'],
@@ -38,15 +46,14 @@ foreach($agenda_codes as $agenda_code) {
                 );
                 array_push($Data, $event);
             }
-        }     
-        // Affichage du tableau agendaData au format JSON
-        header('Content-Type: application/json');
-        echo json_encode($Data);
-    } else {
-        echo "Aucun agenda trouvé pour cet utilisateur.";
+        }
     }
+
+    // Affichage du tableau agendaData au format JSON
+    header('Content-Type: application/json');
+    echo json_encode($Data);
 } else {
-    echo "L'utilisateur n'est pas connecté.";
+    echo "Aucun agenda trouvé pour cet utilisateur.";
 }
 
 $conn->close();
