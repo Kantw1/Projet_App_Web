@@ -35,8 +35,12 @@ $Data = array();
 
 foreach($agenda_codes as $agenda_code) {
     $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
-    $sql_agenda_info = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
-    $result_agenda_info = $conn->query($sql_agenda_info);
+
+    // Utilisation de requêtes préparées pour éviter les injections SQL
+    $sql_agenda_info = $conn->prepare("SELECT * FROM events WHERE agenda_code = ?");
+    $sql_agenda_info->bind_param("s", $agenda_code);
+    $sql_agenda_info->execute();
+    $result_agenda_info = $sql_agenda_info->get_result();
 
     if ($result_agenda_info->num_rows > 0) {
         while ($row_agenda_info = $result_agenda_info->fetch_assoc()) {
@@ -51,6 +55,8 @@ foreach($agenda_codes as $agenda_code) {
             );
             array_push($Data, $event);
         }
+    } else {
+        die("Aucun événement trouvé pour le code d'agenda : $agenda_code");
     }
 }
 
