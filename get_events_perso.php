@@ -29,7 +29,7 @@ if(isset($_SESSION['user_id'])) {
             $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
 
             // Récupérer les événements de l'agenda
-            $sql_agenda_events = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
+            $sql_agenda_events = "SELECT * FROM events WHERE code_agenda = '$agenda_code'";
             $result_agenda_events = $conn->query($sql_agenda_events);
 
             if ($result_agenda_events->num_rows > 0) {
@@ -60,3 +60,4 @@ if(isset($_SESSION['user_id'])) {
 
 $conn->close();
 ?>
+
