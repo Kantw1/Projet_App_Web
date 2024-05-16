@@ -21,9 +21,9 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 // Récupérer tous les codes d'agenda auxquels l'utilisateur a accès
-$query = "SELECT agenda_code FROM user_agenda WHERE user_id = :user_id";
+$query = "SELECT agenda_code FROM user_agenda WHERE id = :user_id";
 $stmt = $pdo->prepare($query);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $agenda_codes = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -32,9 +32,10 @@ $eventsArr = [];
 
 // Boucle pour récupérer les événements de chaque agenda
 foreach ($agenda_codes as $agenda_code) {
-    // Préparation de la requête pour récupérer les événements de l'agenda
-    $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
+    // Préparation de la requête pour récupérer les événements de l'utilisateur
+    $query = "SELECT * FROM events WHERE id = :id AND code_agenda = :code_agenda";
     $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
     $stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -70,4 +71,3 @@ foreach ($agenda_codes as $agenda_code) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
-
