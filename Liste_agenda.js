@@ -87,6 +87,7 @@ function deleteAgenda(codeAgenda, liElement) {
             //alert(data.message);
             // Supprimer l'agenda de la liste
             liElement.remove();
+            getAgendaData2()
         })
         .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
     }
