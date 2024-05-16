@@ -40,7 +40,6 @@ if(isset($_SESSION['user_id'])) {
             $sql_update_agenda = "UPDATE user_agenda SET agenda_code = '$agenda_text' WHERE user_id = '$user_id'";
             if ($conn->query($sql_update_agenda) === TRUE) {
                 $response = array("success" => true, "message" => "Agenda supprimé avec succès.");
-                $_SESSION['agenda_code'] = $code_agenda;
                 echo json_encode($response);
             } else {
                 $response = array("success" => false, "message" => "Erreur lors de la mise à jour de la liste des agendas: " . $conn->error);

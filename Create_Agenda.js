@@ -21,6 +21,8 @@ const Agenda_name = document.querySelector(".Agenda_name"),
                 //alert(data);
                 getAgendaData_ajout();
                 getAgendaData2();
+                getEvents();
+                initCalendar();
                 var nav = document.querySelector('.new-agenda');
                 nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
             })
