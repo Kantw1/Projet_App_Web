@@ -19,23 +19,7 @@ Add_agenda.addEventListener("click", () => {
         if(data.message) {
             alert(data.message); // Afficher le message de réponse
         } else {
-            // Appeler connection_agenda_user.php
-            fetch('connection_agenda_user.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Traiter la réponse si nécessaire
-            })
-            .catch(error => console.error('Erreur lors de la connexion de l\'agenda à l\'utilisateur:', error));
-            
-            // Appeler la fonction pour obtenir les données de l'agenda ajouté
             getAgendaData_ajout();
-            
-            // Afficher ou masquer l'élément .new-agenda
             var nav = document.querySelector('.new-agenda');
             nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
         }

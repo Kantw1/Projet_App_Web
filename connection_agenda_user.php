@@ -42,6 +42,7 @@ if(isset($_SESSION['user_id'])) {
 
         if ($conn->query($sql_update_user_agenda) === TRUE) {
             echo "Code d'agenda mis à jour avec succès dans la table user_agenda";
+            $message = "";
         } else {
             echo "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : " . $conn->error;
         }
@@ -51,6 +52,7 @@ if(isset($_SESSION['user_id'])) {
 
         if ($conn->query($sql_insert_user_agenda) === TRUE) {
             echo "Nouveau code d'agenda ajouté avec succès dans la table user_agenda";
+            $message = "";
         } else {
             echo "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : " . $conn->error;
         }
@@ -58,6 +60,8 @@ if(isset($_SESSION['user_id'])) {
 } else {
     echo "L'utilisateur n'est pas connecté.";
 }
+
+echo json_encode(array("message" => $message));
 
 $conn->close();
 ?>
