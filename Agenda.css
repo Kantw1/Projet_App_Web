@@ -945,8 +945,8 @@
     cursor: pointer;
     height: 50px;
     width: 50px;
-    border-bottom-style: dashed;
-    border-color: #fff;
+    border-bottom-style: solid;
+    border-color: #FFFFFF;
 }
 }
 
