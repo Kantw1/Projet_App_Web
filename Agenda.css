@@ -931,11 +931,10 @@
 @media only screen and (max-width: 767px) {
 #toggleADD {
     position: absolute; /* Utilisation de position absolute pour le placer dans .navigation */
-    top: 50px; /* Ajustez la valeur selon vos besoins */
+    top: 100px; /* Ajustez la valeur selon vos besoins */
     bottom: 50px;
     left: 50%; /* Déplace l'élément à mi-distance horizontalement */
     transform: translateX(-50%); /* Centre l'élément horizontalement */
-    transform: translateY(-50%);
     z-index: 1001; /* Supérieur à celui de la navigation */
     background-color: #fff;
     border: none;
