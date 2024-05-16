@@ -590,7 +590,10 @@ function getEvents() {
     initCalendar(); // Mettre à jour le calendrier une fois les événements récupérés
   })
   .catch(error => {
+    // Afficher l'erreur dans la console client
     console.error('Erreur lors de la récupération des événements:', error);
+    // Enregistrer l'erreur dans les logs du serveur
+    console.error(error.message);
   });
 }
 
