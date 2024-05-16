@@ -88,14 +88,9 @@ function deleteAgenda(codeAgenda, liElement) {
             //alert(data.message);
             // Supprimer l'agenda de la liste
             liElement.remove();
-            
-            // Sélectionner l'élément <select> dans le DOM
-    const selectElement = document.getElementById("other-agendas");
-
-    // Réinitialiser le contenu de l'élément <select>
-    selectElement.innerHTML = "";
         })
         .catch(error => console.error('Erreur lors de la suppression de l\'agenda:', error));
     }
+    getAgendaData2();
 }
 
