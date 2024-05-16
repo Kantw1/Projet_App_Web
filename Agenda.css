@@ -927,29 +927,21 @@
 .hidden {
   display: none;
 }
-/*
+
 @media only screen and (max-width: 767px) {
 #toggleADD {
-  background-color: #fff;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  margin-top: 20px;
-}
-}
-*/
-@media only screen and (max-width: 767px) {
-#toggleNav {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001; /* Doit être supérieur à la navigation */
-    background-color: rgba(55, 60, 79, 0.8);
+    position: absolute; /* Utilisation de position absolute pour le placer dans .navigation */
+    top: 100px; /* Ajustez la valeur selon vos besoins */
+    left: 50%; /* Déplace l'élément à mi-distance horizontalement */
+    transform: translateX(-50%); /* Centre l'élément horizontalement */
+    z-index: 1001; /* Supérieur à celui de la navigation */
+    background-color: #fff;
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
     color: #fff;
-    font-size: 1rem;
+    font-size: 0,5rem;
     cursor: pointer;
 }
 }
+
