@@ -571,38 +571,31 @@ eventsContainer.addEventListener("click", (e) => {
 
 //function to get events from local storage
 function getEvents() {
-    // Faites votre requête AJAX pour récupérer les événements depuis le serveur
-    fetch('get_events_perso.php')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors de la récupération des événements: ' + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Données reçues du serveur :", data);
-            
-            if (data.error) {
-                console.error("Erreur lors de la récupération des événements:", data.error);
-            } else {
-                // Assurez-vous que data est un tableau d'objets
-                if (Array.isArray(data)) {
-                    // Parcourez les données et effectuez le traitement nécessaire
-                    data.forEach(event => {
-                        // Traitement des données de chaque événement
-                        console.log(event);
-                    });
-                    console.log("Événements enregistrés:", data);
-                } else {
-                    console.error("Données reçues du serveur non valides.");
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération des événements:', error.message);
-        });
+  // Vide complètement eventsArr avant de le remplir avec les nouveaux événements
+  eventsArr.length = 0;
+  fetch('get_events.php', {
+    method: 'POST',
+    //credentials: 'same-origin' // Ajoutez cette ligne si votre site utilise des cookies de session
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erreur de réponse du serveur');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Données reçues du serveur :', data); // Affiche les données reçues
+    eventsArr.push(...data);
+    console.log('Événements après ajout à eventsArr :', eventsArr); // Affiche les événements après les avoir ajoutés
+    initCalendar(); // Mettre à jour le calendrier une fois les événements récupérés
+  })
+  .catch(error => {
+    // Afficher l'erreur dans la console client
+    console.error('Erreur lors de la récupération des événements:', error);
+    // Enregistrer l'erreur dans les logs du serveur
+    console.error(error.message);
+  });
 }
-
 
 function saveEvents() {
   const newEvents = eventsArr.filter(event => !event.synced); // Sélectionner uniquement les nouveaux événements
