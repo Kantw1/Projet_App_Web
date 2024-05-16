@@ -20,15 +20,7 @@ if (!isset($_SESSION['agenda_code'])) {
 
 $agenda_code = $_SESSION['agenda_code'];
 
-// Récupérer le nom de l'agenda
-$query = "SELECT agenda_name FROM agendas WHERE agenda_code = :agenda_code";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':agenda_code', $agenda_code, PDO::PARAM_STR);
-$stmt->execute();
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$agenda_name = $row['agenda_name'];
-
-if ($agenda_name == 'Agenda Perso') {
+if ($agenda_code == $_SESSION['agenda_perso_code']) {
     // Si l'agenda est l'agenda personnel, echo et ensuite inclure get_events_perso.php
     include('get_events_perso.php');
     exit();
