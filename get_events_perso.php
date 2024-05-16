@@ -20,40 +20,34 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Requête SQL pour récupérer les agendas personnels de l'utilisateur
-$sql = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
-$result = $conn->query($sql);
+foreach($agenda_codes as $agenda_code) {
+            $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
+            $sql_agenda_info = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
+            $result_agenda_info = $conn->query($sql_agenda_info);
 
-$eventsArr = [];
-
-// Si des agendas personnels sont trouvés
-if ($result->num_rows > 0) {
-    // Boucler à travers chaque agenda personnel
-    while ($row = $result->fetch_assoc()) {
-        $agenda_code = $row['agenda_code'];
-        // Requête SQL pour récupérer les événements de cet agenda
-        $eventsSql = "SELECT * FROM events WHERE code_agenda = '$agenda_code'";
-        $eventsResult = $conn->query($eventsSql);
-        // Boucler à travers les événements de cet agenda et les ajouter à $eventsArr
-        while ($eventRow = $eventsResult->fetch_assoc()) {
-            $event = [
-                'day' => (int)$eventRow['day'],
-                'month' => (int)$eventRow['month'],
-                'year' => (int)$eventRow['year'],
-                'events' => [
-                    [
-                        'title' => $eventRow['title'],
-                        'time' => $eventRow['event_time'],
-                        'description' => $eventRow['description'],
-                        'place' => $eventRow['place']
-                    ]
-                ]
-            ];
-            $eventsArr[] = $event;
-        }
+            if ($result_agenda_info->num_rows > 0) {
+                $row_agenda_info = $result_agenda_info->fetch_assoc();
+                $event = array(
+                    'day' => $row_agenda_info['day'],
+                    'month' => $row_agenda_info['month'],
+                    'year' => $row_agenda_info['year'],
+                    'title' => $row_agenda_info['title'],
+                    'time' => $row_agenda_info['event_time'],
+                    'description' => $row_agenda_info['description'],
+                    'place' => $row_agenda_info['place']
+                );
+                array_push($Data, $event);
+            }
+        }     
+        // Affichage du tableau agendaData au format JSON
+        header('Content-Type: application/json');
+        echo json_encode($Data);
+    } else {
+        echo "Aucun agenda trouvé pour cet utilisateur.";
     }
+} else {
+    echo "L'utilisateur n'est pas connecté.";
 }
 
-// Envoyer les données au format JSON
-echo json_encode($eventsArr);
-
+$conn->close();
+?>
