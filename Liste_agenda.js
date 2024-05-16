@@ -66,7 +66,15 @@ function displayAgendaData(agendaData) {
                     const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
                     deleteAgenda(codeAgenda, li);
                 });
+                const shareButton = document.createElement("button");
+                shareButton.innerText = "Partager"; // Texte du bouton "Partager"
+                shareButton.setAttribute("class", "share-agenda-button");
+                shareButton.addEventListener("click", function() {
+                    const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
+                    mail(codeAgenda);
+});
                 li.appendChild(deleteButton, li);
+                li.appendChild(shareButton);
             }
             agendaList.appendChild(li);
         });
@@ -98,10 +106,11 @@ function deleteAgenda(codeAgenda, liElement) {
     function attendre() {
         console.log("Attente terminée !");
       }
-      
-      console.log("Début de l'attente...");
-      setTimeout(attendre, 3000); // Attendre 3 secondes (3000 millisecondes)
-      console.log("Fin de l'attente...");
     getAgendaData2();
 }
 
+// Fonction pour envoyer le mot de passe par email
+function mail(codeAgenda) {
+    var mailto_link = 'mailto:?subject=Votre%20mot%20de%20passe&body=Votre%20mot%20de%20passe%20est%20: ' + codeAgenda;
+    window.open(mailto_link,'_blank');
+}
