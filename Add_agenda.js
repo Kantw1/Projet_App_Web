@@ -33,6 +33,7 @@ Add_agenda.addEventListener("click", () => {
                 }
                 else{
                     getAgendaData_ajout();
+                    getAgendaData2();
                     var nav = document.querySelector('.new-agenda');
                     nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
                 }
