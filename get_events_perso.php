@@ -20,21 +20,19 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Démarrer la session
-session_start();
-if(isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
+// Assurez-vous que $agenda_codes est défini
+if (!isset($_POST['agenda_codes'])) {
+    die("Aucun code d'agenda n'a été fourni.");
+}
 
-// Récupérer les codes des agendas associés à l'utilisateur
-$sql_user_agenda = "SELECT agenda_code FROM user_agenda WHERE user_id = '$user_id'";
-$result_user_agenda = $conn->query($sql_user_agenda);
+$agenda_codes = $_POST['agenda_codes'];
 
-$Data = array(); // Tableau pour stocker les données des agendas
+if (!is_array($agenda_codes)) {
+    die("Les codes d'agenda doivent être sous forme de tableau.");
+}
 
-if ($result_user_agenda->num_rows > 0) {
-    $row = $result_user_agenda->fetch_assoc();
-    $agenda_codes = explode(",", $row["agenda_code"]);
-        
+$Data = array();
+
 foreach($agenda_codes as $agenda_code) {
     $agenda_code = trim($agenda_code); // Supprimer les espaces éventuels
     $sql_agenda_info = "SELECT * FROM events WHERE agenda_code = '$agenda_code'";
@@ -56,16 +54,9 @@ foreach($agenda_codes as $agenda_code) {
     }
 }
 
-// Si des événements sont trouvés, les renvoyer au format JSON
-if (!empty($Data)) {
-    header('Content-Type: application/json');
-    echo json_encode($Data);
-} else {
-    // Aucun agenda trouvé pour cet utilisateur
-    $error_message = "Aucun agenda trouvé pour cet utilisateur.";
-    header('Content-Type: application/json');
-    echo json_encode(['error' => $error_message]);
-}
+// Affichage du tableau agendaData au format JSON
+header('Content-Type: application/json');
+echo json_encode($Data);
 
 $conn->close();
 ?>
