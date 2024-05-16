@@ -935,6 +935,7 @@
     bottom: 50px;
     left: 50%; /* Déplace l'élément à mi-distance horizontalement */
     transform: translateX(-50%); /* Centre l'élément horizontalement */
+    transform: translateY(-50%);
     z-index: 1001; /* Supérieur à celui de la navigation */
     background-color: #fff;
     border: none;
