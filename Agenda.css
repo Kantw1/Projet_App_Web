@@ -927,29 +927,14 @@
 .hidden {
   display: none;
 }
-/*
+
 @media only screen and (max-width: 767px) {
 #toggleADD {
   background-color: #fff;
   border: none;
   cursor: pointer;
   outline: none;
-  margin-top: 20px;
+  margin-top: 350px;
 }
 }
-*/
-@media only screen and (max-width: 767px) {
-#toggleNav {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001; /* Doit être supérieur à la navigation */
-    background-color: rgba(55, 60, 79, 0.8);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-}
-}
+
