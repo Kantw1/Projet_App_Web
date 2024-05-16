@@ -72,6 +72,8 @@ function displayAgendaData(agendaData) {
         });
     }
 }
+
+import { getAgendaData2 } from './Liste_autres_agenda.js';
 // Fonction pour supprimer un agenda
 function deleteAgenda(codeAgenda, liElement) {
     if (confirm("Voulez-vous vraiment supprimer cet agenda ?")) {
