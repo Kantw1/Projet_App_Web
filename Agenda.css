@@ -551,6 +551,22 @@
     font-size: 1rem;
     cursor: pointer;
 } 
+@media only screen and (max-width: 767px) {
+#toggleNav {
+    position: absolute; /* Utilisation de position absolute pour le placer dans .navigation */
+    top: 20px; /* Ajustez la valeur selon vos besoins */
+    left: 50%; /* Déplace l'élément à mi-distance horizontalement */
+    transform: translateX(-50%); /* Centre l'élément horizontalement */
+    z-index: 1001; /* Supérieur à celui de la navigation */
+    background-color: rgba(55, 60, 79, 0.8);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+}
+}
 
 .navigation {
     position: fixed;
