@@ -95,7 +95,6 @@ function deleteAgenda(codeAgenda, liElement) {
     const selectElement = document.getElementById("other-agendas");
 
     // Réinitialiser le contenu de l'élément <select>
-    selectElement.innerHTML = "";
     getAgendaData2();
 }
 
