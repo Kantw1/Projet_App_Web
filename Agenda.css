@@ -569,9 +569,9 @@
 @media only screen and (max-width: 767px) {
 .navigation {
     position: fixed;
-    top: 550px;
-    left: 20px;
-    right: 20px;
+    top: 600px;
+    left: 10px;
+    right: 10px;
     bottom: 0px;
     z-index: 1000;
     background-color: rgba(55, 60, 79, 0.8);
