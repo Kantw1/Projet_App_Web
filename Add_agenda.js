@@ -21,6 +21,23 @@ Add_agenda.addEventListener("click", () => {
         }
         else{
             alert("caca");
+            fetch('connection_agenda_user.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message) {
+                    alert(data.message); // Afficher le message de réponse
+                }
+                else{
+                    alert("ca devrait etre bon");
+                }
+            })
+            .catch(error => console.error('Erreur lors de la connexion de l\'agenda à l\'utilisateur:', error));
+            
         }
     })
     .catch(error => console.error('Erreur lors de la création de l\'agenda:', error));

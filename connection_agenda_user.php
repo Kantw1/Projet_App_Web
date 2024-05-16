@@ -44,6 +44,7 @@ if(isset($_SESSION['user_id'])) {
             echo "Code d'agenda mis à jour avec succès dans la table user_agenda";
             $message = "";
         } else {
+            $message = "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : "
             echo "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : " . $conn->error;
         }
     } else {
@@ -54,6 +55,7 @@ if(isset($_SESSION['user_id'])) {
             echo "Nouveau code d'agenda ajouté avec succès dans la table user_agenda";
             $message = "";
         } else {
+            $message = "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : "
             echo "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : " . $conn->error;
         }
     }
