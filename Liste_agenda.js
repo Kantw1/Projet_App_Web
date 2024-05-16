@@ -95,6 +95,7 @@ function deleteAgenda(codeAgenda, liElement) {
     const selectElement = document.getElementById("other-agendas");
 
     // Réinitialiser le contenu de l'élément <select>
+    setTimeout(attendre, 3000); // Attendre 3 secondes (3000 millisecondes)
     getAgendaData2();
 }
 
