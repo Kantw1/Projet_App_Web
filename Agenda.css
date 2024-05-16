@@ -564,22 +564,8 @@
     padding: 10px;
     display: none; /* La navigation est cachée par défaut */
 }
-@media only screen and (max-width: 767px) {
-.navigation {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    bottom: 20px;
-    left: 50%; /* Déplace l'élément à mi-distance horizontalement */
-    transform: translateX(-50%); /* Centre l'élément horizontalement */
-    z-index: 1000;
-    background-color: rgba(55, 60, 79, 0.8);
-    border-radius: 10px;
-    padding: 10px;
-    display: none; /* La navigation est cachée par défaut */
-} 
-}
-/*
+
+
 @media only screen and (max-width: 767px) {
 .navigation {
     position: fixed;
@@ -594,7 +580,7 @@
     display: none; /* La navigation est cachée par défaut */
 }
 }
-*/    
+  
 .navigation .top-right {
     margin-bottom: auto; /* Place les liens en haut */
 }
