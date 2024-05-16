@@ -29,11 +29,12 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 $agenda_name = $row['agenda_name'];
 
 if ($agenda_name == 'Agenda Perso') {
-    // Si l'agenda est l'agenda personnel, appeler get_events_perso.php
-    include('get_events_perso.php');
+    // Si l'agenda est l'agenda personnel, echo et ensuite inclure get_events_perso.php
     echo "Agenda personnel : " . $_SESSION['agenda_perso_code'];
+    include('get_events_perso.php');
     exit();
 }
+
 
 // Préparation de la requête pour récupérer les événements de l'agenda
 $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
