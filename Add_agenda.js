@@ -34,6 +34,9 @@ Add_agenda.addEventListener("click", () => {
                 }
                 else{
                     alert("ca devrait etre bon");
+                    getAgendaData_ajout();
+                    var nav = document.querySelector('.new-agenda');
+                    nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
                 }
             })
             .catch(error => console.error('Erreur lors de la connexion de l\'agenda à l\'utilisateur:', error));
