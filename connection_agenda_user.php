@@ -41,22 +41,22 @@ if(isset($_SESSION['user_id'])) {
 
 
         if ($conn->query($sql_update_user_agenda) === TRUE) {
-            echo "Code d'agenda mis à jour avec succès dans la table user_agenda";
+            //echo "Code d'agenda mis à jour avec succès dans la table user_agenda";
             $message = "";
         } else {
             $message = "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : "
-            echo "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : " . $conn->error;
+            //echo "Erreur lors de la mise à jour du code d'agenda dans la table user_agenda : " . $conn->error;
         }
     } else {
         // Aucune ligne trouvée pour cet utilisateur, insérer un nouveau enregistrement
         $sql_insert_user_agenda = "INSERT INTO user_agenda (user_id, agenda_code) VALUES ('$user_id', '$agenda_code')";
 
         if ($conn->query($sql_insert_user_agenda) === TRUE) {
-            echo "Nouveau code d'agenda ajouté avec succès dans la table user_agenda";
+            //echo "Nouveau code d'agenda ajouté avec succès dans la table user_agenda";
             $message = "";
         } else {
             $message = "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : "
-            echo "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : " . $conn->error;
+            //echo "Erreur lors de l'ajout du nouveau code d'agenda dans la table user_agenda : " . $conn->error;
         }
     }
 } else {
