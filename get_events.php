@@ -1,6 +1,6 @@
 <?php
 // Connexion à la base de données
-$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$servername = "localhost"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
@@ -19,17 +19,23 @@ if (!isset($_SESSION['agenda_code'])) {
 }
 
 $agenda_code = $_SESSION['agenda_code'];
-$agenda_code_personnel = $_SESSION['agenda_perso_code'];
 
+// Récupérer le nom de l'agenda
+$query = "SELECT agenda_name FROM agendas WHERE agenda_code = :agenda_code";
+$stmt = $pdo->prepare($query);
+$stmt->bindParam(':agenda_code', $agenda_code, PDO::PARAM_STR);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$agenda_name = $row['agenda_name'];
 
-if ($agenda_code == $agenda_code_personnel) {
-    // Si l'agenda_code est égal à l'agenda_code_personnel, appeler get_events_perso.php
+if ($agenda_name == 'Agenda Perso') {
+    // Si l'agenda est l'agenda personnel, appeler get_events_perso.php
     include('get_events_perso.php');
-    echo "Agenda personnel : " . $agenda_code_personnel;
+    echo "Agenda personnel : " . $_SESSION['agenda_perso_code'];
     exit();
 }
 
-// Préparation de la requête
+// Préparation de la requête pour récupérer les événements de l'agenda
 $query = "SELECT * FROM events WHERE code_agenda = :code_agenda";
 $stmt = $pdo->prepare($query);
 $stmt->bindParam(':code_agenda', $agenda_code, PDO::PARAM_STR);
@@ -68,4 +74,3 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 // Envoie des données au format JSON
 echo json_encode($eventsArr);
 ?>
-
