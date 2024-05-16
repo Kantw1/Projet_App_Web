@@ -67,7 +67,7 @@ function displayAgendaData(agendaData) {
                     deleteAgenda(codeAgenda, li);
                 });
                 const shareButton = document.createElement("button");
-                shareButton.innerText = "Partager"; // Texte du bouton "Partager"
+                shareButton.innerHTML = "Partager <span>&#128206;</span>"; // Texte du bouton "Partager"
                 shareButton.setAttribute("class", "share-agenda-button");
                 shareButton.addEventListener("click", function() {
                     const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
