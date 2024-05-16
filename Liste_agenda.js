@@ -111,6 +111,17 @@ function deleteAgenda(codeAgenda, liElement) {
 
 // Fonction pour envoyer le mot de passe par email
 function mail(codeAgenda) {
-    var mailto_link = 'mailto:?subject=Votre%20mot%20de%20passe&body=Votre%20mot%20de%20passe%20est%20: ' + codeAgenda;
-    window.open(mailto_link,'_blank');
+    fetch('get_username.php')
+    .then(response => response.json()) // Convertir la réponse en JSON
+    .then(data => {
+      // Vérification si l'e-mail existe dans les données
+      if (data.username) {
+        var mailto_link = 'mailto:?subject=' + data.username + '%20vous%20a%20partagé%20un%20agenda.&body=' + data.username + '%20vous%20a%20partagé%20un%20agenda,%20le%20code%20de%20l\'agenda%20est%20:%20' + codeAgenda + '%0D%0A%0D%0ARendez-vous%20sur%20cycalender.site';
+        window.open(mailto_link,'_blank');
+      } else {
+        console.error("L'username de session n'a pas été trouvé.");
+      }
+    })
+    .catch(error => console.error('Erreur lors de la récupération de l\'username de session :', error));
+    
 }
