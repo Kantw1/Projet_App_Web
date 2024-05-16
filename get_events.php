@@ -30,7 +30,6 @@ $agenda_name = $row['agenda_name'];
 
 if ($agenda_name == 'Agenda Perso') {
     // Si l'agenda est l'agenda personnel, echo et ensuite inclure get_events_perso.php
-    echo "Agenda personnel : ";
     include('get_events_perso.php');
     exit();
 }
