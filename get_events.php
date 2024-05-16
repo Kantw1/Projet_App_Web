@@ -21,6 +21,7 @@ if (!isset($_SESSION['agenda_code'])) {
 $agenda_code = $_SESSION['agenda_code'];
 
 if ($agenda_code == $_SESSION['agenda_perso_code']) {
+    echo 'Agenda perso';
     // Si l'agenda est l'agenda personnel, echo et ensuite inclure get_events_perso.php
     include('get_events_perso.php');
     exit();
