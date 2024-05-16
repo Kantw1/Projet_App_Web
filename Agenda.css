@@ -543,11 +543,11 @@
     top: 20px;
     right: 20px;
     z-index: 1001; /* Doit être supérieur à la navigation */
-    background-color: #74992e;
+    background-color: rgba(55, 60, 79, 0.8);
     border: none;
     border-radius: 10px;
     padding: 10px 20px;
-    color: #fff;
+    color: #74992e;
     font-size: 1rem;
     cursor: pointer;
 } 
