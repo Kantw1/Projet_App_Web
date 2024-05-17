@@ -484,10 +484,7 @@ eventsContainer.addEventListener("click", (e) => {
     // Écoute les clics sur le bouton toggleSUPP
     document.getElementById("toggleSUPP").addEventListener("click", SUPP);
 
-  }
-});
-
-// Écoute les clics sur le bouton toggleSUPP
+    // Écoute les clics sur le bouton toggleSUPP
 function SUPP(){
   // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
   if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
@@ -532,6 +529,11 @@ function SUPP(){
     return;
   }
 }
+
+  }
+});
+
+
 
 
 
