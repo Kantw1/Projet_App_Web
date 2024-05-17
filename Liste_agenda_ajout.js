@@ -39,6 +39,14 @@ function displayLastAgendaData_ajout(agendaData) {
                     const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
                     deleteAgenda(codeAgenda, li);
                 });
+                const shareButton = document.createElement("button");
+                shareButton.innerHTML = "<span>&#x1F4E9;</span>"; // Texte du bouton "Partager"
+                shareButton.setAttribute("class", "share-agenda-button");
+                shareButton.addEventListener("click", function() {
+                    const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
+                    mail(codeAgenda);
+                });
+                li.appendChild(shareButton);
                 li.appendChild(deleteButton, li);
             
             agendaList.appendChild(li);
