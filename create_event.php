@@ -28,6 +28,10 @@ if (!isset($_SESSION['agenda_code'])) {
 
 $code_agenda = $_SESSION['agenda_code'];
 
+if ($code_agenda == $_SESSION['agenda_perso_code']) {
+    exit();
+}
+
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event_data) {
     $day = $event_data['day'];
@@ -68,5 +72,3 @@ $conn->close();
 // Répondre avec succès, inclure le code d'agenda
 echo json_encode(array("message" => "Événements enregistrés avec succès", "agenda_code" => $code_agenda));
 ?>
-
-
