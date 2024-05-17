@@ -46,8 +46,8 @@ function displayLastAgendaData_ajout(agendaData) {
                     const codeAgenda = this.parentElement.querySelector('.agenda-code').value;
                     mail(codeAgenda);
                 });
-                li.appendChild(shareButton);
                 li.appendChild(deleteButton, li);
+                li.appendChild(shareButton);
             
             agendaList.appendChild(li);
     }
