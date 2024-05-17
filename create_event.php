@@ -68,5 +68,3 @@ $conn->close();
 // Répondre avec succès, inclure le code d'agenda
 echo json_encode(array("message" => "Événements enregistrés avec succès", "agenda_code" => $code_agenda));
 ?>
-
-
