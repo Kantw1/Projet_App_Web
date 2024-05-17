@@ -481,8 +481,14 @@ eventsContainer.addEventListener("click", (e) => {
     document.getElementById("eventTime").innerHTML = "<strong>Heure: </strong>" + eventTime;
     document.getElementById("eventDescription").innerHTML = "<strong>Description: </strong>" + eventDescription;
     document.getElementById("eventPlace").innerHTML = "<strong>Position: </strong>" + eventPlace;
-    // Écoute les clics sur le bouton toggleSUPP
+    var ecouteur_cree = false;
+
+    if(!ecouteur_cree){
+      // Écoute les clics sur le bouton toggleSUPP
     document.getElementById("toggleSUPP").addEventListener("click", SUPP);
+    ecouteur_cree = true;
+    }
+    
 
     // Écoute les clics sur le bouton toggleSUPP
 function SUPP(){
