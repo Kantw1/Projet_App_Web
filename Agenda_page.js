@@ -491,53 +491,74 @@ eventsContainer.addEventListener("click", (e) => {
     
 
     // Écoute les clics sur le bouton toggleSUPP
-function SUPP(){
+function SUPP(e) {
   // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
   if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
     // Récupère le titre de l'événement à supprimer
     const eventTitle = e.target.children[0].children[1].innerHTML;
-    // Parcourt le tableau des événements
-    eventsArr.forEach((event) => {
-      // Vérifie si l'événement appartient au jour actif
-      if (
-        event.day === activeDay &&
-        event.month === month + 1 &&
-        event.year === year
-      ) {
-        // Parcourt les événements du jour actif
-        event.events.forEach((item, index) => {
-          // Vérifie si le titre de l'événement correspond
-          if (item.title === eventTitle) {
-            // Supprime l'événement du tableau des événements
-            event.events.splice(index, 1);
+
+    // Crée une requête HTTP pour appeler le fichier PHP
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "supp.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          // Vérifie la réponse du serveur
+          if (xhr.responseText === "true") {
+            // Parcourt le tableau des événements
+            eventsArr.forEach((event) => {
+              // Vérifie si l'événement appartient au jour actif
+              if (
+                event.day === activeDay &&
+                event.month === month + 1 &&
+                event.year === year
+              ) {
+                // Parcourt les événements du jour actif
+                event.events.forEach((item, index) => {
+                  // Vérifie si le titre de l'événement correspond
+                  if (item.title === eventTitle) {
+                    // Supprime l'événement du tableau des événements
+                    event.events.splice(index, 1);
+                  }
+                });
+                // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
+                if (event.events.length === 0) {
+                  eventsArr.splice(eventsArr.indexOf(event), 1);
+                  // Supprime la classe "event" du jour s'il n'y a plus d'événements
+                  const activeDayEl = document.querySelector(".day.active");
+                  if (activeDayEl.classList.contains("event")) {
+                    activeDayEl.classList.remove("event");
+                  }
+                }
+              }
+            });
+            // Met à jour les événements affichés
+            updateEvents(activeDay);
+
+            // Cache la boîte de dialogue des informations sur l'événement
+            var nav = document.querySelector('.information-evenement');
+            nav.style.display = 'none';
+          } else {
+            // Affiche une alerte si le PHP renvoie une erreur
+            alert("Veuillez sélectionner l'agenda associé.");
           }
-        });
-        // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
-        if (event.events.length === 0) {
-          eventsArr.splice(eventsArr.indexOf(event), 1);
-          // Supprime la classe "event" du jour s'il n'y a plus d'événements
-          const activeDayEl = document.querySelector(".day.active");
-          if (activeDayEl.classList.contains("event")) {
-            activeDayEl.classList.remove("event");
-          }
+        } else {
+          // Affiche une alerte en cas d'erreur HTTP
+          alert("Une erreur est survenue. Veuillez réessayer.");
         }
       }
-    });
-    // Met à jour les événements affichés
-    updateEvents(activeDay);
+    };
 
-    // Cache la boîte de dialogue des informations sur l'événement
-  var nav = document.querySelector('.information-evenement');
-  nav.style.display = 'none';
-  }
-  else {
+    // Envoie la requête avec le titre de l'événement
+    xhr.send("eventTitle=" + encodeURIComponent(eventTitle));
+  } else {
     // Annule toute l'opération si l'utilisateur a cliqué sur "Annuler"
     return;
   }
 }
 
-  }
-});
 
 
 
