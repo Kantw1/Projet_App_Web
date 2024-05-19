@@ -506,15 +506,11 @@ function SUPP(e) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           // Vérifie la réponse du serveur
-          if (xhr.responseText === "true") {
+          if (xhr.responseText.trim() === "true") {
             // Parcourt le tableau des événements
             eventsArr.forEach((event) => {
               // Vérifie si l'événement appartient au jour actif
-              if (
-                event.day === activeDay &&
-                event.month === month + 1 &&
-                event.year === year
-              ) {
+              if (event.day === activeDay && event.month === month + 1 && event.year === year) {
                 // Parcourt les événements du jour actif
                 event.events.forEach((item, index) => {
                   // Vérifie si le titre de l'événement correspond
@@ -523,12 +519,13 @@ function SUPP(e) {
                     event.events.splice(index, 1);
                   }
                 });
+
                 // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
                 if (event.events.length === 0) {
                   eventsArr.splice(eventsArr.indexOf(event), 1);
                   // Supprime la classe "event" du jour s'il n'y a plus d'événements
                   const activeDayEl = document.querySelector(".day.active");
-                  if (activeDayEl.classList.contains("event")) {
+                  if (activeDayEl && activeDayEl.classList.contains("event")) {
                     activeDayEl.classList.remove("event");
                   }
                 }
@@ -539,7 +536,9 @@ function SUPP(e) {
 
             // Cache la boîte de dialogue des informations sur l'événement
             var nav = document.querySelector('.information-evenement');
-            nav.style.display = 'none';
+            if (nav) {
+              nav.style.display = 'none';
+            }
           } else {
             // Affiche une alerte si le PHP renvoie une erreur
             alert("Veuillez sélectionner l'agenda associé.");
@@ -558,10 +557,6 @@ function SUPP(e) {
     return;
   }
 }
-
-
-
-
 
 
 
