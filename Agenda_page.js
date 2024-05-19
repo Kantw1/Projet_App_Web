@@ -492,76 +492,53 @@ eventsContainer.addEventListener("click", (e) => {
     
 
     // Écoute les clics sur le bouton toggleSUPP
-function SUPP(e) {
+function SUPP(){
   // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
   if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
     // Récupère le titre de l'événement à supprimer
     const eventTitle = e.target.children[0].children[1].innerHTML;
-
-    // Envoie une requête HTTP POST avec fetch
-    fetch("supp.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: "eventTitle=" + encodeURIComponent(eventTitle)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Erreur HTTP: " + response.status);
-      }
-      return response.text();
-    })
-    .then(responseText => {
-      // Vérifie la réponse du serveur
-      if (responseText.trim() === "true") {
-        // Parcourt le tableau des événements
-        eventsArr.forEach((event) => {
-          // Vérifie si l'événement appartient au jour actif
-          if (event.day === activeDay && event.month === month + 1 && event.year === year) {
-            // Parcourt les événements du jour actif
-            event.events.forEach((item, index) => {
-              // Vérifie si le titre de l'événement correspond
-              if (item.title === eventTitle) {
-                // Supprime l'événement du tableau des événements
-                event.events.splice(index, 1);
-              }
-            });
-
-            // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
-            if (event.events.length === 0) {
-              eventsArr.splice(eventsArr.indexOf(event), 1);
-              // Supprime la classe "event" du jour s'il n'y a plus d'événements
-              const activeDayEl = document.querySelector(".day.active");
-              if (activeDayEl && activeDayEl.classList.contains("event")) {
-                activeDayEl.classList.remove("event");
-              }
-            }
+    // Parcourt le tableau des événements
+    eventsArr.forEach((event) => {
+      // Vérifie si l'événement appartient au jour actif
+      if (
+        event.day === activeDay &&
+        event.month === month + 1 &&
+        event.year === year
+      ) {
+        // Parcourt les événements du jour actif
+        event.events.forEach((item, index) => {
+          // Vérifie si le titre de l'événement correspond
+          if (item.title === eventTitle) {
+            // Supprime l'événement du tableau des événements
+            event.events.splice(index, 1);
           }
         });
-        // Met à jour les événements affichés
-        updateEvents(activeDay);
-
-        // Cache la boîte de dialogue des informations sur l'événement
-        var nav = document.querySelector('.information-evenement');
-        if (nav) {
-          nav.style.display = 'none';
+        // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
+        if (event.events.length === 0) {
+          eventsArr.splice(eventsArr.indexOf(event), 1);
+          // Supprime la classe "event" du jour s'il n'y a plus d'événements
+          const activeDayEl = document.querySelector(".day.active");
+          if (activeDayEl.classList.contains("event")) {
+            activeDayEl.classList.remove("event");
+          }
         }
-      } else {
-        // Affiche une alerte si le PHP renvoie une erreur
-        alert("Veuillez sélectionner l'agenda associé.");
       }
-    })
-    .catch(error => {
-      // Affiche une alerte en cas d'erreur
-      alert("Une erreur est survenue. Veuillez réessayer.");
-      console.error("Erreur:", error);
     });
-  } else {
+    // Met à jour les événements affichés
+    updateEvents(activeDay);
+
+    // Cache la boîte de dialogue des informations sur l'événement
+  var nav = document.querySelector('.information-evenement');
+  nav.style.display = 'none';
+  }
+  else {
     // Annule toute l'opération si l'utilisateur a cliqué sur "Annuler"
     return;
   }
 }
+
+  }
+});
 
 
 
