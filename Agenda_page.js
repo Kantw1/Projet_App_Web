@@ -485,10 +485,9 @@ eventsContainer.addEventListener("click", (e) => {
 
     if(!ecouteur_cree){
       // Écoute les clics sur le bouton toggleSUPP
-    document.getElementById("toggleSUPP").addEventListener("click", SUPP);
-    ecouteur_cree = true;
+      document.getElementById("toggleSUPP").addEventListener("click", SUPP);
+      ecouteur_cree = true;
     }
-    
 
     function SUPP() {
       // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
@@ -542,6 +541,9 @@ eventsContainer.addEventListener("click", (e) => {
                     // Cache la boîte de dialogue des informations sur l'événement
                     var nav = document.querySelector('.information-evenement');
                     nav.style.display = 'none';
+
+                    // Affiche l'alerte
+                    alert("Changez de code agenda");
                   } else {
                     // Si la réponse est false, affichez une alerte
                     alert("Changez de code agenda");
