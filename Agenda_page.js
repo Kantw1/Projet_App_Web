@@ -483,7 +483,7 @@ eventsContainer.addEventListener("click", (e) => {
     document.getElementById("eventPlace").innerHTML = "<strong>Position: </strong>" + eventPlace;
     var ecouteur_cree = false;
 
-    if(!ecouteur_cree){
+    if (!ecouteur_cree) {
       // Écoute les clics sur le bouton toggleSUPP
       document.getElementById("toggleSUPP").addEventListener("click", SUPP);
       ecouteur_cree = true;
@@ -548,8 +548,6 @@ eventsContainer.addEventListener("click", (e) => {
                 })
                 .catch(error => {
                   console.error('Erreur:', error);
-                  // Affiche l'alerte en cas d'erreur réseau ou autre
-                  alert("Changez de code agenda");
                 });
               }
             });
@@ -559,6 +557,7 @@ eventsContainer.addEventListener("click", (e) => {
     }
   }
 });
+
 
 
 
