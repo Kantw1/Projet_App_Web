@@ -1,4 +1,3 @@
-
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
@@ -464,12 +463,13 @@ addEventSubmit.addEventListener("click", () => {
 
 
 
-let ecouteur_cree = false; // Déplacer cette variable à un niveau global pour qu'elle soit accessible partout
-
 // Écoute les clics sur le conteneur des événements
 eventsContainer.addEventListener("click", (e) => {
   // Vérifie si l'élément cliqué est un événement
   if (e.target.classList.contains("event")) {
+    // Évite la propagation du clic sur le bouton toggleSUPP
+    e.stopPropagation();
+
     // Récupère les informations sur l'événement
     const eventTitle = e.target.children[0].children[1].innerHTML;
     const eventTime = e.target.children[1].children[0].innerHTML;
@@ -481,12 +481,14 @@ eventsContainer.addEventListener("click", (e) => {
     document.getElementById("eventTime").innerHTML = "<strong>Heure: </strong>" + eventTime;
     document.getElementById("eventDescription").innerHTML = "<strong>Description: </strong>" + eventDescription;
     document.getElementById("eventPlace").innerHTML = "<strong>Position: </strong>" + eventPlace;
+    var ecouteur_cree = false;
 
     if(!ecouteur_cree){
       // Écoute les clics sur le bouton toggleSUPP
-      document.getElementById("toggleSUPP").addEventListener("click", SUPP);
-      ecouteur_cree = true;
+    document.getElementById("toggleSUPP").addEventListener("click", SUPP);
+    ecouteur_cree = true;
     }
+    
 
     function SUPP() {
       // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
@@ -556,8 +558,6 @@ eventsContainer.addEventListener("click", (e) => {
     }
   }
 });
-
-
 
 
 
