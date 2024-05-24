@@ -3,25 +3,35 @@
 session_start();
 
 // Vérifie si les données POST sont présentes
-if (!isset($_POST['title']) || !isset($_POST['time']) || !isset($_POST['description']) || !isset($_POST['place'])) {
+if (!isset($_POST['eventData'])) {
     echo json_encode(array('success' => false, 'message' => 'Données manquantes.'));
     exit;
 }
 
 // Récupère les données POST
-$title = $_POST['title'];
-$time = $_POST['time'];
-$description = $_POST['description'];
-$place = $_POST['place'];
+$eventData = json_decode($_POST['eventData'], true);
+
+// Assurez-vous que les données nécessaires sont présentes dans eventData
+if (!isset($eventData['title']) || !isset($eventData['time']) || !isset($eventData['description']) || !isset($eventData['place'])) {
+    echo json_encode(array('success' => false, 'message' => 'Données invalides.'));
+    exit;
+}
+
+$title = $eventData['title'];
+$time = $eventData['time'];
+$description = $eventData['description'];
+$place = $eventData['place'];
 
 // Connexion à la base de données (à remplacer par vos propres informations de connexion)
-$servername = "localhost:3306"; // Ou l'adresse de votre serveur SQL
+$servername = "localhost"; // Ou l'adresse de votre serveur SQL
 $username = "cycalguj";
 $password = "CYCalender1234";
 $dbname = "CYCalenderB";
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // Définir le mode d'erreur PDO sur exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo json_encode(array('success' => false, 'message' => 'Erreur de connexion à la base de données.'));
     exit;
