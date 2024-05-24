@@ -45,7 +45,6 @@ foreach ($data as $event_data) {
         $event_time = $time; // Gardez la valeur d'origine comme une chaîne de caractères
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
-        $creator = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 
         // Vérifier si l'événement existe déjà
         $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ? AND code_agenda = ?";
@@ -56,9 +55,9 @@ foreach ($data as $event_data) {
 
         if ($result->num_rows == 0) {
             // L'événement n'existe pas, l'insérer dans la base de données
-            $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, creator, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql_insert = "INSERT INTO events (day, month, year, title, event_time, description, place, code_agenda) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql_insert);
-            $stmt->bind_param("iiissssss", $day, $month, $year, $title, $event_time, $description, $place, $creator, $code_agenda);
+            $stmt->bind_param("iiisssss", $day, $month, $year, $title, $event_time, $description, $place, $code_agenda);
             if (!$stmt->execute()) {
                 die(json_encode(array("error" => "Erreur lors de l'insertion des données: " . $stmt->error)));
             }
