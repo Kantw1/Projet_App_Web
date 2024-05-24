@@ -742,16 +742,16 @@
     padding: 80px;
     color: #fff;
     text-align: center;
-    position: fixed; /* Position fixe */
-    top: 50%; /* Au milieu verticalement */
-    left: 50%; /* Au milieu horizontalement */
-    transform: translate(-50%, -50%); /* Déplacer le centre de l'élément */
-    z-index: 999; /* Au-dessus du reste du contenu */
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 999; 
     display: none;
-    flex-direction: column; /* Disposer les éléments de haut en bas */
-    align-items: center; /* Centrer les éléments horizontalement */
-    border: 2px solid #fff; /* Ajout des bordures blanches */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Ajout d'une ombre avec une couleur plus transparente */
+    flex-direction: column; 
+    align-items: center; 
+    border: 2px solid #fff; 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
 }
 
 .new-agenda h3 {
@@ -815,19 +815,19 @@
 }
 
 
-/* Media query pour les écrans de petite taille (téléphones) */
+
 @media only screen and (max-width: 767px) {
   .sidebar {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
-    bottom: 400px; /* Positionne la barre latérale au bas de l'écran */
-    max-height: 100vh; /* Limite la hauteur maximale à 50% de la hauteur de la vue */
+    bottom: 400px; 
+    max-height: 100vh; 
     width: 100%;
     padding: 20px;
     background-color: #373c4f;
-    border-radius: 10px 10px 10px 10px; /* Arrondit uniquement les coins supérieurs */
+    border-radius: 10px 10px 10px 10px; 
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -910,18 +910,18 @@
 }
 
 #toggleCount {
-  display: inline-block; /* Permet au texte de s'afficher sur une seule ligne */
-  padding: 10px 20px; /* Ajoute un espace autour du texte */
-  border: 1px solid #ccc; /* Ajoute une bordure grise */
-  border-radius: 5px; /* Arrondit les coins */
-  background-color: #373c4f; /* Fond blanc */
-  color: #ccc; /* Couleur du texte */
-  cursor: pointer; /* Change le curseur au survol */
-  text-decoration: none; /* Supprime la soulignement par défaut */
+  display: inline-block; 
+  padding: 10px 20px; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  background-color: #373c4f; 
+  color: #ccc; 
+  cursor: pointer; 
+  text-decoration: none;
 }
 
 #toggleCount:hover {
-  background-color: #f5f5f5; /* Change la couleur de fond au survol */
+  background-color: #f5f5f5; 
 }
 
 .hidden {
@@ -930,12 +930,11 @@
 
 @media only screen and (max-width: 767px) {
 #toggleADD {
-    position: absolute; /* Utilisation de position absolute pour le placer dans .navigation */
-    top: 100px; /* Ajustez la valeur selon vos besoins */
+    position: absolute; 
     bottom: 50px;
-    left: 50%; /* Déplace l'élément à mi-distance horizontalement */
-    transform: translateX(-50%); /* Centre l'élément horizontalement */
-    z-index: 1001; /* Supérieur à celui de la navigation */
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 1001; 
     background-color: rgba(55, 60, 79, 0.8);
     border: none;
     border-radius: 10px;
