@@ -541,9 +541,6 @@ eventsContainer.addEventListener("click", (e) => {
                     // Cache la boîte de dialogue des informations sur l'événement
                     var nav = document.querySelector('.information-evenement');
                     nav.style.display = 'none';
-
-                    // Affiche l'alerte
-                    alert("Changez de code agenda");
                   } else {
                     // Si la réponse est false, affichez une alerte
                     alert("Changez de code agenda");
@@ -551,6 +548,8 @@ eventsContainer.addEventListener("click", (e) => {
                 })
                 .catch(error => {
                   console.error('Erreur:', error);
+                  // Affiche l'alerte en cas d'erreur réseau ou autre
+                  alert("Changez de code agenda");
                 });
               }
             });
