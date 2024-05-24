@@ -464,13 +464,12 @@ addEventSubmit.addEventListener("click", () => {
 
 
 
+let ecouteur_cree = false; // Déplacer cette variable à un niveau global pour qu'elle soit accessible partout
+
 // Écoute les clics sur le conteneur des événements
 eventsContainer.addEventListener("click", (e) => {
   // Vérifie si l'élément cliqué est un événement
   if (e.target.classList.contains("event")) {
-    // Évite la propagation du clic sur le bouton toggleSUPP
-    e.stopPropagation();
-
     // Récupère les informations sur l'événement
     const eventTitle = e.target.children[0].children[1].innerHTML;
     const eventTime = e.target.children[1].children[0].innerHTML;
@@ -482,90 +481,82 @@ eventsContainer.addEventListener("click", (e) => {
     document.getElementById("eventTime").innerHTML = "<strong>Heure: </strong>" + eventTime;
     document.getElementById("eventDescription").innerHTML = "<strong>Description: </strong>" + eventDescription;
     document.getElementById("eventPlace").innerHTML = "<strong>Position: </strong>" + eventPlace;
-    var ecouteur_cree = false;
 
     if(!ecouteur_cree){
       // Écoute les clics sur le bouton toggleSUPP
-    document.getElementById("toggleSUPP").addEventListener("click", SUPP);
-    ecouteur_cree = true;
+      document.getElementById("toggleSUPP").addEventListener("click", SUPP);
+      ecouteur_cree = true;
     }
-    
 
-    // Écoute les clics sur le bouton toggleSUPP
-function SUPP() {
-  // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
-  if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
-    const eventTitle = e.target.children[0].children[1].innerHTML;
-    const eventTime = e.target.children[1].children[0].innerHTML;
-    const eventDescription = e.target.children[2].children[0].innerHTML;
-    const eventPlace = e.target.children[3].children[0].innerHTML;
+    function SUPP() {
+      // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
+        // Prépare les données pour le fetch
+        const eventData = {
+          title: eventTitle,
+          time: eventTime,
+          description: eventDescription,
+          place: eventPlace,
+        };
 
-    // Prépare les données pour le fetch
-    const eventData = {
-      title: eventTitle,
-      time: eventTime,
-      description: eventDescription,
-      place: eventPlace,
-    };
+        // Parcourt le tableau des événements
+        eventsArr.forEach((event) => {
+          // Vérifie si l'événement appartient au jour actif
+          if (
+            event.day === activeDay &&
+            event.month === month + 1 &&
+            event.year === year
+          ) {
+            // Parcourt les événements du jour actif
+            event.events.forEach((item, index) => {
+              // Vérifie si le titre de l'événement correspond
+              if (item.title === eventTitle) {
+                // Envoie les données au serveur
+                fetch('supp.php', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(eventData),
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    // Supprime l'événement du tableau des événements
+                    event.events.splice(index, 1);
 
-    // Parcourt le tableau des événements
-    eventsArr.forEach((event) => {
-      // Vérifie si l'événement appartient au jour actif
-      if (
-        event.day === activeDay &&
-        event.month === month + 1 &&
-        event.year === year
-      ) {
-        // Parcourt les événements du jour actif
-        event.events.forEach((item, index) => {
-          // Vérifie si le titre de l'événement correspond
-          if (item.title === eventTitle) {
-            // Envoie les données au serveur
-            fetch('supp.php', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(eventData),
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                // Supprime l'événement du tableau des événements
-                event.events.splice(index, 1);
+                    // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
+                    if (event.events.length === 0) {
+                      eventsArr.splice(eventsArr.indexOf(event), 1);
+                      // Supprime la classe "event" du jour s'il n'y a plus d'événements
+                      const activeDayEl = document.querySelector(".day.active");
+                      if (activeDayEl.classList.contains("event")) {
+                        activeDayEl.classList.remove("event");
+                      }
+                    }
+                    // Met à jour les événements affichés
+                    updateEvents(activeDay);
 
-                // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
-                if (event.events.length === 0) {
-                  eventsArr.splice(eventsArr.indexOf(event), 1);
-                  // Supprime la classe "event" du jour s'il n'y a plus d'événements
-                  const activeDayEl = document.querySelector(".day.active");
-                  if (activeDayEl.classList.contains("event")) {
-                    activeDayEl.classList.remove("event");
+                    // Cache la boîte de dialogue des informations sur l'événement
+                    var nav = document.querySelector('.information-evenement');
+                    nav.style.display = 'none';
+                  } else {
+                    // Si la réponse est false, affichez une alerte
+                    alert("Changez de code agenda");
                   }
-                }
-                // Met à jour les événements affichés
-                updateEvents(activeDay);
-
-                // Cache la boîte de dialogue des informations sur l'événement
-                var nav = document.querySelector('.information-evenement');
-                nav.style.display = 'none';
-              } else {
-                // Si la réponse est false, affichez une alerte
-                alert("Changez de code agenda");
+                })
+                .catch(error => {
+                  console.error('Erreur:', error);
+                });
               }
-            })
-            .catch(error => {
-              console.error('Erreur:', error);
             });
           }
         });
       }
-    });
-  } else {
-    // Annule toute l'opération si l'utilisateur a cliqué sur "Annuler"
-    return;
+    }
   }
-}
+});
+
 
 
 
