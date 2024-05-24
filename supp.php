@@ -3,15 +3,9 @@
 session_start();
 
 // Vérifie si les données POST sont présentes
-if (!isset($_POST['eventData'])) {
-    echo json_encode(array('success' => false, 'message' => 'Données manquantes.'));
-    exit;
-}
+$rawData = file_get_contents("php://input");
+$eventData = json_decode($rawData, true);
 
-// Récupère les données POST
-$eventData = json_decode($_POST['eventData'], true);
-
-// Assurez-vous que les données nécessaires sont présentes dans eventData
 if (!isset($eventData['title']) || !isset($eventData['time']) || !isset($eventData['description']) || !isset($eventData['place'])) {
     echo json_encode(array('success' => false, 'message' => 'Données invalides.'));
     exit;
