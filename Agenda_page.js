@@ -491,73 +491,72 @@ eventsContainer.addEventListener("click", (e) => {
     
 
     function SUPP() {
-      // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
-      if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
+    // Affiche une boîte de dialogue pour confirmer la suppression de l'événement
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet événement?")) {
         // Prépare les données pour le fetch
         const eventData = {
-          title: eventTitle,
-          time: eventTime,
-          description: eventDescription,
-          place: eventPlace,
+            title: eventTitle,
+            time: eventTime,
+            description: eventDescription,
+            place: eventPlace,
         };
 
         // Parcourt le tableau des événements
         eventsArr.forEach((event) => {
-          // Vérifie si l'événement appartient au jour actif
-          if (
-            event.day === activeDay &&
-            event.month === month + 1 &&
-            event.year === year
-          ) {
-            // Parcourt les événements du jour actif
-            event.events.forEach((item, index) => {
-              // Vérifie si le titre de l'événement correspond
-              if (item.title === eventTitle) {
-                // Envoie les données au serveur
-                fetch('supp.php', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(eventData),
-                })
-                .then(response => response.json())
-                .then(data => {
-                  if (data.success) {
-                    // Supprime l'événement du tableau des événements
-                    event.events.splice(index, 1);
+            // Vérifie si l'événement appartient au jour actif
+            if (
+                event.day === activeDay &&
+                event.month === month + 1 &&
+                event.year === year
+            ) {
+                // Parcourt les événements du jour actif
+                event.events.forEach((item, index) => {
+                    // Vérifie si le titre de l'événement correspond
+                    if (item.title === eventTitle) {
+                        // Envoie les données au serveur
+                        fetch('supp.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ eventData }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Supprime l'événement du tableau des événements
+                                event.events.splice(index, 1);
 
-                    // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
-                    if (event.events.length === 0) {
-                      eventsArr.splice(eventsArr.indexOf(event), 1);
-                      // Supprime la classe "event" du jour s'il n'y a plus d'événements
-                      const activeDayEl = document.querySelector(".day.active");
-                      if (activeDayEl.classList.contains("event")) {
-                        activeDayEl.classList.remove("event");
-                      }
+                                // Si aucun événement n'est restant dans le jour, le supprimer du tableau des événements
+                                if (event.events.length === 0) {
+                                    eventsArr.splice(eventsArr.indexOf(event), 1);
+                                    // Supprime la classe "event" du jour s'il n'y a plus d'événements
+                                    const activeDayEl = document.querySelector(".day.active");
+                                    if (activeDayEl.classList.contains("event")) {
+                                        activeDayEl.classList.remove("event");
+                                    }
+                                }
+                                // Met à jour les événements affichés
+                                updateEvents(activeDay);
+
+                                // Cache la boîte de dialogue des informations sur l'événement
+                                var nav = document.querySelector('.information-evenement');
+                                nav.style.display = 'none';
+                            } else {
+                                // Si la réponse est false, affichez une alerte
+                                alert("Changez de code agenda");
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                        });
                     }
-                    // Met à jour les événements affichés
-                    updateEvents(activeDay);
-
-                    // Cache la boîte de dialogue des informations sur l'événement
-                    var nav = document.querySelector('.information-evenement');
-                    nav.style.display = 'none';
-                  } else {
-                    // Si la réponse est false, affichez une alerte
-                    alert("Changez de code agenda");
-                  }
-                })
-                .catch(error => {
-                  console.error('Erreur:', error);
                 });
-              }
-            });
-          }
+            }
         });
-      }
     }
-  }
-});
+}
+
 
 
 
