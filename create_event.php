@@ -29,10 +29,6 @@ if (!isset($_SESSION['agenda_code'])) {
 
 $code_agenda = $_SESSION['agenda_code'];
 
-if ($code_agenda == $_SESSION['agenda_perso_code']) {
-    exit();
-}
-
 // Traitement des données et insertion dans la base de données
 foreach ($data as $event_data) {
     $day = $event_data['day'];
@@ -47,10 +43,10 @@ foreach ($data as $event_data) {
         $description = isset($event['description']) ? $event['description'] : '';
         $place = isset($event['place']) ? $event['place'] : '';
 
-        // Vérifier si l'événement existe déjà
-        $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ? AND code_agenda = ?";
+        // Vérifier si l'événement existe déjà (sans vérifier le code_agenda)
+        $sql_check = "SELECT * FROM events WHERE day = ? AND month = ? AND year = ? AND title = ? AND event_time = ? AND description = ? AND place = ?";
         $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bind_param("iiisssss", $day, $month, $year, $title, $event_time, $description, $place, $code_agenda);
+        $stmt_check->bind_param("iiissss", $day, $month, $year, $title, $event_time, $description, $place);
         $stmt_check->execute();
         $result = $stmt_check->get_result();
 
